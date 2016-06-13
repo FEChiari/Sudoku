@@ -27,7 +27,7 @@
 
 int login(char* cname, char* cpasswd);
 int regist(char* cname, char* cpasswd);
-int highscore(char* cname, int* itime);
+int highscore(char* cname, int itime);
 int highscore_print(int argc, char **argv, char **colName);
 
 /*
@@ -124,7 +124,6 @@ int login(char* cname, char* cpasswd)
 int regist (char* cname, char* cpasswd)
 {
 	static int callback(void *data, int argc, char **argv, char **colName);
-	char cEnter;
 	char sql[100];
 	char *zErrMsg;
 
@@ -180,9 +179,8 @@ int regist (char* cname, char* cpasswd)
 	===========================================================================
 */
 
-int highscore(char* cname, int* itime)
+int highscore(char* cname, int itime)
 {
-	char cEnter;
 	char sql[100];
 	char *zErrMsg;
 
@@ -239,7 +237,6 @@ int highscore_print(int argc, char **argv, char **colName)
 {
 	static int callback(void *data, int argc, char **argv, char **colName);
 	int i;
-	char cEnter;
 	char sql[100];
 	char *zErrMsg;
 

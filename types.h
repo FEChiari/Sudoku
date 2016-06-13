@@ -6,7 +6,8 @@
 #define VERSION "0.0.1"
 #define AUTHOR "Werba, Schorn, Krämer, Prinz, Engels"
 
-typedef unsigned int u8;
+typedef unsigned char u8;
+typedef unsigned int u32;
 
 enum eGameState
 {
@@ -18,7 +19,7 @@ enum eGameState
 
 struct sUser
 {
-  u8 isGuest;  
+  u8 isGuest;
 };
 
 struct sGame
@@ -27,4 +28,5 @@ struct sGame
   u8 isRunning;
   enum eGameState state;
   struct sUser user;
+  u32 gameTime;
 };
