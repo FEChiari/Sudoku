@@ -62,7 +62,7 @@ void State_Login( struct sGame* nGame )
 
   //  handle any user input until we can take some sort of action
   u8 loop = 1;
-  while ( loop )
+  do
   {
     int key = WGetKeyCode( loginWindow );
 
@@ -94,5 +94,21 @@ void State_Login( struct sGame* nGame )
     }
 
   }
+  while ( loop );
 
+}
+
+void State_Main_Menu( struct sGame* nGame )
+{
+  // here be dragons
+}
+
+void State_Ingame( struct sGame* nGame )
+{
+  // here be dragons
+}
+
+void State_Highscore( struct sGame* nGame )
+{
+  // here be dragons
 }

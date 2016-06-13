@@ -10,7 +10,15 @@ typedef unsigned int u8;
 
 enum eGameState
 {
-  LOGIN
+  LOGIN,
+  MAIN_MENU,
+  HIGHSCORE,
+  INGAME
+};
+
+struct sUser
+{
+  u8 isGuest;  
 };
 
 struct sGame
@@ -18,4 +26,5 @@ struct sGame
   WINDOW* window;
   u8 isRunning;
   enum eGameState state;
+  struct sUser user;
 };
