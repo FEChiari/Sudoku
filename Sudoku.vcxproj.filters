@@ -28,6 +28,9 @@
     <Filter Include="Source Files\solver">
       <UniqueIdentifier>{e77a7eec-ed8a-470c-af70-7f0d2bc7afaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gamestates">
+      <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -41,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="solver.c">
       <Filter>Source Files\solver</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestate.c">
+      <Filter>Source Files\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="solver.h">
       <Filter>Source Files\solver</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Source Files\gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
