@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\lib">
+      <UniqueIdentifier>{827a0b67-c2b6-4ecf-a3ae-91b7f3af1b5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dbh">
+      <UniqueIdentifier>{38d3d458-1b5a-4f07-aaa1-ac338135b389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lib\pdcurses">
+      <UniqueIdentifier>{219133bd-c07b-4184-8754-002907d85e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lib\sqlite3">
+      <UniqueIdentifier>{74d7aaca-75f4-4ab0-8b92-b7622dda9ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\solver">
+      <UniqueIdentifier>{e77a7eec-ed8a-470c-af70-7f0d2bc7afaa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbh.c">
+      <Filter>Source Files\dbh</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\sqlite\sqlite3.c">
+      <Filter>Source Files\lib\sqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="solver.c">
+      <Filter>Source Files\solver</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dbh.h">
+      <Filter>Source Files\dbh</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\pdcurses\curses.h">
+      <Filter>Source Files\lib\pdcurses</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\pdcurses\panel.h">
+      <Filter>Source Files\lib\pdcurses</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\sqlite\sqlite3.h">
+      <Filter>Source Files\lib\sqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="solver.h">
+      <Filter>Source Files\solver</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+  </ItemGroup>
+</Project>
