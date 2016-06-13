@@ -75,6 +75,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\lib;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,17 +118,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbh.c" />
+    <ClCompile Include="gamestate.c" />
     <ClCompile Include="lib\sqlite\sqlite3.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="solver.c" />
+    <ClCompile Include="utility.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gamestate.h" />
     <ClInclude Include="lib\pdcurses\curses.h" />
     <ClInclude Include="lib\pdcurses\panel.h" />
     <ClInclude Include="lib\sqlite\sqlite3.h" />
     <ClInclude Include="solver.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
