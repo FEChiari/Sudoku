@@ -246,7 +246,7 @@ int highscore_print(int argc, char **argv, char **colName)
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
 
 	//SQL Statement erstellen
-	sprintf(sql, "SELECT * FROM highscore_db");
+	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASCEND");
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
 	//Ausgabe der Highscore-Liste
