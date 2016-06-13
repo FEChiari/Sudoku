@@ -1,6 +1,6 @@
 /*
 	===========================================================================
-	Name: dbhc.c
+	Name: dbh.c
 	Autor: Patrick Schorn
 	IDE: Visual Studio 2015
 	Programmschnittstellen: 
@@ -246,7 +246,7 @@ int highscore_print(int argc, char **argv, char **colName)
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
 
 	//SQL Statement erstellen
-	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASCEND");
+	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
 	//Ausgabe der Highscore-Liste
@@ -261,6 +261,7 @@ int highscore_print(int argc, char **argv, char **colName)
 		{ 
 			printf("%s = %s\n", colName[i], argv[i] ? argv[i] : "NULL"); 
 		}
+		printf("\n");
 		exit(0);
 	}
 
