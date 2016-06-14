@@ -18,6 +18,8 @@
             int zifferPruefung(int[][MATRIX_SIZE], int, int, int);
             int zaehleLeereFelder(int[][MATRIX_SIZE]);
             void generiereSudoku(int[][MATRIX_SIZE], int);
+            int sudokuPruefungUnfertig(int[][MATRIX_SIZE]);
+            int gibHinweis(int [][MATRIX_SIZE]);
    ======================================================================== 
 */
 
