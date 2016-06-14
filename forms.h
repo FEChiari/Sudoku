@@ -46,4 +46,3 @@ struct sFieldSet
 
 struct sFieldDimension Forms_GetFormDimensions( struct sFieldSet* nFieldSet );
 void Forms_RenderFieldSet( WINDOW* nWindow, struct sFieldSet* nFieldSet );
-void Forms_HandleFormInput( WINDOW* nTarget, struct sFieldSet* nForm );
