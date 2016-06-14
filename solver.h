@@ -9,7 +9,7 @@
 
 
 #define MATRIX_SIZE 9
-#define RAND(max) (rand() % max + 1)
+#define RAND(max) (rand() % max)
 
 /* Funktionsprototypen */
 int sudokuPruefung( int[][ MATRIX_SIZE ] );
