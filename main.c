@@ -35,6 +35,9 @@ int main( int argc, char* argv[] )
     case MAIN_MENU:
       State_Main_Menu( &g );
       break;
+    case REGISTRATION:
+      State_Main_Menu( &g );
+      break;
     case INGAME:
       State_Ingame( &g );
       break;

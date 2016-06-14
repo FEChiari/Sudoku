@@ -18,6 +18,7 @@ enum eGameState
 {
   LOGIN,
   MAIN_MENU,
+  REGISTRATION,
   HIGHSCORE,
   INGAME
 };
