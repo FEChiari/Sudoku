@@ -3,12 +3,14 @@
 
 void init( struct sGame* nGame )
 {
-
   nGame->isRunning = 1;
   nGame->state = LOGIN;
 
   if ( ( nGame->window = initscr() ) == NULL )
+  {
     printf( "[Fatal] Failed to initialize curses" );
+    exit( EXIT_FAILURE );
+  }
 
   curs_set( 0 );
   noecho();
@@ -31,6 +33,9 @@ int main( int argc, char* argv[] )
       State_Login( &g );
       break;
     case MAIN_MENU:
+      State_Main_Menu( &g );
+      break;
+    case REGISTRATION:
       State_Main_Menu( &g );
       break;
     case INGAME:
