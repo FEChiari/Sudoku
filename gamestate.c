@@ -53,7 +53,6 @@ void State_Login( struct sGame* nGame )
   // refresh the window
   wrefresh( loginWindow );
 
-
   // NOTE
   // The following part could probably be moved into a separate routine later on.
   // Since pdcurses doesn't support forms, the entire thing has to be emulated,
@@ -61,40 +60,40 @@ void State_Login( struct sGame* nGame )
 
 
   //  handle any user input until we can take some sort of action
-  u8 loop = 1;
-  do
-  {
-    int key = WGetKeyCode( loginWindow );
+  //u8 loop = 1;
+  //do
+  //{
+  //  int key = WGetKeyCode( loginWindow );
 
-    if ( key >= 0x20 && key <= 0x7E )
-    {
-      // handle character input (everything between space and tilde)
+  //  if ( key >= 0x20 && key <= 0x7E )
+  //  {
+  //    // handle character input (everything between space and tilde)
 
-    }
-    else
-    {
-      // handle special keys, such as tab, enter or space
+  //  }
+  //  else
+  //  {
+  //    // handle special keys, such as tab, enter or space
 
-      switch ( key )
-      {
-      case 0x1B: // 0x1B == ESC-Key
-                 // quit the game
-        loop = 0;
-        nGame->isRunning = 0;
-        break;
-      case 0x09: // 0x09 == TAB-Key
-                 // switch fields
-        break;
+  //    switch ( key )
+  //    {
+  //    case 0x1B: // 0x1B == ESC-Key
+  //               // quit the game
+  //      loop = 0;
+  //      nGame->isRunning = 0;
+  //      break;
+  //    case 0x09: // 0x09 == TAB-Key
+  //               // switch fields
+  //      break;
 
-      case 0x0A: // 0x0A == ENTER-Key
-                 // commit input
-        break;
-      }
+  //    case 0x0A: // 0x0A == ENTER-Key
+  //               // commit input
+  //      break;
+  //    }
 
-    }
+  //  }
 
-  }
-  while ( loop );
+  //}
+  //while ( loop );
 
 }
 
