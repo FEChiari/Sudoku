@@ -31,6 +31,9 @@
     <Filter Include="Source Files\gamestates">
       <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\forms">
+      <UniqueIdentifier>{c8330e64-c6d9-4ea4-9885-a69798669076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="utility.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="forms.c">
+      <Filter>Source Files\forms</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="utility.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="forms.h">
+      <Filter>Source Files\forms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
