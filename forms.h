@@ -11,13 +11,7 @@ enum eFieldType
   INPUT_BUTTON
 };
 
-struct sFieldPosition
-{
-  u8 x;
-  u8 y;
-};
-
-struct sFieldDimension
+struct sVec2
 {
   u8 x;
   u8 y;
@@ -25,11 +19,11 @@ struct sFieldDimension
 
 struct sFieldDef
 {
-  struct sFieldPosition position;
-  struct sFieldDimension dimension;
+  struct sVec2 position;
+  struct sVec2 dimension;
   enum eFieldType type;
   char* label;
-  u8 size;
+  u8 inputSize;
   WINDOW* whnd;
 };
 
@@ -37,12 +31,13 @@ struct sFieldSet
 {
   struct sFieldDef* fields;
   u8 numFields;
+  char* label;
   u8 activeFieldId;
-  struct sFieldDimension dimension;
-  struct sFieldPosition position;
+  struct sVec2 dimension;
+  struct sVec2 position;
   WINDOW* whnd;
   u8 renderBorder;
 };
 
-struct sFieldDimension Forms_GetFormDimensions( struct sFieldSet* nFieldSet );
+struct sVec2 Forms_GetFieldSetDimensions( struct sFieldSet* nFieldSet );
 void Forms_RenderFieldSet( WINDOW* nWindow, struct sFieldSet* nFieldSet );

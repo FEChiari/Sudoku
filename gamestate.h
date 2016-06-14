@@ -1,7 +1,10 @@
 #pragma once
 
 #include "types.h"
+#include "forms.h"
 #include "utility.h"
+#include "lib/pdcurses/panel.h"
+
 
 void State_Login( struct sGame* nGame );
 void State_Main_Menu( struct sGame* nGame );
