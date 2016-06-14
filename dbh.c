@@ -314,7 +314,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 		case 2:
 			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
 
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg););
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
 			if (rc != SQLITE_OK)
 			{
@@ -436,7 +436,7 @@ int load_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 
 	int rc;
 	sqlite3 * pDb;
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_SAVESTATE, &pDb);
 
 	sprintf(sql, "SELECT * FROM savestate_db");
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
@@ -453,7 +453,7 @@ int load_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 		sqlite3_free(zErrMsg);
 	}
 
-	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_SAVESTATE, &pDb);
 
 	if (rc != SQLITE_OK)
 	{
