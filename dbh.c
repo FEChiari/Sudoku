@@ -29,7 +29,7 @@
 int login(char* cname, char* cpasswd);
 int regist(char* cname, char* cpasswd);
 int delete(char* cname, char* cpasswd);
-int highscore(int iuserid, int itime, int idifficulty);
+int highscore(char* cname, int iuserid, int itime, int idifficulty);
 int highscore_print(int argc, char **argv, char **colName, int idifficulty);
 
 int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
@@ -199,7 +199,7 @@ int delete(char* cname, char* cpasswd)
 /*
 	===========================================================================
 	Funktion: Highscore
-	Übergabeparameter: iuserid, itime, idifficulty
+	Übergabeparameter: cname, iuserid, itime, idifficulty
 	Rückgabeparameter: 0, -1
 	Beschreibung: Nach erfolgreichem Abschließen des Sudokus werden der Name
 				  und die Zeit in die highscore_db eingetragen. Die Highscores
@@ -207,7 +207,7 @@ int delete(char* cname, char* cpasswd)
 	===========================================================================
 */
 
-int highscore(int iuserid, int itime, int idifficulty)
+int highscore(char* cname, int iuserid, int itime, int idifficulty)
 {
 	char sql[100];
 	char *zErrMsg;
