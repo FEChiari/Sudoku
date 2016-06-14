@@ -307,7 +307,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 	switch (idifficulty)
 	{
 		case 1:
-			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_db-easy ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -319,7 +319,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 			break;
 
 		case 2:
-			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_db-normal ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -331,7 +331,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 			break;
 
 		case 3:
-			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_db-hard ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
