@@ -192,6 +192,35 @@ int sudokuPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
 
 /* 
    ======================================================================== 
+   Funktion: int sudokuPruefungUnfertig()
+   Beschreibung: Die Funktion prüft ein unfertiges Sudoku. Sie durchläuft
+         das Array und ruft mit jedem Wert, der eingetragen ist die Funktion
+         zifferPruefung() auf. Ist diese korrekt, wird mit dem nächsten Wert
+         fortgefahren. Ist die Prüfung falsch, gibt die ganze Funktion 0
+         zurück.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]
+   Rueckgabewerte: 0, 1
+   ======================================================================== 
+*/
+int sudokuPruefungUnfertig(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+	int i, j;
+	
+	for (i = 0; i < MATRIX_SIZE; i++) {		
+      j = 0;
+		while(j < MATRIX_SIZE){
+         if(sudokumatrix[i][j] != 0 
+               && zifferPruefung(sudokumatrix, i, j, sudokumatrix[i][j])){
+            j++;
+         } else {
+            return 0;
+         }
+		}
+   }
+   return 1;
+}
+
+/* 
+   ======================================================================== 
    Funktion: int zaehleLeereFelder()
    Beschreibung: Die Funktion zählt, wieviele "Leere Felder" (Wert 0) im 
          Sudoku enthalten sind und gibt die Anzahl dieser zurück.
@@ -210,6 +239,53 @@ int zaehleLeereFelder(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
       }
    }
 	return iZaehler;
+}
+
+/* 
+   ======================================================================== 
+   Funktion: int gibHinweis()
+   Beschreibung: Die Funktion löst eine zufällige Stelle im Sudoku an dem 
+         der Spieler gerade spielt. Dazu wird die Sudokumatrix zwischen-
+         gespeichert und falls sie lösbar ist, wird ein zufälliger Wert in 
+         die Original-Matrix eingetragen und es wird 1 zurückgegeben. Ist das
+         Sudoku so nicht lösbar, gibt die Funktion 0 zurück.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]
+   Rueckgabewerte: 0, 1
+   ======================================================================== 
+*/
+int gibHinweis(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+	int backupmatrix[MATRIX_SIZE][MATRIX_SIZE];
+   int i,j;
+   int iZufallx, iZufally;
+   int k = 0;
+
+   /*
+   Zwischenspeichern der Spiel-Matrix in backupmatrix[][]
+   */
+   for(i = 0; i < MATRIX_SIZE; i++){
+      for(j = 0; j < MATRIX_SIZE; j++){
+         backupmatrix[i][j] = sudokumatrix[i][j];
+      }
+   }
+
+   /*
+   Ist das Sudoku zum Zeitpunkt des Aufrufs lösbar, wird eine richtige 
+   Zahl in das Sudoku gesetzt und 1 zurückgegeben. Ist es nicht lösbar
+   wird 0 zurückgegeben.
+   */
+   if(loeseSudoku(backupmatrix)){
+      do{
+         iZufallx = RAND(MATRIX_SIZE);
+         iZufally = RAND(MATRIX_SIZE);
+         if(sudokumatrix[iZufallx][iZufally] == 0){
+            sudokumatrix[iZufallx][iZufally] = backupmatrix[iZufallx][iZufally];
+            k = 1;
+         }
+      }while(k == 0);
+      return 1;
+   }else{
+      return 0;
+   }
 }
 
 /* 
