@@ -36,7 +36,7 @@ int main( int argc, char* argv[] )
       State_Main_Menu( &g );
       break;
     case REGISTRATION:
-      State_Main_Menu( &g );
+      // TODO@FE: check whether this warrants an entire state
       break;
     case INGAME:
       State_Ingame( &g );
