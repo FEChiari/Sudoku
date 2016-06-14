@@ -5,9 +5,9 @@
 	IDE: Visual Studio 2015
 	Programmschnittstellen: 
 	Beschreibung: Stellt eine Verbindung zu den Datenbanken her. Ermöglicht das
-	              Einloggen und Registrieren der Nutzer und Eintragungen in die
-				  Highscore-Liste. Ebenso wird die Ausgabe der Highscore-Liste
-				  ermöglicht.
+	              Einloggen und Registrieren der Nutzer sowie deren Löschung
+				  und Eintragungen in die Highscore-Liste. 
+				  Ebenso wird die Ausgabe der Highscore-Liste ermöglicht.
 	===========================================================================
 */
 
@@ -27,6 +27,7 @@
 
 int login(char* cname, char* cpasswd);
 int regist(char* cname, char* cpasswd);
+int delete(char* cname, char* cpasswd);
 int highscore(char* cname, int itime);
 int highscore_print(int argc, char **argv, char **colName);
 
@@ -44,7 +45,6 @@ int highscore_print(int argc, char **argv, char **colName);
 
 int login(char* cname, char* cpasswd)
 {
-	static int callback(void *data, int argc, char **argv, char **colName);
 	char sql[100];
 	char *zErrMsg;
 
@@ -74,13 +74,8 @@ int login(char* cname, char* cpasswd)
 		sqlite3_free(zErrMsg);
 		exit(-2);
 	}
-	else
-	{
-		printf("Login erfolgreich!");
-		exit(0);
-	}
 
-	//Ausgabe Username
+	//Ausgabe Username  -> in PdCurses realisieren
 	sprintf(sql, "SELECT name FROM user_db WHERE name = '%s';", cname);
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -89,11 +84,6 @@ int login(char* cname, char* cpasswd)
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 		exit(-1);
-	}
-	else
-	{
-		printf("Willkommen, %s!", cname);
-		exit(0);
 	}
 
 	//Datenbank schliessen
@@ -123,7 +113,6 @@ int login(char* cname, char* cpasswd)
 
 int regist (char* cname, char* cpasswd)
 {
-	static int callback(void *data, int argc, char **argv, char **colName);
 	char sql[100];
 	char *zErrMsg;
 
@@ -147,10 +136,52 @@ int regist (char* cname, char* cpasswd)
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
+
+	//Datenbank schliessen
+	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+
+	if (rc != SQLITE_OK)
+	{
+		sqlite3_close(pDb);
+		exit(-1);
+	}
 	else
 	{
-		printf("\nDatenersatz erfolgreich erstellt!\n");
-		exit(0);
+		return 0;
+	}
+}
+
+/*
+	===========================================================================
+	Funktion: Delete
+	Übergabeparameter: cname, cpasswd
+	Rückgabeparameter: 0, -1
+	Beschreibung: Ermöglicht das Löschen von Usern
+	===========================================================================
+*/
+
+int delete(char* cname, char* cpasswd)
+{
+	char sql[100];
+	char *zErrMsg;
+
+	//Datenbank öffnen
+	int rc;
+	sqlite3 * pDb;
+	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+
+	//SQL Statement erstellen
+	sprintf(sql, "DELETE FROM user_db WHERE name = '%s';", cname);
+
+	//SQL Statement ausführen
+	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+	printf("Script wurde ausgeführt");
+
+	//Return-Code überprüfen
+	if (rc != SQLITE_OK)
+	{
+		printf("\nSQL Fehler: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
 	}
 
 	//Datenbank schliessen
@@ -172,7 +203,7 @@ int regist (char* cname, char* cpasswd)
 	Funktion: Highscore
 	Übergabeparameter: cname, itime
 	Rückgabeparameter: 0, -1
-	Beschreibung: Nach erfolgreichem Abschließen des Sudokus werden der Name 
+	Beschreibung: Nach erfolgreichem Abschließen des Sudokus werden der Name
 				  und die Zeit in die highscore_db eingetragen. Dabei wird ein
 				  Sortieralgorithmus angewandt, um die Platzierungen nach der
 				  abgeschlossenen Zeit zu sortieren.
@@ -204,11 +235,6 @@ int highscore(char* cname, int itime)
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
-	else
-	{
-		printf("\nDatenersatz erfolgreich erstellt!\n");
-		exit(0);
-	}
 
 	//Datenbank schliessen
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
@@ -226,7 +252,7 @@ int highscore(char* cname, int itime)
 
 /*
 	===========================================================================
-	Funktion: Highscore_print
+	Funktion: Highscore_Print
 	Übergabeparameter: 
 	Rückgabeparameter: 0
 	Beschreibung: Gibt die komplette Highscore-Liste aus
@@ -249,7 +275,7 @@ int highscore_print(int argc, char **argv, char **colName)
 	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
-	//Ausgabe der Highscore-Liste
+	//Ausgabe der Highscore-Liste -> in PdCurses realisieren
 	if (rc != SQLITE_OK)
 	{
 		printf("\nSQL Fehler: %s\n", zErrMsg);
