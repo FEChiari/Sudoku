@@ -199,17 +199,15 @@ int delete(char* cname, char* cpasswd)
 /*
 	===========================================================================
 	Funktion: Highscore
-	Übergabeparameter: cname, itime, idifficulty
+	Übergabeparameter: iuserid, itime, idifficulty
 	Rückgabeparameter: 0, -1
 	Beschreibung: Nach erfolgreichem Abschließen des Sudokus werden der Name
-				  und die Zeit in die highscore_db eingetragen. Dabei wird ein
-				  Sortieralgorithmus angewandt, um die Platzierungen nach der
-				  abgeschlossenen Zeit zu sortieren. Die Highscores werden 
-				  durch den Schwierigkeitsgrad differenziert
+				  und die Zeit in die highscore_db eingetragen. Die Highscores
+				  werden durch den Schwierigkeitsgrad differenziert.
 	===========================================================================
 */
 
-int highscore(char* cname, int itime, int idifficulty)
+int highscore(int iuserid, int itime, int idifficulty)
 {
 	char sql[100];
 	char *zErrMsg;
@@ -219,45 +217,53 @@ int highscore(char* cname, int itime, int idifficulty)
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
-
-	switch (idifficulty)
+	
+	//Der Gast-User darf nicht in den Highscore speichern!
+	if (iuserid == 0)
 	{
-		case 1:
-			sprintf(sql, "INSERT INTO highscore-easy_db (name, time)" \
-				"VALUES ('%s', '%i');", cname, itime);
+	}
+	else
+	{
+		switch (idifficulty)
+		{
+			case 1:
+				sprintf(sql, "INSERT INTO highscore-easy_db (name, time)" \
+					"VALUES ('%s', '%i');", cname, itime);
 
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
-			}
-	
-		case 2:	
-			sprintf(sql, "INSERT INTO highscore-normal_db (name, time)" \
-				"VALUES ('%s', '%i');", cname, itime);
+				if (rc != SQLITE_OK)
+				{
+					printf("\nSQL Fehler: %s\n", zErrMsg);
+					sqlite3_free(zErrMsg);
+				}
+		
+			case 2:	
+				sprintf(sql, "INSERT INTO highscore-normal_db (name, time)" \
+					"VALUES ('%s', '%i');", cname, itime);
 
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
-			}
-	
-		case 3:	
-			sprintf(sql, "INSERT INTO highscore-hard_db (name, time)" \
-				"VALUES ('%s', '%i');", cname, itime);
+				if (rc != SQLITE_OK)
+				{
+					printf("\nSQL Fehler: %s\n", zErrMsg);
+					sqlite3_free(zErrMsg);
+				}
+		
+			case 3:	
+				sprintf(sql, "INSERT INTO highscore-hard_db (name, time)" \
+					"VALUES ('%s', '%i');", cname, itime);
 
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
+				if (rc != SQLITE_OK)
+				{
+					printf("\nSQL Fehler: %s\n", zErrMsg);
+					sqlite3_free(zErrMsg);
+				}
 			}
 		}
+	
 
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
@@ -280,7 +286,8 @@ int highscore(char* cname, int itime, int idifficulty)
 	Übergabeparameter: idifficulty
 	Rückgabeparameter: 0, -1
 	Beschreibung: Gibt die komplette Highscore-Liste aus, differenziert durch 
-				  den Schwierigkeitsgrad.
+				  den Schwierigkeitsgrad. Die Ausgabe wird nach der am 
+				  schnellsten abgschlossenen Zeit sortiert.
 	===========================================================================
 */
 
@@ -414,7 +421,7 @@ int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 	Funktion: Load_Game
 	Übergabeparameter: iuserid, itime, crow1-9
 	Rückgabeparameter: 0, -1
-	Beschreibung: Lädt ein aktuelles Spiel mit der zugehörigen UserID 
+	Beschreibung: Lädt ein aktuelles Spiel anhand der zugehörigen UserID 
 				  des eingeloggten Users.
 	===========================================================================
 */
