@@ -7,3 +7,4 @@
 
 #define DATABASE_FILE_USER "databases/user_db.sqlite3"
 #define DATABASE_FILE_HIGHSCORE "databases/highscore_db.sqlite3"
+#define DATABASE_FILE_SAVESTATE "databases/savestate_db.sqlite3"

@@ -31,6 +31,14 @@ int delete(char* cname, char* cpasswd);
 int highscore(char* cname, int itime);
 int highscore_print(int argc, char **argv, char **colName);
 
+int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
+	char* crow4, char* crow5, char* crow6, char* crow7,
+	char* crow8, char* crow9);
+
+int load_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
+	char* crow4, char* crow5, char* crow6, char* crow7,
+	char* crow8, char* crow9);
+
 /*
 	===========================================================================
 	Funktion: Login
@@ -116,28 +124,22 @@ int regist (char* cname, char* cpasswd)
 	char sql[100];
 	char *zErrMsg;
 
-	//Datenbank öffnen
 	int rc;
 	sqlite3 * pDb;
 	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
 
-	//SQL Statement erstellen
 	sprintf(sql, "INSERT INTO user_db (name, passwd)" \
 		"VALUES ('%s', '%s');", cname, cpasswd);
 
-
-	//SQL Statement ausführen
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 	printf("Script wurde ausgeführt");
 
-	//Return-Code überprüfen
 	if (rc != SQLITE_OK)
 	{
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
 
-	//Datenbank schliessen
 	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
 
 	if (rc != SQLITE_OK)
@@ -165,26 +167,21 @@ int delete(char* cname, char* cpasswd)
 	char sql[100];
 	char *zErrMsg;
 
-	//Datenbank öffnen
 	int rc;
 	sqlite3 * pDb;
 	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
 
-	//SQL Statement erstellen
 	sprintf(sql, "DELETE FROM user_db WHERE name = '%s';", cname);
 
-	//SQL Statement ausführen
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 	printf("Script wurde ausgeführt");
 
-	//Return-Code überprüfen
 	if (rc != SQLITE_OK)
 	{
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
 
-	//Datenbank schliessen
 	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
 
 	if (rc != SQLITE_OK)
@@ -215,28 +212,22 @@ int highscore(char* cname, int itime)
 	char sql[100];
 	char *zErrMsg;
 
-	//Datenbank öffnen
 	int rc;
 	sqlite3 * pDb;
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
 
-	//SQL Statement erstellen
 	sprintf(sql, "INSERT INTO highscore_db (name, time)" \
 		"VALUES ('%s', '%i');", cname, itime);
 
-
-	//SQL Statement ausführen
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 	printf("Script wurde ausgeführt");
 
-	//Return-Code überprüfen
 	if (rc != SQLITE_OK)
 	{
 		printf("\nSQL Fehler: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
 
-	//Datenbank schliessen
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
 
 	if (rc != SQLITE_OK)
@@ -266,12 +257,10 @@ int highscore_print(int argc, char **argv, char **colName)
 	char sql[100];
 	char *zErrMsg;
 
-	//Datenbank öffnen
 	int rc;
 	sqlite3 * pDb;
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
 
-	//SQL Statement erstellen
 	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
 	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -291,8 +280,107 @@ int highscore_print(int argc, char **argv, char **colName)
 		exit(0);
 	}
 
-	//Datenbank schliessen
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+
+	if (rc != SQLITE_OK)
+	{
+		sqlite3_close(pDb);
+		exit(-1);
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+/*
+	===========================================================================
+	Funktion: Save_Game
+	Übergabeparameter: iuserid, itime, crow1-9
+	Rückgabeparameter: 0, -1
+	Beschreibung: In die Datenbank savestate_db wird der aktuelle Spielstand
+				  gespeichert, unter Berücksichtigung der UserID und der 
+				  bereits abgelaufenen Zeit.
+	===========================================================================
+*/
+int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
+	char* crow4, char* crow5, char* crow6, char* crow7,
+	char* crow8, char* crow9)
+{
+	char sql[100];
+	char *zErrMsg;
+
+	int rc;
+	sqlite3 * pDb;
+	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+
+	sprintf(sql, "INSERT INTO savestate_db (UserID, time, Row1, Row2, Row3," 
+		"Row4, Row5, Row6, Row7, Row8, Row9)" \
+		"VALUES ('%i','%i','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'," 
+		"'%s');",
+		iuserid, itime, crow1, crow2, crow3, crow4, crow5, crow6, crow7, 
+		crow8, crow9);
+
+
+	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+	printf("Script wurde ausgeführt");
+
+	if (rc != SQLITE_OK)
+	{
+		printf("\nSQL Fehler: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+
+	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+
+	if (rc != SQLITE_OK)
+	{
+		sqlite3_close(pDb);
+		exit(-1);
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+/*
+	===========================================================================
+	Funktion: Load_Game
+	Übergabeparameter: iuserid, itime, crow1-9
+	Rückgabeparameter: 0, -1
+	Beschreibung: Lädt ein aktuelles Spiel mit der zugehörigen UserID 
+				  des eingeloggten Users.
+	===========================================================================
+*/
+
+int load_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
+	char* crow4, char* crow5, char* crow6, char* crow7,
+	char* crow8, char* crow9)
+{
+	char sql[100];
+	char *zErrMsg;
+
+	int rc;
+	sqlite3 * pDb;
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+
+	sprintf(sql, "SELECT * FROM savestate_db");
+	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+	if (rc != SQLITE_OK)
+	{
+		printf("\nSQL Fehler: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+
+	if (rc != SQLITE_OK)
+	{
+		printf("\nSQL Fehler: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+
+	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
 
 	if (rc != SQLITE_OK)
 	{
