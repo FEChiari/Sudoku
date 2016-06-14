@@ -29,7 +29,7 @@
 int login(char* cname, char* cpasswd);
 int regist(char* cname, char* cpasswd);
 int delete(char* cname, char* cpasswd);
-int highscore(char* cname, int itime, int idifficulty);
+int highscore(int iuserid, int itime, int idifficulty);
 int highscore_print(int argc, char **argv, char **colName, int idifficulty);
 
 int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
