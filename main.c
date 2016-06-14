@@ -86,7 +86,6 @@ int main( int argc, char* argv[] )
   //login_form.position.y = getmaxy( &g.window ) / 2 - login_form.dimension.y;
 
   Forms_RenderFieldSet( g.window, &login_form );
-  Forms_HandleFormInput( g.window, &login_form );
 
 
 
