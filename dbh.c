@@ -336,20 +336,12 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 	}
 
 	//Ausgabe der Highscore-Liste -> in PdCurses realisieren
-	if (rc != SQLITE_OK)
-	{
-		printf("\nSQL Fehler: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
+	for (i = 0; i<argc; i++)
+	{ 
+		printf("%s = %s\n", colName[i], argv[i] ? argv[i] : "NULL"); 
 	}
-	else
-	{
-		for (i = 0; i<argc; i++)
-		{ 
-			printf("%s = %s\n", colName[i], argv[i] ? argv[i] : "NULL"); 
-		}
-		printf("\n");
-		exit(0);
-	}
+	printf("\n");
+	exit(0);
 
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
