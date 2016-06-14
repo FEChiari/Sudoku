@@ -22,56 +22,63 @@ geht der Algorithmus durch die Rekursion zurück und setzt an der
 letzten Stelle die nächstgrößere Zahl ein und fährt nach diesem
 Prinzip fort.
 */
-int loeseSudoku( int sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ] )
-{
-  int i, j, k;
+int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
+	int i,j,k;
+   int iVersatzj, iVersatzi;
+	
+	/* Suche nach "leeren Feldern" (Felder mit Wert = 0) */
+	for (i = 0; i < MATRIX_SIZE; i++) {
+		for (j = 0; j < MATRIX_SIZE; j++) {
+         /*
+         Versatz von i und j, damit die Regelmäßigkeit der Lösung
+         verschoben und damit weniger offensichtlich wird.
+         */
+         if(i < 4){
+            iVersatzi = i + 5;
+         } else {
+            iVersatzi = i - 4;
+         }
+         if(j < 6){
+            iVersatzj = j + 3;
+         } else {
+            iVersatzj = j - 6;
+         }
 
-  /* Suche nach "leeren Feldern" (Felder mit Wert = 0) */
-  for ( i = 0; i < MATRIX_SIZE; i++ )
-  {
-    for ( j = 0; j < MATRIX_SIZE; j++ )
-    {
-      if ( sudokumatrix[ i ][ j ] == 0 )
-      {
-        /*
-        Ist ein "leeres Feld" gefunden, wird vom Algorithmus
-        nacheinander geprüft, ob die Zahlen 1-9 (int: k) eingesetzt
-        werden können.
-        */
-        for ( k = 1; k <= MATRIX_SIZE; k++ )
-        {
-          if ( zifferPruefung( sudokumatrix, i, j, k ) )
-          {
-            sudokumatrix[ i ][ j ] = k;
-            /*
-            Nach dem Einsetzen einer passenden Zahl wird der Algorithmus
-            rekursiv aufgerufen und prüft die nächste freie Stelle
-            wieder mit Zahlen von 1 beginnend.
-            */
-            if ( loeseSudoku( sudokumatrix ) )
-            {
-              return 1;
-            }
-            else
-            {
-              /*
-              Falls die Rekursion "False" zurückgegeben hat, wird
-              der letzte Wert wieder auf 0 gesetzt und die nächste
-              mögliche Zahl geprüft. (for-Schleife in Zeile 92)
-              */
-              sudokumatrix[ i ][ j ] = 0;
-            }
-          }
-        }
-        /*
-        Falls keine Zahl mehr passt, gibt der Algorithmus "False" zurück
-        und die Rekursion wird weiter abgearbeitet
-        */
-        return 0;
-      }
-    }
-  }
-  return 1;
+			if (sudokumatrix[iVersatzi][iVersatzj] == 0) {
+				/* 
+				Ist ein "leeres Feld" gefunden, wird vom Algorithmus
+				nacheinander geprüft, ob die Zahlen 1-9 (int: k) eingesetzt 
+				werden können.
+				*/
+				for (k = 1; k <= MATRIX_SIZE; k++) {
+					if (zifferPruefung(sudokumatrix, iVersatzi, iVersatzj, k)) {
+						sudokumatrix[iVersatzi][iVersatzj] = k;
+						/* 	
+						Nach dem Einsetzen einer passenden Zahl wird der Algorithmus
+						rekursiv aufgerufen und prüft die nächste freie Stelle 
+						wieder mit Zahlen von 1 beginnend.
+						*/
+						if (loeseSudoku(sudokumatrix)) {
+							return True;
+						} else {
+							/*
+							Falls die Rekursion "False" zurückgegeben hat, wird
+							der letzte Wert wieder auf 0 gesetzt und die nächste
+							mögliche Zahl geprüft. (for-Schleife in Zeile 92)
+							*/
+							sudokumatrix[iVersatzi][iVersatzj] = 0;
+						}
+					}
+				}
+				/* 
+				Falls keine Zahl mehr passt, gibt der Algorithmus "False" zurück
+				und die Rekursion wird weiter abgearbeitet
+				*/
+				return False;
+			}
+		}
+	}
+	return 1;
 }
 
 /*
