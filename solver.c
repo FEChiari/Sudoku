@@ -1,3 +1,31 @@
+/* 
+   ========================================================================
+   Autoren       : Fabian Prinz, Fabian Kremer
+   Firma       : A-Team // HHBKTendo Research Center
+   Dateiname   : solver.c
+   Datum       : 14.06.2016
+   Beschreibung: solver.c kann Sudokus generieren, indem es die Zahlen 1-9
+         zufällig im Sudoku-Array verteilt und dieses dann löst. Dazu werden,
+         abhängig von einem Parameter, zufällige Zahlen gelöscht, um das Sudoku
+         "spielbar" zu machen.
+         Eine weitere Funktion des Solvers ist das Zählen der noch freien 
+         Stellen und das Überprüfen, ob ein vollständig ausgefülltes Sudoku
+         korrekt ist.
+   Version     : 1.3
+   Programmschnittstellen: 
+            int sudokuPruefung(int[][MATRIX_SIZE]);
+            int loeseSudoku(int[][MATRIX_SIZE]);
+            int zifferPruefung(int[][MATRIX_SIZE], int, int, int);
+            int zaehleLeereFelder(int[][MATRIX_SIZE]);
+            void generiereSudoku(int[][MATRIX_SIZE], int);
+   ======================================================================== 
+*/
+
+/* 
+   ======================================================================== 
+   Include Dateien
+   ======================================================================== 
+*/
 #include "solver.h"
 
 //int main(void) {
@@ -14,191 +42,232 @@
 //  return 0;
 //}
 
-/*
-Die Funktion versucht, dass Sudoku rekursiv zu lösen, indem
-jede Spalte von oben bis unten durchlaufen wird, und die Zahlen
-gemäß den Sudoku-Regeln eingesetzt werden. Sollte keine Zahl passen,
-geht der Algorithmus durch die Rekursion zurück und setzt an der
-letzten Stelle die nächstgrößere Zahl ein und fährt nach diesem
-Prinzip fort.
+/* 
+   ======================================================================== 
+   Funktion: int loeseSudoku()
+   Beschreibung: Die Funktion versucht, dass Sudoku rekursiv zu lösen, indem
+         jede Spalte von oben bis unten durchlaufen wird, und die Zahlen
+         gemäß den Sudoku-Regeln eingesetzt werden. Sollte keine Zahl passen,
+         geht der Algorithmus durch die Rekursion zurück und setzt an der 
+         letzten Stelle die nächstgrößere Zahl ein und fährt nach diesem
+         Prinzip fort.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]
+   Rueckgabewerte: 0, 1
+   ======================================================================== 
 */
 int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
-	int i,j,k;
-   int iVersatzj, iVersatzi;
+	int i,j,k,l;
+   int izahlenArray[MATRIX_SIZE];
+   int iZufall, iZiffer;
 	
 	/* Suche nach "leeren Feldern" (Felder mit Wert = 0) */
 	for (i = 0; i < MATRIX_SIZE; i++) {
 		for (j = 0; j < MATRIX_SIZE; j++) {
-         /*
-         Versatz von i und j, damit die Regelmäßigkeit der Lösung
-         verschoben und damit weniger offensichtlich wird.
-         */
-         if(i < 4){
-            iVersatzi = i + 5;
-         } else {
-            iVersatzi = i - 4;
-         }
-         if(j < 6){
-            iVersatzj = j + 3;
-         } else {
-            iVersatzj = j - 6;
-         }
-
-			if (sudokumatrix[iVersatzi][iVersatzj] == 0) {
+			if (sudokumatrix[i][j] == 0) {
 				/* 
 				Ist ein "leeres Feld" gefunden, wird vom Algorithmus
-				nacheinander geprüft, ob die Zahlen 1-9 (int: k) eingesetzt 
-				werden können.
+            eine zufällige Zahl zwischen 1 und 9 geprüft und,
+            falls sie passend ist, eingesetzt.
 				*/
-				for (k = 1; k <= MATRIX_SIZE; k++) {
-					if (zifferPruefung(sudokumatrix, iVersatzi, iVersatzj, k)) {
-						sudokumatrix[iVersatzi][iVersatzj] = k;
+
+            //Initialisierung des Zufallsgenerators
+            srand((unsigned)time(NULL));
+	
+            //Initialisierung des Arrays von 1-9
+	    for (l = 0; l < MATRIX_SIZE; l++) {
+		  izahlenArray[l] = l + 1;
+            }
+
+	      for (k = 0; k < MATRIX_SIZE; k++) {
+               /*
+               Holt eine zufällige Zahl aus dem Array, setzt danach
+               die letzte Zahl des Arrays an die angefragte Stelle.
+               Nach einer weiteren for-Schleife ist der "Abfrage-
+               Bereich" dementsprechend kleiner, so dass immer eine
+               Stelle des Arrays weniger abgefragt wird.
+               */
+               iZufall = RAND((MATRIX_SIZE-k));
+               iZiffer = izahlenArray[iZufall];
+               izahlenArray[iZufall] = izahlenArray[MATRIX_SIZE-(k+1)];              
+
+					if (zifferPruefung(sudokumatrix, i, j, iZiffer)) {
+						sudokumatrix[i][j] = iZiffer;
 						/* 	
-						Nach dem Einsetzen einer passenden Zahl wird der Algorithmus
-						rekursiv aufgerufen und prüft die nächste freie Stelle 
-						wieder mit Zahlen von 1 beginnend.
+						Nach dem Einsetzen einer passenden Zahl wird der 
+                  Algorithmus rekursiv aufgerufen und prüft die nächste 
+                  freie Stelle wieder mit Zahlen von 1 beginnend.
 						*/
 						if (loeseSudoku(sudokumatrix)) {
-							return True;
+							return 1;
 						} else {
 							/*
-							Falls die Rekursion "False" zurückgegeben hat, wird
+							Falls die Rekursion 0 zurückgegeben hat, wird
 							der letzte Wert wieder auf 0 gesetzt und die nächste
 							mögliche Zahl geprüft. (for-Schleife in Zeile 92)
 							*/
-							sudokumatrix[iVersatzi][iVersatzj] = 0;
+							sudokumatrix[i][j] = 0;
 						}
 					}
 				}
 				/* 
-				Falls keine Zahl mehr passt, gibt der Algorithmus "False" zurück
+				Falls keine Zahl mehr passt, gibt der Algorithmus 0 zurück
 				und die Rekursion wird weiter abgearbeitet
 				*/
-				return False;
+				return 0;
 			}
 		}
 	}
 	return 1;
 }
 
-/*
-Die Funktion gleicht die übergebene Zahl (int iZahl) mit der Reihe, Spalte und dem Block
-der ebenfalls übergebenen Koordinaten ab. Sie gibt "True" zurück, wenn die Zahl in noch
-keiner Zeile, keiner Spalte und keinem Block vorkommt. "False" in dem Fall, dass sie
-bereits irgendwo auftaucht.
+/* 
+   ======================================================================== 
+   Funktion: int zifferPruefung()
+   Beschreibung: Die Funktion gleicht die übergebene Zahl (int iZahl) mit 
+         der Reihe, Spalte und dem Block der ebenfalls übergebenen Koordinaten
+         ab. Sie gibt 1 zurück, wenn die Zahl in noch keiner Zeile, 
+         keiner Spalte und keinem Block vorkommt. 0 in dem Fall, dass 
+         sie bereits irgendwo auftaucht.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], 
+         int x, int y, int iZahl
+   Rueckgabewerte: 0, 1
+   ======================================================================== 
 */
-int zifferPruefung( int sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ], int x, int y, int iZahl )
-{
-  int i;
-  // Startkoordinaten des jeweiligen 3x3-Blockes der übergebenen Koordinaten x und y:
-  int xBeginn = x - x % 3;
-  int yBeginn = y - y % 3;
-  for ( i = 0; i < MATRIX_SIZE; i++ )
-  {
-    // Reihe und Spalte der übergebenen Koordinaten x und y:
-    if ( sudokumatrix[ i ][ y ] == iZahl || sudokumatrix[ x ][ i ] == iZahl )
-      return 0;
-    // Block der übergebenen Koordinaten x und y:
-    if ( sudokumatrix[ xBeginn + i % 3 ][ yBeginn + i / 3 ] == iZahl )
-      return 0;
-  }
-  return 1;
+int zifferPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], int x, 
+                     int y, int iZahl) {
+	int i;
+	/*
+   Startkoordinaten des jeweiligen 3x3-Blockes der übergebenen 
+   Koordinaten x und y:
+   */
+	int xBeginn=x-x%3;
+	int yBeginn=y-y%3;
+	for (i = 0; i < MATRIX_SIZE; i++) {
+		// Reihe und Spalte der übergebenen Koordinaten x und y:
+		if(sudokumatrix[i][y] == iZahl || sudokumatrix[x][i] == iZahl)
+			return 0;
+		// Block der übergebenen Koordinaten x und y:
+		if (sudokumatrix[xBeginn+i%3][yBeginn+i/3] == iZahl)
+			return 0;
+	}
+	return 1;
 }
 
 /*
-Die Funktion gibt "True" zurück, wenn das übergebene Sudoku
+Die Funktion gibt 1 zurück, wenn das übergebene Sudoku
 korrekt gelöst ist. Dazu werden jeweils alle Werte der
 Reihen, Spalten und der 3x3-Blöcke addiert und geprüft ob diese
 zusammen 45 ergeben, was die Summe der Zahlen 1-9 ist.
 */
-int sudokuPruefung( int sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ] )
-{
-  int i, j, iZeile, iSpalte, iBlock;
-
-  for ( i = 0; i < MATRIX_SIZE; i++ )
-  {
-    iZeile = 0;
-    iSpalte = 0;
-    iBlock = 0;
-
-    for ( j = 0; j < MATRIX_SIZE; j++ )
-    {
-      iZeile += sudokumatrix[ i ][ j ];
-      iSpalte += sudokumatrix[ j ][ i ];
-      iBlock += sudokumatrix[ i % 3 * 3 + j % 3 ][ i % 3 * 3 + j / 3 ];
-    }
-
-    if ( iZeile != 45 || iSpalte != 45 || iBlock != 45 )
-      return 0;
-  }
-  return 1;
+/* 
+   ======================================================================== 
+   Funktion: int sudokuPruefung()
+   Beschreibung: Die Funktion gibt 1 zurück, wenn das übergebene Sudoku
+         korrekt gelöst ist. Dazu werden jeweils alle Werte der Reihen, 
+         Spalten und der 3x3-Blöcke addiert und geprüft ob diese zusammen 
+         45 ergeben, was die Summe der Zahlen 1-9 ist.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]
+   Rueckgabewerte: 0, 1
+   ======================================================================== 
+*/
+int sudokuPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+	int i, j, iZeile, iSpalte, iBlock;
+	
+	for (i = 0; i < MATRIX_SIZE; i++) {
+		iZeile = 0; 
+		iSpalte = 0;
+		iBlock = 0;
+		
+		for (j = 0; j < MATRIX_SIZE; j++) {
+			iZeile += sudokumatrix[i][j];
+			iSpalte += sudokumatrix[j][i];
+			iBlock += sudokumatrix[i%3*3+j%3][i%3*3+j/3];
+		}
+		
+		if (iZeile != 45 || iSpalte != 45 || iBlock != 45)
+			return 0;
+	}	
+	return 1;
 }
 
-/*
-Die Funktion zählt, wieviele "Leere Felder" (Wert 0) im Sudoku
-enthalten sind und gibt die Anzahl dieser zurück.
+/* 
+   ======================================================================== 
+   Funktion: int zaehleLeereFelder()
+   Beschreibung: Die Funktion zählt, wieviele "Leere Felder" (Wert 0) im 
+         Sudoku enthalten sind und gibt die Anzahl dieser zurück.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]
+   Rueckgabewerte: iZaehler
+   ======================================================================== 
 */
-int zaehleLeereFelder( int sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ] )
-{
-  int i, j;
-  int iZaehler = 0;
-  for ( i = 0; i < MATRIX_SIZE; i++ )
-  {
-    for ( j = 0; j < MATRIX_SIZE; j++ )
-    {
-      if ( sudokumatrix[ i ][ j ] == 0 )
-      {
-        iZaehler++;
+int zaehleLeereFelder(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+	int i, j;
+	int iZaehler = 0;
+	for (i = 0; i < MATRIX_SIZE; i++){
+		for (j = 0; j < MATRIX_SIZE; j++){
+         if(sudokumatrix[i][j] == 0){
+            iZaehler++;
+         }
       }
-    }
-  }
-  return iZaehler;
+   }
+	return iZaehler;
 }
 
-/*
-Die Funktion generiert ein Sudoku, indem zunächst ein leeres Sudoku initialisiert wird
-(Werte alle 0) und danach zufällig die Zahlen 1-9 an zufällige Stellen eingetragen werden.
-Danach wird dieses unfertige Sudoku gelöst und die (vom Schwierigkeitsgrad abhängige) Anzahl
-an Zahlen gelöscht wird.
+/* 
+   ======================================================================== 
+   Funktion: void generiereSudoku()
+   Beschreibung: Die Funktion generiert ein Sudoku, indem zunächst ein leeres
+         Sudoku initialisiert wird (Werte alle 0) und danach zufällig die 
+         Zahlen 1-9 an zufällige Stellen eingetragen werden. Danach wird 
+         dieses unfertige Sudoku gelöst und die (vom Schwierigkeitsgrad 
+         abhängige) Anzahl an Zahlen gelöscht wird.
+   Uebergabeparameter: int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], 
+         int iAnzahlLoeschen
+   Rueckgabewerte: -
+   ======================================================================== 
 */
-void generiereSudoku( int sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ], int iAnzahlLoeschen )
-{
-  int i, j, iZeile, iSpalte;
-  int zahlenArray[ MATRIX_SIZE ];
+void generiereSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], 
+                     int iAnzahlLoeschen) {
+   int i, j, iZeile, iSpalte;
+	int zahlenArray[MATRIX_SIZE];
+	
+   //Initialisierung des Zufallsgenerators
+   srand((unsigned)time(NULL));
+	
+   /*
+   Es werden die Zahlen 1-9 in das Array geschrieben und das zweidimensionale
+   Sudoku-Array mit "0en" an jeder Stelle initialisiert.
+   */
+	for (i = 0; i < MATRIX_SIZE; i++) {
+		zahlenArray[i] = i + 1;
+		for (j = 0; j < MATRIX_SIZE; j++){
+			sudokumatrix[i][j] = 0;
+		}
+	}
+	
+	i=0;
+   while (i < MATRIX_SIZE) {
+      iZeile = RAND(MATRIX_SIZE);
+      iSpalte = RAND(MATRIX_SIZE);
+      if (sudokumatrix[iZeile][iSpalte] == 0) {
+         sudokumatrix[iZeile][iSpalte] = zahlenArray[i];
+         i++;
+      }
+   }
 
-  srand( (u32)time( NULL ) );
-
-  /*
-  Es werden die Zahlen 1-9 in das Array geschrieben und das zweidimensionale
-  Sudoku-Array mit "0en" an jeder Stelle initialisiert.
-  */
-  for ( i = 0; i < MATRIX_SIZE; i++ )
-  {
-    zahlenArray[ i ] = i + 1;
-    for ( j = 0; j < MATRIX_SIZE; j++ )
-    {
-      sudokumatrix[ i ][ j ] = 0;
-    }
-  }
-
-  i = 0;
-  while ( i < MATRIX_SIZE )
-  {
-    iZeile = RAND( MATRIX_SIZE );
-    iSpalte = RAND( MATRIX_SIZE );
-    if ( sudokumatrix[ iZeile ][ iSpalte ] == 0 )
-    {
-      sudokumatrix[ iZeile ][ iSpalte ] = zahlenArray[ i ];
-      i++;
-    }
-  }
-
-  // Löst das vorhandene nicht komplette Sudoku
-  loeseSudoku( sudokumatrix );
-
-  // Löscht die übergebene Anzahl (iAnzahlLoeschen) an Zahlen zufällig aus dem Sudoku
-  for ( i = 0; i < iAnzahlLoeschen; i++ )
-  {
-    sudokumatrix[ RAND( MATRIX_SIZE ) ][ RAND( MATRIX_SIZE ) ] = 0;
-  }
+	// Löst das vorhandene nicht komplette Sudoku
+	loeseSudoku(sudokumatrix);
+	
+	/*
+   Löscht die übergebene Anzahl (iAnzahlLoeschen) an Zahlen 
+   zufällig aus dem Sudoku
+   */
+   i=0;
+   while (i < iAnzahlLoeschen) {
+      iZeile = RAND(MATRIX_SIZE);
+      iSpalte = RAND(MATRIX_SIZE);
+      if (sudokumatrix[iZeile][iSpalte] != 0) {
+         sudokumatrix[iZeile][iSpalte] = 0;
+         i++;
+      }
+   }
 }
