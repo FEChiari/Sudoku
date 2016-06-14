@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\lib;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbh.c" />
+    <ClCompile Include="forms.c" />
     <ClCompile Include="gamestate.c" />
     <ClCompile Include="lib\sqlite\sqlite3.c" />
     <ClCompile Include="main.c" />
@@ -126,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h" />
+    <ClInclude Include="forms.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="lib\pdcurses\curses.h" />
