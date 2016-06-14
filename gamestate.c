@@ -10,8 +10,6 @@ void State_Login( struct sGame* nGame )
 
   unsigned char maxX = getmaxy( nGame->window );
   unsigned char maxY = getmaxx( nGame->window );
-  unsigned char username[ 16 ];
-  unsigned char password[ 16 ];
 
   // string in background
   mvaddstr( 1, 1, TITLE " " VERSION );
