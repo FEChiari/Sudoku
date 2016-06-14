@@ -1,6 +1,7 @@
 /*
 	===========================================================================
-	Name: dbh.c
+	Dateiname: dbh.c
+	Firma: HHBK Trendo Research Center
 	Autor: Patrick Schorn
 	IDE: Visual Studio 2015
 	Programmschnittstellen: 
@@ -28,8 +29,8 @@
 int login(char* cname, char* cpasswd);
 int regist(char* cname, char* cpasswd);
 int delete(char* cname, char* cpasswd);
-int highscore(char* cname, int itime);
-int highscore_print(int argc, char **argv, char **colName);
+int highscore(char* cname, int itime, int idifficulty);
+int highscore_print(int argc, char **argv, char **colName, int idifficulty);
 
 int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 	char* crow4, char* crow5, char* crow6, char* crow7,
@@ -198,37 +199,69 @@ int delete(char* cname, char* cpasswd)
 /*
 	===========================================================================
 	Funktion: Highscore
-	Übergabeparameter: cname, itime
+	Übergabeparameter: cname, itime, idifficulty
 	Rückgabeparameter: 0, -1
 	Beschreibung: Nach erfolgreichem Abschließen des Sudokus werden der Name
 				  und die Zeit in die highscore_db eingetragen. Dabei wird ein
 				  Sortieralgorithmus angewandt, um die Platzierungen nach der
-				  abgeschlossenen Zeit zu sortieren.
+				  abgeschlossenen Zeit zu sortieren. Die Highscores werden 
+				  durch den Schwierigkeitsgrad differenziert
 	===========================================================================
 */
 
-int highscore(char* cname, int itime)
+int highscore(char* cname, int itime, int idifficulty)
 {
 	char sql[100];
 	char *zErrMsg;
 
 	int rc;
 	sqlite3 * pDb;
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
 
-	sprintf(sql, "INSERT INTO highscore_db (name, time)" \
-		"VALUES ('%s', '%i');", cname, itime);
-
-	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
-	printf("Script wurde ausgeführt");
-
-	if (rc != SQLITE_OK)
+	switch (idifficulty)
 	{
-		printf("\nSQL Fehler: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
+		case 1:
+			sprintf(sql, "INSERT INTO highscore-easy_db (name, time)" \
+				"VALUES ('%s', '%i');", cname, itime);
 
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+	
+		case 2:	
+			sprintf(sql, "INSERT INTO highscore-normal_db (name, time)" \
+				"VALUES ('%s', '%i');", cname, itime);
+
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+	
+		case 3:	
+			sprintf(sql, "INSERT INTO highscore-hard_db (name, time)" \
+				"VALUES ('%s', '%i');", cname, itime);
+
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+		}
+
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
 
 	if (rc != SQLITE_OK)
 	{
@@ -244,13 +277,14 @@ int highscore(char* cname, int itime)
 /*
 	===========================================================================
 	Funktion: Highscore_Print
-	Übergabeparameter: 
-	Rückgabeparameter: 0
-	Beschreibung: Gibt die komplette Highscore-Liste aus
+	Übergabeparameter: idifficulty
+	Rückgabeparameter: 0, -1
+	Beschreibung: Gibt die komplette Highscore-Liste aus, differenziert durch 
+				  den Schwierigkeitsgrad.
 	===========================================================================
 */
 
-int highscore_print(int argc, char **argv, char **colName)
+int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 {
 	static int callback(void *data, int argc, char **argv, char **colName);
 	int i;
@@ -259,10 +293,47 @@ int highscore_print(int argc, char **argv, char **colName)
 
 	int rc;
 	sqlite3 * pDb;
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
 
-	sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
-	rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+	switch (idifficulty)
+	{
+		case 1:
+			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+			break;
+
+		case 2:
+			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg););
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+			break;
+
+		case 3:
+			sprintf(sql, "SELECT id, time FROM highscore_db ORDER BY time ASC");
+
+			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
+
+			if (rc != SQLITE_OK)
+			{
+				printf("\nSQL Fehler: %s\n", zErrMsg);
+				sqlite3_free(zErrMsg);
+			}
+	}
 
 	//Ausgabe der Highscore-Liste -> in PdCurses realisieren
 	if (rc != SQLITE_OK)
@@ -280,7 +351,9 @@ int highscore_print(int argc, char **argv, char **colName)
 		exit(0);
 	}
 
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
 
 	if (rc != SQLITE_OK)
 	{
@@ -312,7 +385,7 @@ int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 
 	int rc;
 	sqlite3 * pDb;
-	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_SAVESTATE, &pDb);
 
 	sprintf(sql, "INSERT INTO savestate_db (UserID, time, Row1, Row2, Row3," 
 		"Row4, Row5, Row6, Row7, Row8, Row9)" \
@@ -331,7 +404,7 @@ int save_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 		sqlite3_free(zErrMsg);
 	}
 
-	rc = sqlite3_open(DATABASE_FILE_USER, &pDb);
+	rc = sqlite3_open(DATABASE_FILE_SAVESTATE, &pDb);
 
 	if (rc != SQLITE_OK)
 	{
