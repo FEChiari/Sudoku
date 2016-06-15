@@ -1,4 +1,4 @@
-#include "gamestate.h"
+#include "screenstate.h"
 
 void State_Highscore( struct sGame* nGame )
 {

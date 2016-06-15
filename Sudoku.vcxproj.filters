@@ -28,14 +28,14 @@
     <Filter Include="Source Files\solver">
       <UniqueIdentifier>{e77a7eec-ed8a-470c-af70-7f0d2bc7afaa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gamestates">
-      <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\forms">
       <UniqueIdentifier>{c8330e64-c6d9-4ea4-9885-a69798669076}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{ba4eeb19-eb27-49e7-9a43-4cb8d3c33ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\screenstates">
+      <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,16 +61,16 @@
       <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="state_login.c">
-      <Filter>Source Files\gamestates</Filter>
+      <Filter>Source Files\screenstates</Filter>
     </ClCompile>
     <ClCompile Include="state_main_menu.c">
-      <Filter>Source Files\gamestates</Filter>
+      <Filter>Source Files\screenstates</Filter>
     </ClCompile>
     <ClCompile Include="state_ingame.c">
-      <Filter>Source Files\gamestates</Filter>
+      <Filter>Source Files\screenstates</Filter>
     </ClCompile>
     <ClCompile Include="state_highscore.c">
-      <Filter>Source Files\gamestates</Filter>
+      <Filter>Source Files\screenstates</Filter>
     </ClCompile>
     <ClCompile Include="dbh_old.c">
       <Filter>Source Files\dbh</Filter>
@@ -95,9 +95,6 @@
     <ClInclude Include="solver.h">
       <Filter>Source Files\solver</Filter>
     </ClInclude>
-    <ClInclude Include="gamestate.h">
-      <Filter>Source Files\gamestates</Filter>
-    </ClInclude>
     <ClInclude Include="types.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -112,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="dbh_old.h">
       <Filter>Source Files\dbh</Filter>
+    </ClInclude>
+    <ClInclude Include="screenstate.h">
+      <Filter>Source Files\screenstates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
