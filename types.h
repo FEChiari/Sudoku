@@ -28,6 +28,42 @@ struct sUser
   u8 isGuest;
 };
 
+
+enum eFieldType
+{
+  INPUT_NUMERIC,
+  INPUT_LOWERALPHA_NUMERIC,
+  INPUT_BUTTON
+};
+
+struct sVec2
+{
+  u8 x;
+  u8 y;
+};
+
+struct sFieldDef
+{
+  struct sVec2 position;
+  struct sVec2 dimension;
+  enum eFieldType type;
+  char* label;
+  u8 inputSize;
+  WINDOW* whnd;
+};
+
+struct sFieldSet
+{
+  struct sFieldDef* fields;
+  u8 numFields;
+  char* label;
+  u8 activeFieldId;
+  struct sVec2 dimension;
+  struct sVec2 position;
+  WINDOW* whnd;
+  u8 renderBorder;
+};
+
 struct sGame
 {
   WINDOW* window;
