@@ -1,6 +1,6 @@
 #pragma once
 
-#define DBH_DATABASE_FILE "C:/Users/Fabian/Desktop/Sudoku.sqlite3"
+#define DBH_DATABASE_FILE "databases/Sudoku.sqlite3"
 
 #include <stdlib.h>
 

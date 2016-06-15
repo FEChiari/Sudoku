@@ -63,6 +63,9 @@
     <ClCompile Include="input.c">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="dbh_old.c">
+      <Filter>Source Files\dbh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="input.h">
       <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="dbh_old.h">
+      <Filter>Source Files\dbh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
