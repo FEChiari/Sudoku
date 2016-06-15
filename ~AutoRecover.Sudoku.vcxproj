@@ -118,22 +118,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dbh.c" />
     <ClCompile Include="dbh_old.c" />
     <ClCompile Include="forms.c" />
+    <ClCompile Include="gamestate.c" />
     <ClCompile Include="input.c" />
     <ClCompile Include="lib\sqlite\sqlite3.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="solver.c" />
-    <ClCompile Include="state_highscore.c" />
-    <ClCompile Include="state_ingame.c" />
-    <ClCompile Include="state_login.c" />
-    <ClCompile Include="state_main_menu.c" />
     <ClCompile Include="utility.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h" />
-    <ClInclude Include="dbh_old.h" />
     <ClInclude Include="forms.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />

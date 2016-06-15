@@ -51,9 +51,6 @@
     <ClCompile Include="solver.c">
       <Filter>Source Files\solver</Filter>
     </ClCompile>
-    <ClCompile Include="gamestate.c">
-      <Filter>Source Files\gamestates</Filter>
-    </ClCompile>
     <ClCompile Include="utility.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,6 +59,18 @@
     </ClCompile>
     <ClCompile Include="input.c">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="state_login.c">
+      <Filter>Source Files\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="state_main_menu.c">
+      <Filter>Source Files\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="state_ingame.c">
+      <Filter>Source Files\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="state_highscore.c">
+      <Filter>Source Files\gamestates</Filter>
     </ClCompile>
     <ClCompile Include="dbh_old.c">
       <Filter>Source Files\dbh</Filter>

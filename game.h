@@ -1,5 +1,6 @@
 #pragma
 
+#include <stdlib.h>
 #include <assert.h>
 
 #include "types.h"
