@@ -87,6 +87,7 @@ void State_Login( struct sGame* nGame )
   do
   {
     int key = WGetKeyCode( nGame->window );
+    int key = Utility_WGetKeyCode( nGame->window );
 
     if ( key >= 0x20 && key <= 0x7E )
     {
