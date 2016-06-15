@@ -74,49 +74,19 @@ void State_Login( struct sGame* nGame )
   // place cursor inside first field
   wmove( login_form.fields[ login_form.activeFieldId ].whnd, 0, 10 );
   wrefresh( login_form.fields[ login_form.activeFieldId ].whnd );
-
-  do 
-  {
-    // FIXME@FE: WGetKeyCode resets cursor position
-  } while ( 1 );
-
-
-
-  // handle any user input until we can take some sort of action
-  u8 handleInput = 1;
+  
   do
   {
-    int key = WGetKeyCode( nGame->window );
-    int key = Utility_WGetKeyCode( nGame->window );
+      //BENÖTIGT,weil der curser sonst resetet
+  } while (1);
 
-    if ( key >= 0x20 && key <= 0x7E )
-    {
-       //handle character input (everything between space and tilde)
-    }
-    else
-    {
-      // handle special keys, such as tab, enter or space
-      switch ( key )
-      {
-      case 0x1B: // 0x1B == ESC-Key
-                 // quit the game
-        handleInput = 0;
-        nGame->isRunning = 0;
-        break;
-      case 0x09: // 0x09 == TAB-Key
-                 // switch fields
-        break;
+  u8 handleInput = 1;
+  do 
+  {
+      GetKey(nGame, &handleInput);
+  } while ( handleInput );
 
-      case 0x0A: // 0x0A == ENTER-Key
-                 // commit input
-        break;
-      }
-
-    }
-
-  }
-  while ( handleInput );
-
+ 
 }
 
 void State_Main_Menu( struct sGame* nGame )

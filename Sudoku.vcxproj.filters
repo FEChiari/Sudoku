@@ -34,6 +34,9 @@
     <Filter Include="Source Files\forms">
       <UniqueIdentifier>{c8330e64-c6d9-4ea4-9885-a69798669076}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{ba4eeb19-eb27-49e7-9a43-4cb8d3c33ad5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="forms.c">
       <Filter>Source Files\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="input.c">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="forms.h">
       <Filter>Source Files\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Source Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
