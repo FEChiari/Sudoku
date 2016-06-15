@@ -207,7 +207,7 @@ int highscore(char* cname, int iuserid, int itime, int idifficulty)
 		switch (idifficulty)
 		{
 			case 1:
-				sprintf(sql, "INSERT INTO highscore-easy_db (name, time)" \
+				sprintf(sql, "INSERT INTO highscore_easy_db (name, time)" \
 					"VALUES ('%s', '%i');", cname, itime);
 
 				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
@@ -219,7 +219,7 @@ int highscore(char* cname, int iuserid, int itime, int idifficulty)
 				}
 		
 			case 2:	
-				sprintf(sql, "INSERT INTO highscore-normal_db (name, time)" \
+				sprintf(sql, "INSERT INTO highscore_normal_db (name, time)" \
 					"VALUES ('%s', '%i');", cname, itime);
 
 				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
@@ -231,7 +231,7 @@ int highscore(char* cname, int iuserid, int itime, int idifficulty)
 				}
 		
 			case 3:	
-				sprintf(sql, "INSERT INTO highscore-hard_db (name, time)" \
+				sprintf(sql, "INSERT INTO highscore_hard_db (name, time)" \
 					"VALUES ('%s', '%i');", cname, itime);
 
 				rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
@@ -287,7 +287,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 	switch (idifficulty)
 	{
 		case 1:
-			sprintf(sql, "SELECT id, time FROM highscore_db-easy ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_easy_db ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -299,7 +299,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 			break;
 
 		case 2:
-			sprintf(sql, "SELECT id, time FROM highscore_db-normal ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_normal_db ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
@@ -311,7 +311,7 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 			break;
 
 		case 3:
-			sprintf(sql, "SELECT id, time FROM highscore_db-hard ORDER BY time ASC");
+			sprintf(sql, "SELECT id, time FROM highscore_hard_db ORDER BY time ASC");
 
 			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
 
