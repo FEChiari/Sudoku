@@ -37,6 +37,9 @@
     <Filter Include="Source Files\screenstates">
       <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{44b86eb5-cd6a-45af-a33c-200c04b7111f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -50,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="solver.c">
       <Filter>Source Files\solver</Filter>
-    </ClCompile>
-    <ClCompile Include="utility.c">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="forms.c">
       <Filter>Source Files\forms</Filter>
@@ -74,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="dbh_old.c">
       <Filter>Source Files\dbh</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.c">
+      <Filter>Source Files\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +101,6 @@
     <ClInclude Include="types.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="utility.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="forms.h">
       <Filter>Source Files\forms</Filter>
     </ClInclude>
@@ -112,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="screenstate.h">
       <Filter>Source Files\screenstates</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
