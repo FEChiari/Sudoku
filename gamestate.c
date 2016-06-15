@@ -74,18 +74,18 @@ void State_Login( struct sGame* nGame )
   // place cursor inside first field
   wmove( login_form.fields[ login_form.activeFieldId ].whnd, 0, 10 );
   wrefresh( login_form.fields[ login_form.activeFieldId ].whnd );
-  
+
   do
   {
-      //BENÖTIGT,weil der curser sonst resetet
-  } while (1);
+    // FIXME@FE: WGetKeyCode resets cursor position
+  }
+  while ( 1 );
 
   u8 handleInput = 1;
   do 
   {
       GetKey(nGame, &handleInput);
   } while ( handleInput );
-
  
 }
 
@@ -101,5 +101,46 @@ void State_Ingame( struct sGame* nGame )
 
 void State_Highscore( struct sGame* nGame )
 {
-  // here be dragons
+  WINDOW* wpScoresPanel;
+  WINDOW* wpScoresPanelContent;
+  struct sVec2 sMainWindowDimensions, sScoresPanelDimensions;
+
+  wclear( nGame->window );
+
+  // create the panel and frame
+  sMainWindowDimensions = Utility_GetWindowDimensions( nGame->window );
+  wpScoresPanel = subwin( nGame->window, sMainWindowDimensions.y - 4, sMainWindowDimensions.x - 20, 2, 10 );
+  box( wpScoresPanel, WA_VERTICAL, WA_HORIZONTAL );
+  mvwaddstr(wpScoresPanel, 1, ( sMainWindowDimensions.x - 22) / 2 - 9, "Highscores - Top 10");
+  mvwhline(wpScoresPanel, 2, 1, WA_HORIZONTAL, sMainWindowDimensions.x - 22);
+
+  // create an inner window for the actual contents
+  sScoresPanelDimensions = Utility_GetWindowDimensions( wpScoresPanel );
+  wpScoresPanelContent = derwin( wpScoresPanel, sScoresPanelDimensions.y - 4, sScoresPanelDimensions.x - 2, 3, 1 );
+
+  
+
+  // TODO@FE: get highscores, loop and print
+
+
+  // for testing/preview purposes
+  mvwaddstr( wpScoresPanelContent, 1, 5, "1. test \t\t\t\t\t\t\t\t\t\t 300" );
+  mvwaddstr( wpScoresPanelContent, 2, 5, "2. test \t\t\t\t\t\t\t\t\t\t 300" );
+  mvwaddstr( wpScoresPanelContent, 3, 5, "3. test \t\t\t\t\t\t\t\t\t\t 300" );
+  mvwaddstr( wpScoresPanelContent, 4, 5, "4. test \t\t\t\t\t\t\t\t\t\t 300" );
+  mvwaddstr( wpScoresPanelContent, 5, 5, "5. test \t\t\t\t\t\t\t\t\t\t 300" );
+
+ 
+
+
+
+  wrefresh( nGame->window );
+
+  while ( 1 )
+  {
+    Utility_HandleGlobalInput( nGame );
+  }
+
+  delwin( wpScoresPanelContent );
+  delwin( wpScoresPanel );
 }
