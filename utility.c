@@ -35,5 +35,3 @@ struct sVec2 Utility_GetWindowDimensions( WINDOW* nTarget )
 
   return d;
 }
-
-}
