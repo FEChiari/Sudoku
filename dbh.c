@@ -426,12 +426,6 @@ int load_game(int iuserid, int itime, char* crow1, char* crow2, char* crow3,
 		sqlite3_free(zErrMsg);
 	}
 
-	if (rc != SQLITE_OK)
-	{
-		printf("\nSQL Fehler: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
-
 	rc = sqlite3_open(DATABASE_FILE_SAVESTATE, &pDb);
 
 	if (rc != SQLITE_OK)
