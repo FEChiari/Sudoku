@@ -1,50 +1,103 @@
 #include "game.h"
 
+// TODO@FE: Forms
+// TODO@FE: Clock/Timekeeping
+// TODO@FE: Cleanup/align conventions
+// TODO@FE: Ensure code conforms to c89 before handoff!
 
-void init( struct sGame* nGame )
-{
-  nGame->isRunning = 1;
-  nGame->state = LOGIN;
+// This is global so that it doesn't have to be passed to every
+// single db-related function. It's initialized in main, so we
+// just put it here instead of using a workaround for a non-problem.
+sqlite3* DBH_dbhnd = NULL;
 
-  if ( ( nGame->window = initscr() ) == NULL )
-  {
-    printf( "[Fatal] Failed to initialize curses" );
-    exit( EXIT_FAILURE );
-  }
+// Game initialization.
+// This ensures that the game *can* run, meaning the db is present
+// and curses is working as intended.
+void initialize( struct sGame* nGame );
 
-  curs_set( 0 );
-  noecho();
-  nodelay( nGame->window, TRUE );
-  keypad( nGame->window, TRUE );
-}
+// Game termination.
+// This ensures that the game is terminated properly, regardless of
+// its current state.
+void terminate( struct sGame* nGame );
+
 
 int main( int argc, char* argv[] )
 {
-
+  // This struct stores everything relevant to the current session,
+  // such as screenstate, userdata and so on.
   struct sGame g;
 
-  init( &g );
+  initialize( &g );
 
+  // Main game-loop
+  // - Switches between screenstates and calls the apropriate function.
+  // - That function, in turn, handles and updates the gamestate.
   while ( g.isRunning )
   {
-    switch ( g.state )
+    switch ( g.screenState )
     {
-    case LOGIN:
+    case SCREEN_LOGIN:
       State_Login( &g );
       break;
-    case MAIN_MENU:
+    case SCREEN_MAIN_MENU:
       State_Main_Menu( &g );
       break;
-    case REGISTRATION:
+    case SCREEN_REGISTRATION:
       // TODO@FE: check whether this warrants an entire state
       break;
-    case INGAME:
+    case SCREEN_INGAME:
       State_Ingame( &g );
       break;
-    case HIGHSCORE:
+    case SCREEN_HIGHSCORE:
       State_Highscore( &g );
       break;
     }
   }
 
+  terminate( &g );
+}
+
+void initialize( struct sGame* nGame )
+{
+  nGame->isRunning = 1;
+  nGame->screenState = SCREEN_HIGHSCORE;
+  nGame->difficulty = DIFFICULTY_EASY;
+
+  if ( ( nGame->whnd = initscr() ) == NULL )
+  {
+    printf( "[Fatal] Failed to initialize curses" "\n" );
+    terminate( nGame );
+    exit( EXIT_FAILURE );
+  }
+
+  DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );
+
+  if ( DBH_dbhnd == NULL )
+  {
+    printf( "[Fatal] Failed to access database file '" DBH_DATABASE_FILE "'" "\n" );
+    terminate( nGame );
+    exit( EXIT_FAILURE );
+  }
+
+  // set some defaults
+  // - no cursor
+  // - no echo when typing
+  // - no input delay
+  // - activate keypad
+  curs_set( 0 );
+  noecho();
+  nodelay( nGame->whnd, TRUE );
+  keypad( nGame->whnd, TRUE );
+}
+
+void terminate( struct sGame* nGame )
+{
+  if ( DBH_dbhnd != NULL )
+    DBH_CloseHandle( DBH_dbhnd );
+
+  if ( nGame->whnd != NULL )
+  {
+    delwin( nGame->whnd );
+    endwin();
+  }
 }

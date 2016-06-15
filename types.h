@@ -16,11 +16,19 @@ typedef int s32;
 
 enum eGameState
 {
-  LOGIN,
-  MAIN_MENU,
-  REGISTRATION,
-  HIGHSCORE,
-  INGAME
+  SCREEN_LOGIN,
+  SCREEN_MAIN_MENU,
+  SCREEN_REGISTRATION,
+  SCREEN_HIGHSCORE,
+  SCREEN_INGAME
+};
+
+enum eGameDifficulty
+{
+  DIFFICULTY_EASY,
+  DIFFICULTY_MEDIUM,
+  DIFFICULTY_HARD,
+  DIFFICULTY_VHARD
 };
 
 struct sUser
@@ -66,9 +74,10 @@ struct sFieldSet
 
 struct sGame
 {
-  WINDOW* window;
   u8 isRunning;
-  enum eGameState state;
+  WINDOW* whnd;
+  enum eGameState screenState;
+  enum eGameDifficulty difficulty;
   struct sUser user;
   u32 gameTime;
 };
