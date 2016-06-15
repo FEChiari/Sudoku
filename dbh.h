@@ -1,37 +1,26 @@
 #pragma once
 
-#include "lib\sqlite\sqlite3.h"
+#define DBH_DATABASE_FILE "C:/Users/Fabian/Desktop/Sudoku.sqlite3"
+
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 
-#define DATABASE_FILE_USER "databases/user_db.sqlite3"
-#define DATABASE_FILE_HIGHSCORE_EASY "databases/highscore_easy_db.sqlite3"
-#define DATABASE_FILE_HIGHSCORE_NORMAL "databases/highscore_normal_db.sqlite3"
-#define DATABASE_FILE_HIGHSCORE_HARD "databases/highscore_hard_db.sqlite3"
-#define DATABASE_FILE_SAVESTATE "databases/savestate_db.sqlite3"
+#include "types.h"
+#include "lib\sqlite\sqlite3.h"
+
+typedef int( *DBH_pCallbackFn )( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
 
 
-/*
-===========================================================================
-Funktionsprototypen
-===========================================================================
-*/
+sqlite3* DBH_CreateHandle( char* nFilePath );
+void DBH_CloseHandle( sqlite3* nHandle );
 
-int login( char* cname, char* cpasswd );
-int regist( char* cname, char* cpasswd );
-int delete( char* cname, char* cpasswd );
-int highscore( char* cname, int iuserid, int itime, int idifficulty );
-int highscore_print( int argc, char **argv, char **colName, 
-						int idifficulty );
+s32 DBH_Query( char* nQueryString, DBH_pCallbackFn nCallback, void* nCallbackArgument, char* nErrorMsg );
 
-int highscore_ausgeben(int rc, int col, int cols, char sql, char *data,
-						sqlite3_stmt *stmt, char *zErrMsg);
+u8 DBH_UserExists( char* nUsername );
+u8 DBH_IsValidAuth( char* nUsername, char* nPassword );
 
-int save_game( int iuserid, int itime, char* crow1, char* crow2, char* crow3,
-				 char* crow4, char* crow5, char* crow6, char* crow7,
-				 char* crow8, char* crow9 );
+u8 DBH_RegisterUser( char* nUsername, char* nPassword );
+u8 DBH_DeleteUser( u8 nUserId, char* nPassword );
 
-int load_game( int iuserid, int itime, char* crow1, char* crow2, char* crow3,
-				char* crow4, char* crow5, char* crow6, char* crow7,
-				char* crow8, char* crow9 );
+// struct sSaveState DBH_GetLastSaveState(u8 nUserId, char* nPassword);
+
+int DBH_Callback_GetRowCount( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
