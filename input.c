@@ -6,7 +6,7 @@
 
 void GetKey(struct sGame *nGame, u8* handleInput)
 {
-    int key = WGetKeyCode( nGame->window );
+    int key = Utility_WGetKeyCode( nGame->whnd );
 
     if ( key >= 0x20 && key <= 0x7E )
     {
