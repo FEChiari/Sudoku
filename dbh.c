@@ -265,71 +265,60 @@ int highscore(char* cname, int iuserid, int itime, int idifficulty)
 	Funktion: Highscore_Print
 	Übergabeparameter: idifficulty
 	Rückgabeparameter: 0, -1
-	Beschreibung: Gibt die komplette Highscore-Liste aus, differenziert durch 
-				  den Schwierigkeitsgrad. Die Ausgabe wird nach der am 
-				  schnellsten abgschlossenen Zeit sortiert.
+	Beschreibung: Bereitet die Ausgabe der Highscore-Liste vor.
 	===========================================================================
 */
 
 int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 {
-	static int callback(void *data, int argc, char **argv, char **colName);
-	int i;
-	char sql[100];
-	char *zErrMsg;
-
+	int i = 0;
+	char *sql;
+	char *zErrMsg = 'x';
+	sqlite3_stmt *stmt;
+	int col = 0;
+	int cols = 0;
+	const char *data = ' ';
 	int rc;
 	sqlite3 * pDb;
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
-	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
+
 
 	switch (idifficulty)
 	{
 		case 1:
-			sprintf(sql, "SELECT id, time FROM highscore_easy_db ORDER BY time ASC");
+			rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
+	
+			//SQL String vorbereiten und Speicher reservieren 
+			sql = sqlite3_mprintf("SELECT * FROM highscore_easy_db WHERE time ORDER BY time ASC");
+			
+			//SQL Statement und Struktur erzeugen 
+			rc = sqlite3_prepare_v2(pDb, sql, strlen(sql), &stmt, NULL);
+			
+			//Anzahl der Spalten in der Ergebnismenge ermitteln 
+			cols = sqlite3_column_count(stmt);
+			
+			highscore_ausgeben(rc, col, cols, sql, data, stmt, zErrMsg);
 
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
-
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
-			}
 			break;
 
 		case 2:
-			sprintf(sql, "SELECT id, time FROM highscore_normal_db ORDER BY time ASC");
-
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
-
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
-			}
+			rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
+			sql = sqlite3_mprintf("SELECT * FROM highscore_normal_db WHERE time ORDER BY time ASC");
+			rc = sqlite3_prepare_v2(pDb, sql, strlen(sql), &stmt, NULL);
+			cols = sqlite3_column_count(stmt);
+			
+			highscore_ausgeben(rc, col, cols, sql, data, stmt, zErrMsg);
+			
 			break;
 
 		case 3:
-			sprintf(sql, "SELECT id, time FROM highscore_hard_db ORDER BY time ASC");
-
-			rc = sqlite3_exec(pDb, sql, NULL, NULL, &zErrMsg);
-
-			if (rc != SQLITE_OK)
-			{
-				printf("\nSQL Fehler: %s\n", zErrMsg);
-				sqlite3_free(zErrMsg);
-			}
+			rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
+			sql = sqlite3_mprintf("SELECT * FROM highscore_hard_db WHERE time ORDER BY time ASC");
+			rc = sqlite3_prepare_v2(pDb, sql, strlen(sql), &stmt, NULL);
+			cols = sqlite3_column_count(stmt);
+			
+			highscore_ausgeben(rc, col, cols, sql, data, stmt, zErrMsg);
 	}
-
-	//Ausgabe der Highscore-Liste -> in PdCurses realisieren
-	for (i = 0; i<argc; i++)
-	{ 
-		printf("%s = %s\n", colName[i], argv[i] ? argv[i] : "NULL"); 
-	}
-	printf("\n");
-	exit(0);
-
+	
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_EASY, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_NORMAL, &pDb);
 	rc = sqlite3_open(DATABASE_FILE_HIGHSCORE_HARD, &pDb);
@@ -343,6 +332,54 @@ int highscore_print(int argc, char **argv, char **colName, int idifficulty)
 	{
 		return 0;
 	}
+}
+
+/*
+	===========================================================================
+	Funktion: Highscore_Ausgeben
+	Übergabeparameter: rc, col, cols, sql, data, stmt, zErrMsg
+	Rückgabeparameter: 0, -1
+	Beschreibung: Gibt die komplette Highscore-Liste aus, differenziert durch 
+				  den Schwierigkeitsgrad. Die Ausgabe wird nach der am 
+				  schnellsten abgschlossenen Zeit sortiert.
+	===========================================================================
+*/
+
+int highscore_ausgeben(int rc, int col, int cols, char sql, char *data, 
+						sqlite3_stmt *stmt,char *zErrMsg)
+{
+	//Spaltennamen ausgeben 
+	for (col = 0; col<cols; col++)
+	{
+		printf("%s ", (const char*)sqlite3_column_name(stmt, col));
+	}
+	printf("\n");
+
+	// Iteriert über die Datensätze in der Ergebnismenge 
+	while (sqlite3_step(stmt) == SQLITE_ROW)
+	{
+		for (col = 0; col<cols;col++)
+		{
+			//Nächstes Attribut holen und ausgeben  
+			data = (const char*)sqlite3_column_text(stmt, col);
+			printf("%s ", data ? data : "NULL");
+		}
+		printf("\n");
+	}
+		
+	if (rc != SQLITE_OK)
+	{
+		printf("\nSQL Fehler: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+		exit(-1);
+	}
+
+	//Speicher für SQL String freigeben 
+	sqlite3_free(sql);
+	//Speicher für Statement Struktur freigeben 
+	sqlite3_finalize(stmt);
+	
+	return 0;
 }
 
 /*

@@ -22,12 +22,16 @@ int login( char* cname, char* cpasswd );
 int regist( char* cname, char* cpasswd );
 int delete( char* cname, char* cpasswd );
 int highscore( char* cname, int iuserid, int itime, int idifficulty );
-int highscore_print( int argc, char **argv, char **colName, int idifficulty );
+int highscore_print( int argc, char **argv, char **colName, 
+						int idifficulty );
+
+int highscore_ausgeben(int rc, int col, int cols, char sql, char *data,
+						sqlite3_stmt *stmt, char *zErrMsg);
 
 int save_game( int iuserid, int itime, char* crow1, char* crow2, char* crow3,
-  char* crow4, char* crow5, char* crow6, char* crow7,
-  char* crow8, char* crow9 );
+				 char* crow4, char* crow5, char* crow6, char* crow7,
+				 char* crow8, char* crow9 );
 
 int load_game( int iuserid, int itime, char* crow1, char* crow2, char* crow3,
-  char* crow4, char* crow5, char* crow6, char* crow7,
-  char* crow8, char* crow9 );
+				char* crow4, char* crow5, char* crow6, char* crow7,
+				char* crow8, char* crow9 );
