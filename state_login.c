@@ -77,7 +77,8 @@ void ScreenState_Login( struct sGame* nGame )
   login_form.position.y = getmaxy( nGame->whnd ) / 2 - login_form.dimension.y / 2;
 
   Forms_RenderFieldSet( nGame->whnd, &login_form );
-  Forms_HandleFormInput( nGame, &login_form );
+  Forms_HandleFieldSetInput( nGame, &login_form );
+  Forms_FreeFieldSet( &login_form );
 }
 
 void BtnCallback_OnLogin( struct sGame* nGame )
