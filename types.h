@@ -1,9 +1,9 @@
 #pragma once
 
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
+  ===========================================================================
+  Präprozessorkonstanten
+  ===========================================================================
 */
 
 #include "lib/pdcurses/panel.h"
@@ -65,7 +65,9 @@ struct sFieldDef
   enum eFieldType type;
   char* label;
   u8 inputSize;
+  void( *btnCallback )( struct sGame* nGame );
   WINDOW* whnd;
+
 };
 
 struct sFieldSet

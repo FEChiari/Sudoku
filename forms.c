@@ -149,7 +149,8 @@ void Forms_HandleFormInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
   // if tab, switch field
   // enter/space on buttons activates
 
-  do
+  enum eGameState state = SCREEN_LOGIN;
+  while ( state == nGame->screenState )
   {
     u8 fieldId = 0;
     for ( ; fieldId < nFieldSet->numFields; fieldId++ )
@@ -169,7 +170,7 @@ void Forms_HandleFormInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
     {
 
       u8 key = Utility_WGetKeyCode( nFieldSet->fields[ nFieldSet->activeFieldId ].whnd );
-
+      
       switch ( key )
       {
       case 0x09: // tab-key
@@ -182,11 +183,12 @@ void Forms_HandleFormInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
         handleInput = 0;
 
         break;
-      case 0x13: // enter-key
+      case 0x0A: // enter-key
 
-        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].type == INPUT_BUTTON )
+        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].type == INPUT_BUTTON && nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback != NULL )
         {
-          // handle enter on button
+          // execute callback
+          nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback( nGame );
         }
 
         handleInput = 0;
@@ -197,6 +199,5 @@ void Forms_HandleFormInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
     }
 
   }
-  while ( 1 );
 
 }

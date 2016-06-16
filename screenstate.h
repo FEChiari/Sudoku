@@ -32,3 +32,7 @@ void State_Highscore( struct sGame* nGame );
 void State_Registration( struct sGame* nGame );
 
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
+
+void BtnCallback_OnLogin( struct sGame* nGame );
+void BtnCallback_OnRegister( struct sGame* nGame );
+void BtnCallback_OnPlayAsGuest( struct sGame* nGame );

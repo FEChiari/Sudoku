@@ -14,7 +14,6 @@
   Beschreibung: Baut ein Login-Fenster mit Textfeldern und Buttons auf.
   ===========================================================================
 */
-
 void State_Login( struct sGame* nGame )
 {
   wclear( nGame->whnd );
@@ -45,6 +44,7 @@ void State_Login( struct sGame* nGame )
   form_fields[ 2 ].dimension.y = 1;
   form_fields[ 2 ].type = INPUT_BUTTON;
   form_fields[ 2 ].label = "Login";
+  form_fields[ 2 ].btnCallback = BtnCallback_OnLogin;
 
   // button play-as-guest
   form_fields[ 3 ].position.x = 6;
@@ -53,6 +53,7 @@ void State_Login( struct sGame* nGame )
   form_fields[ 3 ].dimension.y = 1;
   form_fields[ 3 ].type = INPUT_BUTTON;
   form_fields[ 3 ].label = "Gast";
+  form_fields[ 3 ].btnCallback = BtnCallback_OnPlayAsGuest;
 
   // button register
   form_fields[ 4 ].position.x = 11;
@@ -61,13 +62,14 @@ void State_Login( struct sGame* nGame )
   form_fields[ 4 ].dimension.y = 1;
   form_fields[ 4 ].type = INPUT_BUTTON;
   form_fields[ 4 ].label = "Registrieren";
+  form_fields[ 4 ].btnCallback = BtnCallback_OnRegister;
 
   // the form itself
   struct sFieldSet login_form;
 
   login_form.fields = &form_fields[ 0 ];
   login_form.label = "Login";
-  login_form.activeFieldId = 1;
+  login_form.activeFieldId = 0;
   login_form.numFields = 5;
   login_form.renderBorder = 1;
   login_form.dimension = Forms_GetFieldSetDimensions( &login_form );
@@ -76,5 +78,23 @@ void State_Login( struct sGame* nGame )
 
   Forms_RenderFieldSet( nGame->whnd, &login_form );
   Forms_HandleFormInput( nGame, &login_form );
+}
 
+void BtnCallback_OnLogin( struct sGame* nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_MAIN_MENU;
+}
+
+void BtnCallback_OnRegister( struct sGame* nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_HIGHSCORE;
+}
+
+void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_MAIN_MENU;
+  nGame->user.isGuest = 1;
 }
