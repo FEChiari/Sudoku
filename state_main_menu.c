@@ -16,7 +16,7 @@
   ===========================================================================
 */
 
-void State_Main_Menu( struct sGame* nGame )
+void ScreenState_Main_Menu( struct sGame* nGame )
 {
   // continue (falls verf.)
   // new game

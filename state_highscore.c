@@ -17,7 +17,7 @@
   ===========================================================================
 */
 
-void State_Highscore( struct sGame* nGame )
+void ScreenState_Highscore( struct sGame* nGame )
 {
   WINDOW* pScoresPanel;
   WINDOW* pScoresPanelContent;

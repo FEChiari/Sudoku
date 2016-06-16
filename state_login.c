@@ -14,7 +14,7 @@
   Beschreibung: Baut ein Login-Fenster mit Textfeldern und Buttons auf.
   ===========================================================================
 */
-void State_Login( struct sGame* nGame )
+void ScreenState_Login( struct sGame* nGame )
 {
   wclear( nGame->whnd );
 

@@ -15,7 +15,7 @@
     ===========================================================================
     */
 
-void State_Ingame(struct sGame* nGame)
+void ScreenState_Ingame( struct sGame* nGame )
 {
     int iSudoku[9][9];
     generiereSudoku(iSudoku, (int)nGame->difficulty);

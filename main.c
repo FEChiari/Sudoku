@@ -58,19 +58,19 @@ int main( int argc, char* argv[] )
     switch ( g.screenState )
     {
     case SCREEN_LOGIN:
-      State_Login( &g );
+      ScreenState_Login( &g );
       break;
     case SCREEN_MAIN_MENU:
-      State_Main_Menu( &g );
+      ScreenState_Main_Menu( &g );
       break;
     case SCREEN_REGISTRATION:
-      // TODO@FE: check whether this warrants an entire state
+      ScreenState_Registration( &g );
       break;
     case SCREEN_INGAME:
-      State_Ingame( &g );
+      ScreenState_Ingame( &g );
       break;
     case SCREEN_HIGHSCORE:
-      State_Highscore( &g );
+      ScreenState_Highscore( &g );
       break;
     }
   }

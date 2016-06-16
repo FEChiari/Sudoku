@@ -14,7 +14,7 @@ Rückgabeparameter: -
 Beschreibung: Baut ein Registrierungs-Fenster mit Textfeldern und Buttons auf.
 ===========================================================================
 */
-void State_Registration( struct sGame* nGame )
+void ScreenState_Registration( struct sGame* nGame )
 {
 
 }
