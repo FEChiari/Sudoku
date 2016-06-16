@@ -173,16 +173,33 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
       
       switch ( key )
       {
+      case 0x02: // up-arrow key
       case 0x09: // tab-key
 
-                 // select the next field, if there is one
-                 // if not, reset to the first field of the form
+        // select the next field, if there is one
+        // if not, reset to the first field of the form
         if ( ++nFieldSet->activeFieldId >= nFieldSet->numFields )
           nFieldSet->activeFieldId = 0;
 
         handleInput = 0;
 
         break;
+
+      case 0x03: // down-arrow key
+
+        if ( nFieldSet->activeFieldId > 0 )
+        {
+          nFieldSet->activeFieldId--;
+        }
+        else
+        {
+          nFieldSet->activeFieldId = nFieldSet->numFields - 1;
+        }
+
+        handleInput = 0;
+
+        break;
+
       case 0x0A: // enter-key
 
         if ( nFieldSet->fields[ nFieldSet->activeFieldId ].type == INPUT_BUTTON && nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback != NULL )
