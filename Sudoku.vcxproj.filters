@@ -69,9 +69,6 @@
     <ClCompile Include="state_highscore.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
-    <ClCompile Include="dbh_old.c">
-      <Filter>Source Files\dbh</Filter>
-    </ClCompile>
     <ClCompile Include="utility.c">
       <Filter>Source Files\util</Filter>
     </ClCompile>
@@ -106,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="input.h">
       <Filter>Source Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="dbh_old.h">
-      <Filter>Source Files\dbh</Filter>
     </ClInclude>
     <ClInclude Include="screenstate.h">
       <Filter>Source Files\screenstates</Filter>

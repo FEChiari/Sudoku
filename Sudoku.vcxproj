@@ -119,7 +119,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbh.c" />
-    <ClCompile Include="dbh_old.c" />
     <ClCompile Include="forms.c" />
     <ClCompile Include="input.c" />
     <ClCompile Include="lib\sqlite\sqlite3.c" />
@@ -133,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h" />
-    <ClInclude Include="dbh_old.h" />
     <ClInclude Include="forms.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="screenstate.h" />
