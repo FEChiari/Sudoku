@@ -70,6 +70,8 @@ void initialize( struct sGame* nGame )
     exit( EXIT_FAILURE );
   }
 
+  resize_term( 30, 120 );
+
   DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );
 
   if ( DBH_dbhnd == NULL )
