@@ -22,25 +22,24 @@ void State_Login( struct sGame* nGame )
   struct sFieldDef form_fields[ 5 ];
 
   // username
-  form_fields[ 0 ].position.x = 1;
+  form_fields[ 0 ].position.x = 0;
   form_fields[ 0 ].position.y = 0;
-  form_fields[ 0 ].dimension.x = 25;
+  form_fields[ 0 ].dimension.x = 23;
   form_fields[ 0 ].dimension.y = 1;
   form_fields[ 0 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 0 ].label = "Benutzer:";
-  form_fields[ 0 ].inputSize = 14;
-
+  form_fields[ 0 ].inputSize = 13;
   // password
-  form_fields[ 1 ].position.x = 1;
+  form_fields[ 1 ].position.x = 0;
   form_fields[ 1 ].position.y = 1;
-  form_fields[ 1 ].dimension.x = 25;
+  form_fields[ 1 ].dimension.x = 23;
   form_fields[ 1 ].dimension.y = 1;
   form_fields[ 1 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 1 ].label = "Password:";
-  form_fields[ 1 ].inputSize = 14;
+  form_fields[ 1 ].inputSize = 13;
 
   // button enter
-  form_fields[ 2 ].position.x = 1;
+  form_fields[ 2 ].position.x = 0;
   form_fields[ 2 ].position.y = 3;
   form_fields[ 2 ].dimension.x = 5;
   form_fields[ 2 ].dimension.y = 1;
@@ -48,7 +47,7 @@ void State_Login( struct sGame* nGame )
   form_fields[ 2 ].label = "Login";
 
   // button play-as-guest
-  form_fields[ 3 ].position.x = 7;
+  form_fields[ 3 ].position.x = 6;
   form_fields[ 3 ].position.y = 3;
   form_fields[ 3 ].dimension.x = 4;
   form_fields[ 3 ].dimension.y = 1;
@@ -56,7 +55,7 @@ void State_Login( struct sGame* nGame )
   form_fields[ 3 ].label = "Gast";
 
   // button register
-  form_fields[ 4 ].position.x = 12;
+  form_fields[ 4 ].position.x = 11;
   form_fields[ 4 ].position.y = 3;
   form_fields[ 4 ].dimension.x = 12;
   form_fields[ 4 ].dimension.y = 1;

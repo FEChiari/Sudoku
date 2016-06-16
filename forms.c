@@ -14,7 +14,6 @@
   Beschreibung:
   ===========================================================================
 */
-
 struct sVec2 Forms_GetFieldSetDimensions( struct sFieldSet* nFieldSet )
 {
   struct sVec2 d;
@@ -55,7 +54,6 @@ struct sVec2 Forms_GetFieldSetDimensions( struct sFieldSet* nFieldSet )
   Beschreibung:
   ===========================================================================
 */
-
 void Forms_RenderFieldSet( WINDOW* nParentWindow, struct sFieldSet* nFieldSet )
 {
 
@@ -109,7 +107,7 @@ void Forms_SetFieldActive( struct sFieldDef* nField, u8 nUseColors )
   case INPUT_LOWERALPHA_NUMERIC:
     curs_set( 1 );
     echo();
-    //wmove( nField->whnd, 0, strlen( nField->label ) + 1 );
+    wmove( nField->whnd, 0, strlen( nField->label ) + 1 );
 
     if ( nUseColors )
       wbkgd( nField->whnd, COLOR_PAIR( 2 ) );
