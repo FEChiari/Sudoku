@@ -1,20 +1,20 @@
 
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
+  ===========================================================================
+  Präprozessorkonstanten
+  ===========================================================================
 */
 
 #include "screenstate.h"
 
 /*
-	===========================================================================
-	Funktion: State_Highscore
-	Übergabeparameter: nGame
-	Rückgabeparameter: -
-	Beschreibung: Baut ein Fenster auf und holt sich die Highscores aus der
-				  Datenbank.
-	===========================================================================
+  ===========================================================================
+  Funktion: State_Highscore
+  Übergabeparameter: nGame
+  Rückgabeparameter: -
+  Beschreibung: Baut ein Fenster auf und holt sich die Highscores aus der
+          Datenbank.
+  ===========================================================================
 */
 
 void State_Highscore( struct sGame* nGame )
@@ -73,12 +73,12 @@ void State_Highscore( struct sGame* nGame )
 }
 
 /*
-	===========================================================================
-	Funktion: Callback_PrintScores
-	Übergabeparameter: nCallbackParam, nNumColumns, nColumns, nColumnNames
-	Rückgabeparameter: 0
-	Beschreibung: Gibt die Highscores aus der Datenbank aus.
-	===========================================================================
+  ===========================================================================
+  Funktion: Callback_PrintScores
+  Übergabeparameter: nCallbackParam, nNumColumns, nColumns, nColumnNames
+  Rückgabeparameter: 0
+  Beschreibung: Gibt die Highscores aus der Datenbank aus.
+  ===========================================================================
 */
 
 int Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
