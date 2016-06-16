@@ -92,7 +92,7 @@ void initialize( struct sGame* nGame )
   nGame->flags.isRunning = 1;
   nGame->screenState = SCREEN_LOGIN;
   nGame->prevScreenState = nGame->screenState;
-  nGame->difficulty = DIFFICULTY_VHARD;
+  nGame->difficulty = DIFFICULTY_EASY;
 
   if ( ( nGame->whnd = initscr() ) == NULL )
   {
@@ -100,8 +100,16 @@ void initialize( struct sGame* nGame )
     terminate( nGame );
     exit( EXIT_FAILURE );
   }
-
-  resize_term( 30, 120 );
+  
+  if (has_colors() == FALSE)
+  {
+      endwin();
+      printf("Your terminal does not support color\n");
+      exit(1);
+  }
+  start_color();
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  resize_term( 30, 50);
 
   if ( has_colors() )
   {
