@@ -90,7 +90,7 @@ int main( int argc, char* argv[] )
 void initialize( struct sGame* nGame )
 {
   nGame->flags.isRunning = 1;
-  nGame->screenState = SCREEN_LOGIN;
+  nGame->screenState = SCREEN_INGAME;
   nGame->prevScreenState = nGame->screenState;
   nGame->difficulty = DIFFICULTY_EASY;
 
@@ -101,14 +101,7 @@ void initialize( struct sGame* nGame )
     exit( EXIT_FAILURE );
   }
   
-  if (has_colors() == FALSE)
-  {
-      endwin();
-      printf("Your terminal does not support color\n");
-      exit(1);
-  }
-  start_color();
-  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  
   resize_term( 30, 50);
 
   if ( has_colors() )
@@ -116,7 +109,8 @@ void initialize( struct sGame* nGame )
     start_color();
     nGame->flags.color_enabled = 1;
     init_pair( 1, COLOR_WHITE, COLOR_BLACK ); // standard text
-    init_pair( 2, COLOR_BLACK, COLOR_WHITE ); // inverted text
+    init_pair( 2, COLOR_BLACK, COLOR_WHITE );//inverted text
+    init_pair( 3, COLOR_GREEN, COLOR_BLACK );//start numbers
   }
 
   DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );

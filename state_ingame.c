@@ -55,9 +55,9 @@ void State_Ingame(struct sGame* nGame)
             _itoa(iSudoku[i][j], &chelp, 10);
             if (chelp[0] != '0')
             {
-                wattron(zahlenFeld[i][j].whnd, COLOR_PAIR(1));
+                wattron(zahlenFeld[i][j].whnd, COLOR_PAIR(3));
                 mvwaddstr(zahlenFeld[i][j].whnd, 1, 2, &chelp); 
-                wattroff(zahlenFeld[i][j].whnd, COLOR_PAIR(1));
+                wattroff(zahlenFeld[i][j].whnd, COLOR_PAIR(3));
             }
 
             wrefresh(zahlenFeld[i][j].whnd);
@@ -68,8 +68,9 @@ void State_Ingame(struct sGame* nGame)
     }
     mvwaddstr(SpielFeld.whnd, 18, 36, "+");
     wrefresh(ingameContainer);
+    wmove(SpielFeld.whnd, 2, 3);
     wrefresh(SpielFeld.whnd);
-
+    
     u8 handleInput = 1;
     do
     {
