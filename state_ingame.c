@@ -30,7 +30,7 @@ void ScreenState_Ingame( struct sGame* nGame )
     SpielFeld.position.x = 1;
     SpielFeld.position.y = 1;
     SpielFeld.label = "Sudoku 0.2.0";
-    SpielFeld.fields = zahlenFeld;
+    SpielFeld.fields = &zahlenFeld[0][0];
     SpielFeld.whnd = derwin(ingameContainer, SpielFeld.dimension.x, SpielFeld.dimension.y, 1, 1);
     
     //Felder
@@ -52,11 +52,11 @@ void ScreenState_Ingame( struct sGame* nGame )
             mvwaddstr(zahlenFeld[i][j].whnd, 0, 3, "-");
             mvwaddstr(zahlenFeld[i][j].whnd, 1, 0, "|");
             //Werte einsetzen
-            _itoa(iSudoku[i][j], &chelp, 10);
+            _itoa(iSudoku[i][j], chelp, 10);
             if (chelp[0] != '0')
             {
                 wattron(zahlenFeld[i][j].whnd, COLOR_PAIR(3));
-                mvwaddstr(zahlenFeld[i][j].whnd, 1, 2, &chelp); 
+                mvwaddstr(zahlenFeld[i][j].whnd, 1, 2, chelp); 
                 wattroff(zahlenFeld[i][j].whnd, COLOR_PAIR(3));
             }
 

@@ -34,7 +34,7 @@ enum eGameDifficulty
   DIFFICULTY_EASY = 40,
   DIFFICULTY_MEDIUM = 50,
   DIFFICULTY_HARD = 55,
-  DIFFICULTY_VHARD = 60
+  DIFFICULTY_VHARD = 60,
 };
 
 struct sUser
