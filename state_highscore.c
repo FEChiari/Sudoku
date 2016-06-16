@@ -36,6 +36,8 @@ void State_Highscore( struct sGame* nGame )
   sScoresPanelDimensions = Utility_GetWindowDimensions( pScoresPanel );
   pScoresPanelContent = derwin( pScoresPanel, sScoresPanelDimensions.y - 4, sScoresPanelDimensions.x - 2, 3, 1 );
 
+  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 5, "ESC: Main Menu" );
+
   // Certainly not the cleanest way to do this ...
   // Takes a lot less time though.
   char* pQuerystring = malloc( 255 );
@@ -49,7 +51,22 @@ void State_Highscore( struct sGame* nGame )
 
   wrefresh( nGame->whnd );
 
-  Utility_HandleGlobalInput( nGame );
+  u8 handleInput = 1;
+  do
+  {
+    char key = Utility_WGetKeyCode( nGame->whnd );
+
+    switch ( key )
+    {
+    case 0x1B: // ESC-key
+      handleInput = 0;
+      nGame->prevScreenState = nGame->screenState;
+      nGame->screenState = SCREEN_MAIN_MENU;
+      break;
+    }
+
+  }
+  while ( handleInput );
 
   delwin( pScoresPanelContent );
   delwin( pScoresPanel );
@@ -74,7 +91,7 @@ int Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns
 
   char* row = malloc( rowWidth / 2 );
   memset( row, 0, rowWidth / 2 );
-  sprintf( row, "%d. %s", iRow, nColumns[0] );
+  sprintf( row, "%d. %s", iRow, nColumns[ 0 ] );
 
   mvwaddstr( pScoresPanelContent, iRow, 1, row );
   mvwaddstr( pScoresPanelContent, iRow, rowWidth - strlen( nColumns[ 1 ] ) - 1, nColumns[ 1 ] );
