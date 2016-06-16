@@ -17,6 +17,7 @@
 
 void State_Login( struct sGame* nGame )
 {
+  wclear( nGame->whnd );
 
   struct sFieldDef form_fields[ 5 ];
 
