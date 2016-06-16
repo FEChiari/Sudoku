@@ -1,3 +1,9 @@
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "game.h"
 
 // TODO@FE: Forms
@@ -10,6 +16,12 @@
 // just put it here instead of using a workaround for a non-problem.
 sqlite3* DBH_dbhnd = NULL;
 
+/*
+	===========================================================================
+	Funktionsprototypen
+	===========================================================================
+*/
+
 // Game initialization.
 // This ensures that the game *can* run, meaning the db is present
 // and curses is working as intended.
@@ -20,6 +32,15 @@ void initialize( struct sGame* nGame );
 // its current state.
 void terminate( struct sGame* nGame );
 
+/*
+	===========================================================================
+	Funktion: main
+	Übergabeparameter: argc, argv
+	Rückgabeparameter: -
+	Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende 
+				  Fenster selektiert.
+	===========================================================================
+*/
 
 int main( int argc, char* argv[] )
 {
@@ -57,6 +78,15 @@ int main( int argc, char* argv[] )
   terminate( &g );
 }
 
+/*
+	===========================================================================
+	Funktion: initialize
+	Übergabeparameter: nGame
+	Rückgabeparameter: -
+	Beschreibung:
+	===========================================================================
+*/
+
 void initialize( struct sGame* nGame )
 {
   nGame->isRunning = 1;
@@ -92,6 +122,15 @@ void initialize( struct sGame* nGame )
   nodelay( nGame->whnd, TRUE );
   keypad( nGame->whnd, TRUE );
 }
+
+/*
+	===========================================================================
+	Funktion: terminate
+	Übergabeparameter: nGame
+	Rückgabeparameter: -
+	Beschreibung: Beendet die laufenden Fenster.
+	===========================================================================
+*/
 
 void terminate( struct sGame* nGame )
 {
