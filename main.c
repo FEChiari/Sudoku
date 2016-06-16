@@ -6,6 +6,10 @@
 
 #include "game.h"
 
+#define DEFAULT_GAMESTATE SCREEN_INGAME
+#define DEFAULT_DIFFICULTY DIFFICULTY_EASY
+
+
 // TODO@FE: Forms
 // TODO@FE: Clock/Timekeeping
 // TODO@FE: Cleanup/align conventions
@@ -37,8 +41,8 @@ void terminate( struct sGame* nGame );
   Funktion: main
   Übergabeparameter: argc, argv
   Rückgabeparameter: -
-  Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende 
-          Fenster selektiert.
+  Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende
+                Fenster selektiert.
   ===========================================================================
 */
 
@@ -90,9 +94,9 @@ int main( int argc, char* argv[] )
 void initialize( struct sGame* nGame )
 {
   nGame->flags.isRunning = 1;
-  nGame->screenState = SCREEN_INGAME;
+  nGame->screenState = DEFAULT_GAMESTATE;
   nGame->prevScreenState = nGame->screenState;
-  nGame->difficulty = DIFFICULTY_EASY;
+  nGame->difficulty = DEFAULT_DIFFICULTY;
 
   if ( ( nGame->whnd = initscr() ) == NULL )
   {
@@ -100,7 +104,6 @@ void initialize( struct sGame* nGame )
     terminate( nGame );
     exit( EXIT_FAILURE );
   }
-  
   
   resize_term( 30, 50);
 
