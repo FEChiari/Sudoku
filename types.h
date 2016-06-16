@@ -89,4 +89,5 @@ struct sGame
   enum eGameDifficulty difficulty;
   struct sUser user;
   u32 gameTime;
+  u32 SudokuContainer[9][9];
 };

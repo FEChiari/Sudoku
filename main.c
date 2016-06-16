@@ -90,9 +90,9 @@ int main( int argc, char* argv[] )
 void initialize( struct sGame* nGame )
 {
   nGame->isRunning = 1;
-  nGame->screenState = SCREEN_HIGHSCORE;
+  nGame->screenState = SCREEN_INGAME;
   nGame->prevScreenState = nGame->screenState;
-  nGame->difficulty = DIFFICULTY_EASY;
+  nGame->difficulty = DIFFICULTY_VHARD;
 
   if ( ( nGame->whnd = initscr() ) == NULL )
   {

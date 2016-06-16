@@ -14,6 +14,7 @@
 #include "forms.h"
 #include "utility.h"
 //#include "input.h"
+#include "solver.h"
 #include "dbh.h"
 #include "lib/pdcurses/panel.h"
 
