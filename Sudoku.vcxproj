@@ -128,6 +128,7 @@
     <ClCompile Include="state_ingame.c" />
     <ClCompile Include="state_login.c" />
     <ClCompile Include="state_main_menu.c" />
+    <ClCompile Include="state_registration.c" />
     <ClCompile Include="utility.c" />
   </ItemGroup>
   <ItemGroup>

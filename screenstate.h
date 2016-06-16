@@ -29,5 +29,6 @@ void State_Login( struct sGame* nGame );
 void State_Main_Menu( struct sGame* nGame );
 void State_Ingame( struct sGame* nGame );
 void State_Highscore( struct sGame* nGame );
+void State_Registration( struct sGame* nGame );
 
 int Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
