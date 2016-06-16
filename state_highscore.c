@@ -46,7 +46,7 @@ void State_Highscore( struct sGame* nGame )
     "SELECT Users.username, Highscores.score from Highscores \
     INNER JOIN  Users ON Users.id= Highscores.uid WHERE Highscores.difficulty = %d \
     ORDER BY Highscores.score DESC", nGame->difficulty );
-  DBH_Query( pQuerystring, Callback_PrintScores, pScoresPanelContent, NULL );
+  DBH_Query( pQuerystring, DBH_Callback_PrintScores, pScoresPanelContent, NULL );
   free( pQuerystring );
 
   wrefresh( nGame->whnd );
@@ -81,7 +81,7 @@ void State_Highscore( struct sGame* nGame )
   ===========================================================================
 */
 
-int Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
+int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
 {
   static iRow = 1;
 

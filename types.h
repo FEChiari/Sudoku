@@ -88,8 +88,8 @@ struct sGame
   enum eGameDifficulty difficulty;
   struct sUser user;
   u32 gameTime;
-  u32 SudokuContainer[9][9];
-  struct  
+  u32 SudokuContainer[ 9 ][ 9 ];
+  struct
   {
     u8 isRunning;
     u8 color_enabled;

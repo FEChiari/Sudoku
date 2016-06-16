@@ -109,8 +109,8 @@ void initialize( struct sGame* nGame )
     start_color();
     nGame->flags.color_enabled = 1;
     init_pair( 1, COLOR_WHITE, COLOR_BLACK ); // standard text
-    init_pair( 2, COLOR_BLACK, COLOR_WHITE );//inverted text
-    init_pair( 3, COLOR_GREEN, COLOR_BLACK );//start numbers
+    init_pair( 2, COLOR_BLACK, COLOR_WHITE ); // inverted text
+    init_pair( 3, COLOR_GREEN, COLOR_BLACK ); // start numbers
   }
 
   DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );
