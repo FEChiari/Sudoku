@@ -1,7 +1,33 @@
+/*
+	===========================================================================
+	Dateiname: dbh.c
+	Firma: HHBK Trendo Research Center
+	Autor: Patrick Schorn, Fabian Engels
+	IDE: Visual Studio 2015
+	Programmschnittstellen:
+	Beschreibung: Stellt eine Verbindung zu den Datenbanken her. Ermöglicht das
+	    		  Einloggen und Registrieren der Nutzer sowie deren Löschung.
+	===========================================================================
+*/
+
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "dbh.h"
 
 extern sqlite3* DBH_dbhnd;
 
+/*
+	===========================================================================
+	Funktion: DBH_CreateHandle
+	Übergabeparameter: nFilePath
+	Rückgabeparameter: db
+	Beschreibung: Erstellt einen Handler für die Datenbank
+	===========================================================================
+*/
 
 sqlite3* DBH_CreateHandle( char* nFilePath )
 {
@@ -13,10 +39,28 @@ sqlite3* DBH_CreateHandle( char* nFilePath )
   return NULL;
 }
 
+/*
+	===========================================================================
+	Funktion: DBH_CloseHandle
+	Übergabeparameter: nHandle
+	Rückgabeparameter: -
+	Beschreibung: Schließt den Handler für die Datenbank
+	===========================================================================
+*/
+
 void DBH_CloseHandle( sqlite3* nHandle )
 {
   sqlite3_close( nHandle );
 }
+
+/*
+	===========================================================================
+	Funktion: DBH_Query
+	Übergabeparameter: nQueryString, nCallback, nCallbackArgument, pErrMsgnErrorMsg
+	Rückgabeparameter: sqlite3_exec
+	Beschreibung: 
+	===========================================================================
+*/
 
 s32 DBH_Query( char* nQueryString, DBH_pCallbackFn nCallback, void* nCallbackArgument, char* pErrMsgnErrorMsg )
 {
@@ -25,6 +69,15 @@ s32 DBH_Query( char* nQueryString, DBH_pCallbackFn nCallback, void* nCallbackArg
 
   return sqlite3_exec( DBH_dbhnd, nQueryString, nCallback, nCallbackArgument, &pErrMsgnErrorMsg );
 }
+
+/*
+	===========================================================================
+	Funktion: DBH_UserExistsByName
+	Übergabeparameter: nUsername
+	Rückgabeparameter: exists
+	Beschreibung: Prüft in der Datenbank, ob der Username bereits existiert.
+	===========================================================================
+*/
 
 u8 DBH_UserExistsByName( char* nUsername )
 {
@@ -40,6 +93,15 @@ u8 DBH_UserExistsByName( char* nUsername )
   return exists;
 }
 
+/*
+	===========================================================================
+	Funktion: DBH_UserExistsByID
+	Übergabeparameter: nUserId
+	Rückgabeparameter: exists
+	Beschreibung: Prüft in der Datenbank, ob die UserID bereits existiert.
+	===========================================================================
+*/
+
 u8 DBH_UserExistsById( u32 nUserId )
 {
   u8 exists = 0;
@@ -53,6 +115,16 @@ u8 DBH_UserExistsById( u32 nUserId )
 
   return exists;
 }
+
+/*
+	===========================================================================
+	Funktion: DBH_IsValidAuthByName
+	Übergabeparameter: nUsername, nPassword
+	Rückgabeparameter: isValid
+	Beschreibung: Prüft in der Datenbank, ob die Kombination von Username und
+				  Passwort übereinstimmt.
+	===========================================================================
+*/
 
 u8 DBH_IsValidAuthByName( char* nUsername, char* nPassword )
 {
@@ -68,6 +140,16 @@ u8 DBH_IsValidAuthByName( char* nUsername, char* nPassword )
   return isValid;
 }
 
+/*
+	===========================================================================
+	Funktion: DBH_IsValidAuthById
+	Übergabeparameter: nUserId, nPassword
+	Rückgabeparameter: isValid
+	Beschreibung: Prüft in der Datenbank, ob die Kombination UserId und 
+				  Passwort übereinstimmt.
+	===========================================================================
+*/
+
 u8 DBH_IsValidAuthById( u32 nUserId, char* nPassword )
 {
   u8 isValid = 0;
@@ -81,6 +163,15 @@ u8 DBH_IsValidAuthById( u32 nUserId, char* nPassword )
 
   return isValid;
 }
+
+/*
+	===========================================================================
+	Funktion: DBH_RegisterUser
+	Übergabeparameter: nUsername, nPassword
+	Rückgabeparameter: uid
+	Beschreibung: Ermöglicht die Registrierung eines Users in der Datenbank.
+	===========================================================================
+*/
 
 u32 DBH_RegisterUser( char* nUsername, char* nPassword )
 {
@@ -102,6 +193,15 @@ u32 DBH_RegisterUser( char* nUsername, char* nPassword )
   return uid;
 }
 
+/*
+	===========================================================================
+	Funktion: DBH_DeleteUser
+	Übergabeparameter: nUserId, nPassword
+	Rückgabeparameter: deleted
+	Beschreibung: Ermöglicht die Löschung eines Users aus der Datenbank.
+	===========================================================================
+*/
+
 u8 DBH_DeleteUser( u8 nUserId, char* nPassword )
 {
   s32 rc;
@@ -122,6 +222,15 @@ u8 DBH_DeleteUser( u8 nUserId, char* nPassword )
 
   return deleted;
 }
+
+/*
+	===========================================================================
+	Funktion: DBH_Callback_GetRowCount
+	Übergabeparameter: nCallbackParam, nNumColumns, nColumns, nColumnNames
+	Rückgabeparameter: 0
+	Beschreibung: Zählt die Anzahl der Spalten in der Datenbank.
+	===========================================================================
+*/
 
 int DBH_Callback_GetRowCount( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
 {

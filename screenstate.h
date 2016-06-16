@@ -1,5 +1,12 @@
 #pragma once
 
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,6 +17,12 @@
 #include "dbh.h"
 #include "lib/pdcurses/panel.h"
 
+
+/*
+	===========================================================================
+	Funktionsprototypen
+	===========================================================================
+*/
 
 void State_Login( struct sGame* nGame );
 void State_Main_Menu( struct sGame* nGame );

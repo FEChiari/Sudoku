@@ -1,5 +1,19 @@
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "forms.h"
 
+/*
+	===========================================================================
+	Funktion: Forms_GetFieldSetDimensions
+	Übergabeparameter: nFieldSet
+	Rückgabeparameter: d
+	Beschreibung:
+	===========================================================================
+*/
 
 struct sVec2 Forms_GetFieldSetDimensions( struct sFieldSet* nFieldSet )
 {
@@ -37,6 +51,15 @@ struct sVec2 Forms_GetFieldSetDimensions( struct sFieldSet* nFieldSet )
 
   return d;
 }
+
+/*
+	===========================================================================
+	Funktion: Forms_RenderFieldSet
+	Übergabeparameter: nParentWindow, nFieldSet
+	Rückgabeparameter: -
+	Beschreibung:
+	===========================================================================
+*/
 
 void Forms_RenderFieldSet( WINDOW* nParentWindow, struct sFieldSet* nFieldSet )
 {

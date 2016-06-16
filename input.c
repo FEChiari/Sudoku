@@ -1,8 +1,21 @@
+
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "input.h"
 
-
-
-
+/*
+	===========================================================================
+	Funktion: GetKey
+	Übergabeparameter: nGame, handleInput
+	Rückgabeparameter: -
+	Beschreibung: Wird eine bestimmte Taste gedrückt, wird eine entsprechende
+				  Funktion ausgelöst
+	===========================================================================
+*/
 
 void GetKey(struct sGame *nGame, u8* handleInput)
 {

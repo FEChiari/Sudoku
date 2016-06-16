@@ -1,5 +1,19 @@
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "screenstate.h"
 
+/*
+	===========================================================================
+	Funktion: State_Login
+	Übergabeparameter: nGame
+	Rückgabeparameter: -
+	Beschreibung: Baut ein Login-Fenster mit Textfeldern und Buttons auf.
+	===========================================================================
+*/
 
 void State_Login( struct sGame* nGame )
 {

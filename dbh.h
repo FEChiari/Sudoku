@@ -1,11 +1,21 @@
 #pragma once
 
 #define DBH_DATABASE_FILE "databases/Sudoku.sqlite3"
-
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
 #include <stdlib.h>
 
 #include "types.h"
 #include "lib\sqlite\sqlite3.h"
+
+/*
+	===========================================================================
+	Funktionsprototypen
+	===========================================================================
+*/
 
 typedef int( *DBH_pCallbackFn )( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
 

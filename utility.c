@@ -1,15 +1,49 @@
+
+/*
+	===========================================================================
+	Präprozessorkonstanten
+	===========================================================================
+*/
+
 #include "utility.h"
 
+/*
+	===========================================================================
+	Funktion: Utility_GetKeyCode
+	Übergabeparameter: -
+	Rückgabeparameter: getch()
+	Beschreibung:
+	===========================================================================
+*/
 
 int Utility_GetKeyCode()
 {
   return getch();
 }
 
+/*
+	===========================================================================
+	Funktion: Utility_WGetKeyCode
+	Übergabeparameter: nTarget
+	Rückgabeparameter: wgetch(nTarget)
+	Beschreibung:
+	===========================================================================
+*/
+
 int Utility_WGetKeyCode( WINDOW* nTarget )
 {
   return wgetch( nTarget );
 }
+
+/*
+	===========================================================================
+	Funktion: Utility_HandleGlobalInput
+	Übergabeparameter: nGame
+	Rückgabeparameter: -
+	Beschreibung: Wird eine bestimmte Taste gedrückt, wird eine Funktion
+				  ausgeführt.
+	===========================================================================
+*/
 
 void Utility_HandleGlobalInput( struct sGame* nGame )
 {
@@ -29,6 +63,15 @@ void Utility_HandleGlobalInput( struct sGame* nGame )
   }
 
 }
+
+/*
+	===========================================================================
+	Funktion: Utility_GetWindowDimensions
+	Übergabeparameter: nTarget
+	Rückgabeparameter: d
+	Beschreibung: 
+	===========================================================================
+*/
 
 struct sVec2 Utility_GetWindowDimensions( WINDOW* nTarget )
 {
