@@ -26,32 +26,101 @@ s32 DBH_Query( char* nQueryString, DBH_pCallbackFn nCallback, void* nCallbackArg
   return sqlite3_exec( DBH_dbhnd, nQueryString, nCallback, nCallbackArgument, &pErrMsgnErrorMsg );
 }
 
-u8 DBH_UserExists( char* nUsername )
+u8 DBH_UserExistsByName( char* nUsername )
 {
   u8 exists = 0;
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE username = '%s'", nUsername );
-  u8 rc = DBH_Query( pQueryString, DBH_Callback_GetRowCount, &exists, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &exists, NULL );
 
   free( pQueryString );
 
   return exists;
 }
 
-u8 DBH_IsValidAuth( char* nUsername, char* nPassword )
+u8 DBH_UserExistsById( u32 nUserId )
+{
+  u8 exists = 0;
+  char* pQueryString = malloc( 128 );
+  memset( pQueryString, 0, 128 );
+
+  sprintf( pQueryString, "SELECT 1 FROM Users WHERE id = '%d'", nUserId );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &exists, NULL );
+
+  free( pQueryString );
+
+  return exists;
+}
+
+u8 DBH_IsValidAuthByName( char* nUsername, char* nPassword )
 {
   u8 isValid = 0;
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE username = '%s' and password = '%s'", nUsername, nPassword );
-  u8 rc = DBH_Query( pQueryString, DBH_Callback_GetRowCount, &isValid, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &isValid, NULL );
 
   free( pQueryString );
 
   return isValid;
+}
+
+u8 DBH_IsValidAuthById( u32 nUserId, char* nPassword )
+{
+  u8 isValid = 0;
+  char* pQueryString = malloc( 128 );
+  memset( pQueryString, 0, 128 );
+
+  sprintf( pQueryString, "SELECT 1 FROM Users WHERE id = '%d' and password = '%s'", nUserId, nPassword );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &isValid, NULL );
+
+  free( pQueryString );
+
+  return isValid;
+}
+
+u32 DBH_RegisterUser( char* nUsername, char* nPassword )
+{
+  u32 uid = 0;
+
+  if ( DBH_UserExistsByName( nUsername ) ) return uid;
+
+  char* pQueryString = malloc( 128 );
+  memset( pQueryString, 0, 128 );
+
+  sprintf( pQueryString, "INSERT INTO Users (username, password) VALUES ('%s', '%s')", nUsername, nPassword );
+  DBH_Query( pQueryString, NULL, NULL, NULL );
+
+  free( pQueryString );
+
+  // assumes a maximum user id of 2^32
+  uid = (u32) sqlite3_last_insert_rowid( DBH_dbhnd );
+
+  return uid;
+}
+
+u8 DBH_DeleteUser( u8 nUserId, char* nPassword )
+{
+  s32 rc;
+  u8 deleted = 0;
+
+  if ( !DBH_UserExistsById( nUserId ) || !DBH_IsValidAuthById( nUserId, nPassword ) )
+    return deleted;
+
+  char* pQueryString = malloc( 128 );
+  memset( pQueryString, 0, 128 );
+
+  sprintf( pQueryString, "DELETE FROM Users WHERE id = %d", nUserId );
+  rc = DBH_Query( pQueryString, NULL, NULL, NULL );
+
+  free( pQueryString );
+
+  if ( rc = SQLITE_OK ) deleted = 1;
+
+  return deleted;
 }
 
 int DBH_Callback_GetRowCount( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
@@ -60,8 +129,6 @@ int DBH_Callback_GetRowCount( void* nCallbackParam, int nNumColumns, char** nCol
   *( ( u8* ) nCallbackParam ) = ++i;
   return 0;
 }
-
-
 
 
 
