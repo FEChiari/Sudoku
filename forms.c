@@ -149,8 +149,8 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
   // if tab, switch field
   // enter/space on buttons activates
 
-  enum eGameState state = SCREEN_LOGIN;
-  while ( state == nGame->screenState )
+  enum eGameState lastState = nGame->screenState;
+  while ( lastState == nGame->screenState )
   {
     u8 fieldId = 0;
     for ( ; fieldId < nFieldSet->numFields; fieldId++ )
