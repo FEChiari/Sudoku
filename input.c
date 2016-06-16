@@ -33,7 +33,7 @@ void GetKey(struct sGame *nGame, u8* handleInput)
       case 0x1B: // 0x1B == ESC-Key
                  // quit the game
         handleInput = 0;
-        nGame->isRunning = 0;
+        nGame->flags.isRunning = 0;
         break;
       case 0x09: // 0x09 == TAB-Key
                  // switch fields

@@ -82,7 +82,6 @@ struct sFieldSet
 
 struct sGame
 {
-  u8 isRunning;
   WINDOW* whnd;
   enum eGameState prevScreenState;
   enum eGameState screenState;
@@ -90,4 +89,9 @@ struct sGame
   struct sUser user;
   u32 gameTime;
   u32 SudokuContainer[9][9];
+  struct  
+  {
+    u8 isRunning;
+    u8 color_enabled;
+  } flags;
 };

@@ -53,7 +53,7 @@ int main( int argc, char* argv[] )
   // Main game-loop
   // - Switches between screenstates and calls the apropriate function.
   // - That function, in turn, handles and updates the gamestate.
-  while ( g.isRunning )
+  while ( g.flags.isRunning )
   {
     switch ( g.screenState )
     {
@@ -89,8 +89,8 @@ int main( int argc, char* argv[] )
 
 void initialize( struct sGame* nGame )
 {
-  nGame->isRunning = 1;
-  nGame->screenState = SCREEN_INGAME;
+  nGame->flags.isRunning = 1;
+  nGame->screenState = SCREEN_LOGIN;
   nGame->prevScreenState = nGame->screenState;
   nGame->difficulty = DIFFICULTY_VHARD;
 
