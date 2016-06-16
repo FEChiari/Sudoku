@@ -32,10 +32,7 @@ void State_Highscore( struct sGame* nGame )
 
   wrefresh( nGame->whnd );
 
-  while ( 1 )
-  {
-    Utility_HandleGlobalInput( nGame );
-  }
+  Utility_HandleGlobalInput( nGame );
 
   delwin( pScoresPanelContent );
   delwin( pScoresPanel );

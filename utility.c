@@ -13,15 +13,19 @@ int Utility_WGetKeyCode( WINDOW* nTarget )
 
 void Utility_HandleGlobalInput( struct sGame* nGame )
 {
-  int key = Utility_GetKeyCode();
-  switch ( key )
+
+  while ( 1 )
   {
-  case 0x1B: // ESC
-    nGame->isRunning = 0;
-    break;
-  case 0x68: // h
-    printf( "help" );
-    break;
+    int key = Utility_GetKeyCode();
+    switch ( key )
+    {
+    case 0x1B: // ESC
+      nGame->isRunning = 0;
+      break;
+    case 0x68: // h
+      printf( "help" );
+      break;
+    }
   }
 
 }
