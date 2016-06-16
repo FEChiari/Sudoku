@@ -61,6 +61,7 @@ void initialize( struct sGame* nGame )
 {
   nGame->isRunning = 1;
   nGame->screenState = SCREEN_HIGHSCORE;
+  nGame->prevScreenState = nGame->screenState;
   nGame->difficulty = DIFFICULTY_EASY;
 
   if ( ( nGame->whnd = initscr() ) == NULL )

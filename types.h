@@ -34,8 +34,10 @@ enum eGameDifficulty
 struct sUser
 {
   u8 isGuest;
+  u32 userId;
+  char* username;
+  char* password;
 };
-
 
 enum eFieldType
 {
@@ -76,6 +78,7 @@ struct sGame
 {
   u8 isRunning;
   WINDOW* whnd;
+  enum eGameState prevScreenState;
   enum eGameState screenState;
   enum eGameDifficulty difficulty;
   struct sUser user;
