@@ -1,7 +1,7 @@
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
+  ===========================================================================
+  Präprozessorkonstanten
+  ===========================================================================
 */
 
 #include "game.h"
@@ -17,9 +17,9 @@
 sqlite3* DBH_dbhnd = NULL;
 
 /*
-	===========================================================================
-	Funktionsprototypen
-	===========================================================================
+  ===========================================================================
+  Funktionsprototypen
+  ===========================================================================
 */
 
 // Game initialization.
@@ -33,13 +33,13 @@ void initialize( struct sGame* nGame );
 void terminate( struct sGame* nGame );
 
 /*
-	===========================================================================
-	Funktion: main
-	Übergabeparameter: argc, argv
-	Rückgabeparameter: -
-	Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende 
-				  Fenster selektiert.
-	===========================================================================
+  ===========================================================================
+  Funktion: main
+  Übergabeparameter: argc, argv
+  Rückgabeparameter: -
+  Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende 
+          Fenster selektiert.
+  ===========================================================================
 */
 
 int main( int argc, char* argv[] )
@@ -79,12 +79,12 @@ int main( int argc, char* argv[] )
 }
 
 /*
-	===========================================================================
-	Funktion: initialize
-	Übergabeparameter: nGame
-	Rückgabeparameter: -
-	Beschreibung:
-	===========================================================================
+  ===========================================================================
+  Funktion: initialize
+  Übergabeparameter: nGame
+  Rückgabeparameter: -
+  Beschreibung:
+  ===========================================================================
 */
 
 void initialize( struct sGame* nGame )
@@ -124,12 +124,12 @@ void initialize( struct sGame* nGame )
 }
 
 /*
-	===========================================================================
-	Funktion: terminate
-	Übergabeparameter: nGame
-	Rückgabeparameter: -
-	Beschreibung: Beendet die laufenden Fenster.
-	===========================================================================
+  ===========================================================================
+  Funktion: terminate
+  Übergabeparameter: nGame
+  Rückgabeparameter: -
+  Beschreibung: Beendet die laufenden Fenster.
+  ===========================================================================
 */
 
 void terminate( struct sGame* nGame )
