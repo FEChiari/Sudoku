@@ -68,9 +68,9 @@ struct sFieldDef
   enum eFieldType type;
   char* label;
   u8 inputSize;
+  u8 isDisabled;
   void( *btnCallback )( struct sGame* nGame );
   WINDOW* whnd;
-
 };
 
 struct sFieldSet

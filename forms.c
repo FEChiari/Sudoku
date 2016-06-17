@@ -141,6 +141,12 @@ void Forms_SetFieldInactive( struct sFieldDef* nField, u8 nUseColors )
   wrefresh( nField->whnd );
 }
 
+void Form_AdvanceToNextField( struct sFieldSet* nFieldSet )
+{
+  if ( ++nFieldSet->activeFieldId >= nFieldSet->numFields )
+    nFieldSet->activeFieldId = 0;
+}
+
 void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
   // get active field
@@ -178,8 +184,10 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
 
         // select the next field, if there is one
         // if not, reset to the first field of the form
-        if ( ++nFieldSet->activeFieldId >= nFieldSet->numFields )
-          nFieldSet->activeFieldId = 0;
+        Form_AdvanceToNextField(nFieldSet);
+
+        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled )
+          Form_AdvanceToNextField(nFieldSet);
 
         handleInput = 0;
 

@@ -28,6 +28,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 0 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 0 ].label = "Benutzer:";
   form_fields[ 0 ].inputSize = 13;
+  form_fields[ 0 ].isDisabled = 0;
   // password
   form_fields[ 1 ].position.x = 0;
   form_fields[ 1 ].position.y = 1;
@@ -36,6 +37,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 1 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 1 ].label = "Password:";
   form_fields[ 1 ].inputSize = 13;
+  form_fields[ 1 ].isDisabled = 0;
 
   // button enter
   form_fields[ 2 ].position.x = 0;
@@ -45,6 +47,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 2 ].type = INPUT_BUTTON;
   form_fields[ 2 ].label = "Login";
   form_fields[ 2 ].btnCallback = BtnCallback_OnLogin;
+  form_fields[ 2 ].isDisabled = 1;
 
   // button play-as-guest
   form_fields[ 3 ].position.x = 6;
@@ -54,6 +57,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 3 ].type = INPUT_BUTTON;
   form_fields[ 3 ].label = "Gast";
   form_fields[ 3 ].btnCallback = BtnCallback_OnPlayAsGuest;
+  form_fields[ 3 ].isDisabled = 0;
 
   // button register
   form_fields[ 4 ].position.x = 11;
@@ -63,6 +67,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 4 ].type = INPUT_BUTTON;
   form_fields[ 4 ].label = "Registrieren";
   form_fields[ 4 ].btnCallback = BtnCallback_OnRegister;
+  form_fields[ 4 ].isDisabled = 1;
 
   // the form itself
   struct sFieldSet login_form;
