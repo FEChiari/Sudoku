@@ -1,5 +1,23 @@
 /*
   ===========================================================================
+  Programmname: Sudoku
+  Autoren: Waldemar Werba, Fabian Engels, Fabian Kremer, Patrick Schorn,
+           Fabian Prinz
+  Datum: 19.06.2016
+  IDE: Visual Studio
+  Beschreibung: Dieses Programm ist ein Sudoku-Spiel, welches ermöglicht,
+                in einer Konsole ein zufällig generiertes Sudoku zu lösen.
+                Dabei ist es möglich, sich zu registrieren, um die 
+                Highscore-Funktion zu nutzen. Es ist auch möglich, ohne
+                Login zu spielen, doch dadurch wird es nicht möglich sein, 
+                die Highscore-Funktion zu nutzen. Diese Funktionen werden 
+                durch eine Datenbank ermöglicht. Das Spiel kann in drei
+                verschiedenen Schwierigkeitsgraden gespielt werden.
+  ===========================================================================
+*/
+
+/*
+  ===========================================================================
   Präprozessorkonstanten
   ===========================================================================
 */
