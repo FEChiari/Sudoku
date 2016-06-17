@@ -78,6 +78,9 @@
     <ClCompile Include="state_registration.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
+    <ClCompile Include="state_help.c">
+      <Filter>Source Files\screenstates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h">

@@ -27,7 +27,7 @@ enum eGameState
   SCREEN_REGISTRATION,
   SCREEN_HIGHSCORE,
   SCREEN_INGAME,
-  SCREEN_HELP
+  SCREEN_HELP,
 };
 
 enum eGameDifficulty

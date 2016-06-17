@@ -124,6 +124,7 @@
     <ClCompile Include="lib\sqlite\sqlite3.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="solver.c" />
+    <ClCompile Include="state_help.c" />
     <ClCompile Include="state_highscore.c" />
     <ClCompile Include="state_ingame.c" />
     <ClCompile Include="state_login.c" />
