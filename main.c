@@ -94,6 +94,9 @@ int main( int argc, char* argv[] )
     case SCREEN_HIGHSCORE:
       ScreenState_Highscore( &g );
       break;
+    case SCREEN_HELP:
+      ScreenState_Help( &g );
+      break;
     }
   }
 
