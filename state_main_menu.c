@@ -37,6 +37,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 0 ].dimension.y = 1;
   form_fields[ 0 ].type = INPUT_BUTTON;
   form_fields[ 0 ].label = "Spiel fortsetzen";
+  form_fields[ 0 ].isDisabled = 1;
 
   // new game
   form_fields[ 1 ].position.x = 0;
@@ -45,6 +46,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 1 ].dimension.y = 1;
   form_fields[ 1 ].type = INPUT_BUTTON;
   form_fields[ 1 ].label = "Neues Spiel";
+  form_fields[ 1 ].isDisabled = 0;
 
   // highscores
   form_fields[ 2 ].position.x = 0;
@@ -53,6 +55,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 2 ].dimension.y = 1;
   form_fields[ 2 ].type = INPUT_BUTTON;
   form_fields[ 2 ].label = "Highscores";
+  form_fields[ 2 ].isDisabled = 0;
 
   // regeln
   form_fields[ 3 ].position.x = 0;
@@ -61,6 +64,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 3 ].dimension.y = 1;
   form_fields[ 3 ].type = INPUT_BUTTON;
   form_fields[ 3 ].label = "Spielregeln";
+  form_fields[ 3 ].isDisabled = 0;
 
   // optionen
   form_fields[ 4 ].position.x = 0;
@@ -69,6 +73,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 4 ].dimension.y = 1;
   form_fields[ 4 ].type = INPUT_BUTTON;
   form_fields[ 4 ].label = "Optionen";
+  form_fields[ 4 ].isDisabled = 0;
 
 
   // the form itself
@@ -76,7 +81,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
 
   menu_form.fields = &form_fields[ 0 ];
   menu_form.label = "Hauptmenü";
-  menu_form.activeFieldId = 0;
+  menu_form.activeFieldId = 1;
   menu_form.numFields = 5;
   menu_form.renderBorder = 1;
   menu_form.dimension = Forms_GetFieldSetDimensions( &menu_form );

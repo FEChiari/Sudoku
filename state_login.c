@@ -28,7 +28,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 0 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 0 ].label = "Benutzer:";
   form_fields[ 0 ].inputSize = 13;
-  form_fields[ 0 ].isDisabled = 0;
+  form_fields[ 0 ].isDisabled = 1;
   // password
   form_fields[ 1 ].position.x = 0;
   form_fields[ 1 ].position.y = 1;
@@ -37,7 +37,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 1 ].type = INPUT_LOWERALPHA_NUMERIC;
   form_fields[ 1 ].label = "Password:";
   form_fields[ 1 ].inputSize = 13;
-  form_fields[ 1 ].isDisabled = 0;
+  form_fields[ 1 ].isDisabled = 1;
 
   // button enter
   form_fields[ 2 ].position.x = 0;
@@ -74,7 +74,7 @@ void ScreenState_Login( struct sGame* nGame )
 
   login_form.fields = &form_fields[ 0 ];
   login_form.label = "Login";
-  login_form.activeFieldId = 0;
+  login_form.activeFieldId = 3;
   login_form.numFields = 5;
   login_form.renderBorder = 1;
   login_form.dimension = Forms_GetFieldSetDimensions( &login_form );
