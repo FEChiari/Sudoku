@@ -31,6 +31,7 @@ void ScreenState_Ingame( struct sGame* nGame );
 void ScreenState_Highscore( struct sGame* nGame );
 void ScreenState_Registration( struct sGame* nGame ); 
 void ScreenState_Rules( struct sGame* nGame );
+void ScreenState_Options( struct sGame* nGame );
 
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
 

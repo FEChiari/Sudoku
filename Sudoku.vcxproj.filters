@@ -81,6 +81,9 @@
     <ClCompile Include="state_rules.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
+    <ClCompile Include="state_options.c">
+      <Filter>Source Files\screenstates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h">
