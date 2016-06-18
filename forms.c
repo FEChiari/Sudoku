@@ -143,20 +143,31 @@ void Forms_SetFieldInactive( struct sFieldDef* nField, u8 nUseColors )
 
 void Form_MoveCursorToNextField( struct sFieldSet* nFieldSet )
 {
-  if ( ++nFieldSet->activeFieldId >= nFieldSet->numFields )
-    nFieldSet->activeFieldId = 0;
+  do
+  {
+    nFieldSet->activeFieldId++;
+
+    if ( nFieldSet->activeFieldId >= nFieldSet->numFields )
+      nFieldSet->activeFieldId = 0;
+
+  }
+  while ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled );
 }
 
 void Form_MoveCursorToPreviousField( struct sFieldSet* nFieldSet )
 {
-  if ( nFieldSet->activeFieldId > 0 )
+  do
   {
-    nFieldSet->activeFieldId--;
+    if ( nFieldSet->activeFieldId == 0 )
+    {
+      nFieldSet->activeFieldId = nFieldSet->numFields - 1;
+    }
+    else
+    {
+      nFieldSet->activeFieldId--;
+    }
   }
-  else
-  {
-    nFieldSet->activeFieldId = nFieldSet->numFields - 1;
-  }
+  while ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled );
 }
 
 void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
@@ -198,22 +209,15 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
         // if not, reset to the first field of the form
         Form_MoveCursorToNextField( nFieldSet );
 
-        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled )
-          Form_MoveCursorToNextField( nFieldSet );
-
         handleInput = 0;
 
         break;
 
       case 0x03: // up-arrow key
 
-
         // select the previous field, if there is one
         // if not, reset to the last field of the form
         Form_MoveCursorToPreviousField( nFieldSet );
-
-        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled )
-          Form_MoveCursorToPreviousField( nFieldSet );
 
         handleInput = 0;
 
