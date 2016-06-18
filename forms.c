@@ -179,7 +179,7 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
   // enter/space on buttons activates
 
   enum eGameState lastState = nGame->screenState;
-  while ( lastState == nGame->screenState )
+  while ( lastState == nGame->screenState && nGame->flags.isRunning )
   {
     u8 fieldId = 0;
     for ( ; fieldId < nFieldSet->numFields; fieldId++ )
