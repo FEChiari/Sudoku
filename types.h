@@ -28,6 +28,7 @@ enum eGameState
   SCREEN_HIGHSCORE,
   SCREEN_INGAME,
   SCREEN_RULES,
+  SCREEN_OPTIONS,
 };
 
 enum eGameDifficulty
