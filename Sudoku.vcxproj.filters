@@ -78,7 +78,7 @@
     <ClCompile Include="state_registration.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
-    <ClCompile Include="state_help.c">
+    <ClCompile Include="state_rules.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
   </ItemGroup>
