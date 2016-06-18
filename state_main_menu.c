@@ -38,6 +38,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 0 ].type = INPUT_BUTTON;
   form_fields[ 0 ].label = "Spiel fortsetzen";
   form_fields[ 0 ].isDisabled = 1;
+  form_fields[ 0 ].btnCallback = BtnCallback_OnContinueGame;
 
   // new game
   form_fields[ 1 ].position.x = 0;
@@ -47,6 +48,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 1 ].type = INPUT_BUTTON;
   form_fields[ 1 ].label = "Neues Spiel";
   form_fields[ 1 ].isDisabled = 0;
+  form_fields[ 1 ].btnCallback = BtnCallback_OnStartNewGame;
 
   // highscores
   form_fields[ 2 ].position.x = 0;
@@ -56,6 +58,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 2 ].type = INPUT_BUTTON;
   form_fields[ 2 ].label = "Highscores";
   form_fields[ 2 ].isDisabled = 0;
+  form_fields[ 2 ].btnCallback = BtnCallback_OnDisplayHighscores;
 
   // regeln
   form_fields[ 3 ].position.x = 0;
@@ -65,6 +68,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 3 ].type = INPUT_BUTTON;
   form_fields[ 3 ].label = "Spielregeln";
   form_fields[ 3 ].isDisabled = 0;
+  form_fields[ 3 ].btnCallback = BtnCallback_OnDisplayRules;
 
   // optionen
   form_fields[ 4 ].position.x = 0;
@@ -74,7 +78,13 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 4 ].type = INPUT_BUTTON;
   form_fields[ 4 ].label = "Optionen";
   form_fields[ 4 ].isDisabled = 0;
+  form_fields[ 4 ].btnCallback = BtnCallback_OnDisplayOptions;
 
+  // disable options if guest
+  if ( nGame->user.isGuest )
+  {
+    form_fields[ 4 ].isDisabled = 1;
+  }
 
   // the form itself
   struct sFieldSet menu_form;
@@ -91,4 +101,33 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   Forms_RenderFieldSet( nGame->whnd, &menu_form );
   Forms_HandleFieldSetInput( nGame, &menu_form );
   Forms_FreeFieldSet( &menu_form );
+}
+
+void BtnCallback_OnContinueGame( struct sGame * nGame )
+{
+  // TBD
+}
+
+void BtnCallback_OnStartNewGame( struct sGame * nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_INGAME;
+}
+
+void BtnCallback_OnDisplayHighscores( struct sGame * nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_HIGHSCORE;
+}
+
+void BtnCallback_OnDisplayRules( struct sGame * nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_RULES;
+}
+
+void BtnCallback_OnDisplayOptions( struct sGame * nGame )
+{
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_OPTIONS;
 }
