@@ -1,17 +1,11 @@
-Spielregeln
-
-In einem 9x9 großem Spielfeld werden Zahlen von 1 bis 9 eingetragen. Davon sind schon,
-je nach gewähltem Schwierigkeitsgrad, entsprechende Zahlen vorgegeben. Je höher der 
-Schwierigkeitsgrad ist, desto weniger Zahlen sind vorgegeben.
-
-Das Ziel des Spiels ist es nun, alle leeren Felder mit Zahlen zu füllen. Dabei müssen
-einige Regeln beachtet werden.
+﻿In einem 9x9 Felder großen Spielfeld werden Zahlen von 1 bis 9 eingetragen. Davon sind, je nach gewähltem Schwierigkeitsgrad, bereits
+Zahlen vorgegeben - je höher der Schwierigkeitsgrad, desto weniger. Ziel des Spiels ist es, alle leeren Felder mit Zahlen zu füllen.
+Dabei müssen einige Regeln beachtet werden:
 
 -> In jeder Zeile darf eine Zahl nur einmal vorkommen.
 -> In jeder Spalte darf eine Zahl nur einmal vorkommen.
 -> In jedem Planquadrat darf eine Zahl nur einmal vorkommen.
 
-Bei Sudoku ist zu beachten, dass nur eine Lösung gültig ist. Das Spiel ist beendet, 
-wenn alle leeren Felder korrekt ausgefüllt worden sind. Ist das nicht der Fall, 
-geht das Spiel so lange weiter, bis der oder die Fehler gefunden wurden.
+Bei Sudoku ist zu beachten, dass nur eine Lösung gültig ist. Das Spiel ist beendet, wenn alle leeren Felder korrekt ausgefüllt worden sind.
+Ist das nicht der Fall, geht das Spiel so lange weiter, bis der/die Fehler gefunden wurden.
 
