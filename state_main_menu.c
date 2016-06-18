@@ -28,7 +28,7 @@ void ScreenState_Main_Menu( struct sGame* nGame )
 
   wclear( nGame->whnd );
 
-  struct sFieldDef form_fields[ 5 ];
+  struct sFieldDef form_fields[ 6 ];
 
   // continue
   form_fields[ 0 ].position.x = 0;
@@ -80,6 +80,16 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 4 ].isDisabled = 0;
   form_fields[ 4 ].btnCallback = BtnCallback_OnDisplayOptions;
 
+  // spiel beenden
+  form_fields[ 5 ].position.x = 0;
+  form_fields[ 5 ].position.y = 5;
+  form_fields[ 5 ].dimension.x = 13;
+  form_fields[ 5 ].dimension.y = 1;
+  form_fields[ 5 ].type = INPUT_BUTTON;
+  form_fields[ 5 ].label = "Spiel beenden";
+  form_fields[ 5 ].isDisabled = 0;
+  form_fields[ 5 ].btnCallback = BtnCallback_OnQuitGame;
+
   // disable options if guest
   if ( nGame->user.isGuest )
   {
@@ -92,9 +102,10 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   menu_form.fields = &form_fields[ 0 ];
   menu_form.label = "Hauptmenü";
   menu_form.activeFieldId = 1;
-  menu_form.numFields = 5;
+  menu_form.numFields = 6;
   menu_form.renderBorder = 1;
   menu_form.dimension = Forms_GetFieldSetDimensions( &menu_form );
+
   menu_form.position.x = getmaxx( nGame->whnd ) / 2 - menu_form.dimension.x / 2;
   menu_form.position.y = getmaxy( nGame->whnd ) / 2 - menu_form.dimension.y / 2;
 
@@ -130,4 +141,9 @@ void BtnCallback_OnDisplayOptions( struct sGame * nGame )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_OPTIONS;
+}
+
+void BtnCallback_OnQuitGame( struct sGame * nGame )
+{
+  nGame->flags.isRunning = 0;
 }
