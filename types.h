@@ -20,7 +20,7 @@ typedef char s8;
 typedef short s16;
 typedef int s32;
 
-enum eGameState
+enum eScreenState
 {
   SCREEN_LOGIN,
   SCREEN_MAIN_MENU,
@@ -31,12 +31,18 @@ enum eGameState
   SCREEN_OPTIONS,
 };
 
-enum eGameDifficulty
+enum eDifficulty
 {
   DIFFICULTY_EASY = 40,
   DIFFICULTY_MEDIUM = 50,
   DIFFICULTY_HARD = 55,
   DIFFICULTY_VHARD = 60,
+};
+
+struct sVec2
+{
+  u8 x;
+  u8 y;
 };
 
 struct sUser
@@ -45,6 +51,24 @@ struct sUser
   u32 userId;
   char* username;
   char* password;
+  u32 score;
+  u32 timePlayed;
+};
+
+struct sGame
+{
+  WINDOW* whnd;
+  enum eScreenState prevScreenState;
+  enum eScreenState screenState;
+  enum eDifficulty difficultyLvl;
+  struct sUser user;
+  u32 gameTime;
+  u32 SudokuContainer[ 9 ][ 9 ];
+  struct
+  {
+    u8 isRunning;
+    u8 color_enabled;
+  } flags;
 };
 
 enum eFieldType
@@ -54,12 +78,6 @@ enum eFieldType
   INPUT_BUTTON,
   INPUT_BOARDFIELD,
   STATIC_BOARDFIELD,
-};
-
-struct sVec2
-{
-  u8 x;
-  u8 y;
 };
 
 struct sFieldDef
@@ -84,20 +102,4 @@ struct sFieldSet
   struct sVec2 position;
   WINDOW* whnd;
   u8 renderBorder;
-};
-
-struct sGame
-{
-  WINDOW* whnd;
-  enum eGameState prevScreenState;
-  enum eGameState screenState;
-  enum eGameDifficulty difficultyLvl;
-  struct sUser user;
-  u32 gameTime;
-  u32 SudokuContainer[ 9 ][ 9 ];
-  struct
-  {
-    u8 isRunning;
-    u8 color_enabled;
-  } flags;
 };
