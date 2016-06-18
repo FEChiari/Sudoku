@@ -141,10 +141,22 @@ void Forms_SetFieldInactive( struct sFieldDef* nField, u8 nUseColors )
   wrefresh( nField->whnd );
 }
 
-void Form_AdvanceToNextField( struct sFieldSet* nFieldSet )
+void Form_MoveCursorToNextField( struct sFieldSet* nFieldSet )
 {
   if ( ++nFieldSet->activeFieldId >= nFieldSet->numFields )
     nFieldSet->activeFieldId = 0;
+}
+
+void Form_MoveCursorToPreviousField( struct sFieldSet* nFieldSet )
+{
+  if ( nFieldSet->activeFieldId > 0 )
+  {
+    nFieldSet->activeFieldId--;
+  }
+  else
+  {
+    nFieldSet->activeFieldId = nFieldSet->numFields - 1;
+  }
 }
 
 void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet )
@@ -176,33 +188,32 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
     {
 
       u8 key = Utility_WGetKeyCode( nFieldSet->fields[ nFieldSet->activeFieldId ].whnd );
-      
+
       switch ( key )
       {
-      case 0x02: // up-arrow key
+      case 0x02: // down-arrow key
       case 0x09: // tab-key
 
         // select the next field, if there is one
         // if not, reset to the first field of the form
-        Form_AdvanceToNextField(nFieldSet);
+        Form_MoveCursorToNextField( nFieldSet );
 
         if ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled )
-          Form_AdvanceToNextField(nFieldSet);
+          Form_MoveCursorToNextField( nFieldSet );
 
         handleInput = 0;
 
         break;
 
-      case 0x03: // down-arrow key
+      case 0x03: // up-arrow key
 
-        if ( nFieldSet->activeFieldId > 0 )
-        {
-          nFieldSet->activeFieldId--;
-        }
-        else
-        {
-          nFieldSet->activeFieldId = nFieldSet->numFields - 1;
-        }
+
+        // select the previous field, if there is one
+        // if not, reset to the last field of the form
+        Form_MoveCursorToPreviousField( nFieldSet );
+
+        if ( nFieldSet->fields[ nFieldSet->activeFieldId ].isDisabled )
+          Form_MoveCursorToPreviousField( nFieldSet );
 
         handleInput = 0;
 
