@@ -2,9 +2,9 @@
 
 #define DBH_DATABASE_FILE "databases/Sudoku.sqlite3"
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
+  ===========================================================================
+  Präprozessorkonstanten
+  ===========================================================================
 */
 #include <stdlib.h>
 
@@ -12,12 +12,18 @@
 #include "lib\sqlite\sqlite3.h"
 
 /*
-	===========================================================================
-	Funktionsprototypen
-	===========================================================================
+  ===========================================================================
+  Funktionsprototypen
+  ===========================================================================
 */
 
 typedef int( *DBH_pCallbackFn )( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
+
+struct DBH_CallbackArgumentPair
+{
+  u32 rowIter;
+  void* additionalArgument;
+};
 
 
 sqlite3* DBH_CreateHandle( char* nFilePath );

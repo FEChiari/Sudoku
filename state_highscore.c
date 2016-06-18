@@ -7,6 +7,8 @@
 
 #include "screenstate.h"
 
+
+
 /*
   ===========================================================================
   Funktion: State_Highscore
@@ -16,7 +18,6 @@
           Datenbank.
   ===========================================================================
 */
-
 void ScreenState_Highscore( struct sGame* nGame )
 {
   WINDOW* pScoresPanel;
@@ -46,8 +47,15 @@ void ScreenState_Highscore( struct sGame* nGame )
     "SELECT Users.username, Highscores.score from Highscores \
     INNER JOIN  Users ON Users.id= Highscores.uid WHERE Highscores.difficulty = %d \
     ORDER BY Highscores.score DESC", nGame->difficultyLvl );
-  DBH_Query( pQuerystring, DBH_Callback_PrintScores, pScoresPanelContent, NULL );
+
+  struct DBH_CallbackArgumentPair args;
+  args.rowIter = 0;
+  args.additionalArgument = pScoresPanelContent;
+
+  DBH_Query( pQuerystring, DBH_Callback_PrintScores, &args, NULL );
+
   free( pQuerystring );
+
 
   wrefresh( nGame->whnd );
 
@@ -60,8 +68,8 @@ void ScreenState_Highscore( struct sGame* nGame )
     {
     case 0x1B: // ESC-key
       handleInput = 0;
-      nGame->prevScreenState = nGame->screenState;
-      nGame->screenState = SCREEN_MAIN_MENU;
+      nGame->screenState = nGame->prevScreenState;
+      nGame->prevScreenState = SCREEN_HIGHSCORE;
       break;
     }
 
@@ -80,25 +88,23 @@ void ScreenState_Highscore( struct sGame* nGame )
   Beschreibung: Gibt die Highscores aus der Datenbank aus.
   ===========================================================================
 */
-
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
 {
-  static iRow = 1;
-
-  WINDOW* pScoresPanelContent = ( WINDOW* ) nCallbackParam;
+  struct DBH_CallbackArgumentPair* args = ( struct DBH_CallbackArgumentPair* ) nCallbackParam;
+  WINDOW* pScoresPanelContent = ( WINDOW* ) args->additionalArgument;
 
   u8 rowWidth = getmaxx( pScoresPanelContent );
 
   char* row = malloc( rowWidth / 2 );
   memset( row, 0, rowWidth / 2 );
-  sprintf( row, "%d. %s", iRow, nColumns[ 0 ] );
+  sprintf( row, "%d. %s", args->rowIter, nColumns[ 0 ] );
 
-  mvwaddstr( pScoresPanelContent, iRow, 1, row );
-  mvwaddstr( pScoresPanelContent, iRow, rowWidth - strlen( nColumns[ 1 ] ) - 1, nColumns[ 1 ] );
+  mvwaddstr( pScoresPanelContent, args->rowIter, 1, row );
+  mvwaddstr( pScoresPanelContent, args->rowIter, rowWidth - strlen( nColumns[ 1 ] ) - 1, nColumns[ 1 ] );
 
   free( row );
 
-  iRow++;
+  args->rowIter++;
 
   return 0;
 }
