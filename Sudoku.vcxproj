@@ -120,7 +120,6 @@
   <ItemGroup>
     <ClCompile Include="dbh.c" />
     <ClCompile Include="forms.c" />
-    <ClCompile Include="input.c" />
     <ClCompile Include="lib\sqlite\sqlite3.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="solver.c" />
@@ -138,7 +137,6 @@
     <ClInclude Include="forms.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="screenstate.h" />
-    <ClInclude Include="input.h" />
     <ClInclude Include="lib\pdcurses\curses.h" />
     <ClInclude Include="lib\pdcurses\panel.h" />
     <ClInclude Include="lib\sqlite\sqlite3.h" />

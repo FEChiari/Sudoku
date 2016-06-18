@@ -31,9 +31,6 @@
     <Filter Include="Source Files\forms">
       <UniqueIdentifier>{c8330e64-c6d9-4ea4-9885-a69798669076}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Input">
-      <UniqueIdentifier>{ba4eeb19-eb27-49e7-9a43-4cb8d3c33ad5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\screenstates">
       <UniqueIdentifier>{0433962e-2f01-428d-9b47-9b5b742decb8}</UniqueIdentifier>
     </Filter>
@@ -53,9 +50,6 @@
     </ClCompile>
     <ClCompile Include="forms.c">
       <Filter>Source Files\forms</Filter>
-    </ClCompile>
-    <ClCompile Include="input.c">
-      <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="state_login.c">
       <Filter>Source Files\screenstates</Filter>
@@ -109,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="forms.h">
       <Filter>Source Files\forms</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>Source Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="screenstate.h">
       <Filter>Source Files\screenstates</Filter>
