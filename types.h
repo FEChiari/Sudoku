@@ -90,7 +90,7 @@ struct sGame
   WINDOW* whnd;
   enum eGameState prevScreenState;
   enum eGameState screenState;
-  enum eGameDifficulty difficulty;
+  enum eGameDifficulty difficultyLvl;
   struct sUser user;
   u32 gameTime;
   u32 SudokuContainer[ 9 ][ 9 ];
