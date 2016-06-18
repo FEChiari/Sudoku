@@ -18,7 +18,7 @@
 void ScreenState_Ingame( struct sGame* nGame )
 {
     int iSudoku[9][9];
-    generiereSudoku(iSudoku, (int)nGame->difficulty);
+    generiereSudoku(iSudoku, (int)nGame->difficultyLvl);
     WINDOW *ingameContainer = subwin(nGame->whnd, 21 , 39, 1, 1);
     box(ingameContainer, WA_VERTICAL, WA_HORIZONTAL);
     struct sFieldSet SpielFeld;
