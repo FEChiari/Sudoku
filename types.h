@@ -8,9 +8,9 @@
 
 #include "lib/pdcurses/panel.h"
 
-#define TITLE "Sudoku"
-#define VERSION "0.0.1"
-#define AUTHOR "Werba, Schorn, Krämer, Prinz, Engels"
+#define GAME_TITLE "Sudoku"
+#define GAME_VERSION "0.0.1"
+#define GAME_AUTHORS "Werba, Schorn, Krämer, Prinz, Engels"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

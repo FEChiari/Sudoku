@@ -24,9 +24,16 @@
 
 #include "game.h"
 
+#ifdef _WIN32
+#define MOUSE_MOVED_CURSES MOUSE_MOVED
+#undef MOUSE_MOVED
+#include <consoleapi.h>
+#undef MOUSE_MOVED
+#define MOUSE_MOVED MOUSE_MOVED_CURSES
+#endif
+
 #define DEFAULT_GAMESTATE SCREEN_LOGIN
 #define DEFAULT_DIFFICULTY DIFFICULTY_EASY
-
 
 // TODO@FE: Forms
 // TODO@FE: Clock/Timekeeping
@@ -126,6 +133,10 @@ void initialize( struct sGame* nGame )
     exit( EXIT_FAILURE );
   }
   
+#ifdef _WIN32
+  SetConsoleTitle(GAME_TITLE " - " GAME_VERSION);
+#endif
+
   resize_term( 30, 80);
 
   if ( has_colors() )
