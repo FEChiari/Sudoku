@@ -27,16 +27,16 @@ void ScreenState_Highscore( struct sGame* nGame )
 
   // Create the panel and frame
   sMainWindowDimensions = Utility_GetWindowDimensions( nGame->whnd );
-  pScoresPanel = subwin( nGame->whnd, sMainWindowDimensions.y - 4, sMainWindowDimensions.x - 20, 2, 10 );
+  pScoresPanel = subwin( nGame->whnd, sMainWindowDimensions.y - 4, sMainWindowDimensions.x - 8, 2, 4 );
   box( pScoresPanel, WA_VERTICAL, WA_HORIZONTAL );
-  mvwaddstr( pScoresPanel, 1, ( sMainWindowDimensions.x - 22 ) / 2 - 9, "Highscores - Top 10" );
-  mvwhline( pScoresPanel, 2, 1, WA_HORIZONTAL, sMainWindowDimensions.x - 22 );
+  mvwaddstr( pScoresPanel, 1, ( sMainWindowDimensions.x - 8 ) / 2 - 9, "Highscores - Top 10" );
+  mvwhline( pScoresPanel, 2, 1, WA_HORIZONTAL, sMainWindowDimensions.x - 10 );
 
   // Create an inner window for the actual contents
   sScoresPanelDimensions = Utility_GetWindowDimensions( pScoresPanel );
   pScoresPanelContent = derwin( pScoresPanel, sScoresPanelDimensions.y - 4, sScoresPanelDimensions.x - 2, 3, 1 );
 
-  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 5, "ESC: Main Menu" );
+  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 8, "ESC: Zurück" );
 
   // Certainly not the cleanest way to do this ...
   // Takes a lot less time though.
@@ -45,7 +45,7 @@ void ScreenState_Highscore( struct sGame* nGame )
   sprintf( pQuerystring,
     "SELECT Users.username, Highscores.score from Highscores \
     INNER JOIN  Users ON Users.id= Highscores.uid WHERE Highscores.difficulty = %d \
-    ORDER BY Highscores.score DESC", nGame->difficulty );
+    ORDER BY Highscores.score DESC", nGame->difficultyLvl );
   DBH_Query( pQuerystring, DBH_Callback_PrintScores, pScoresPanelContent, NULL );
   free( pQuerystring );
 
