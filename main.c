@@ -126,7 +126,7 @@ void initialize( struct sGame* nGame )
     exit( EXIT_FAILURE );
   }
   
-  resize_term( 30, 50);
+  resize_term( 30, 80);
 
   if ( has_colors() )
   {
