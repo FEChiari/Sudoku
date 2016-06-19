@@ -101,4 +101,5 @@ void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_MAIN_MENU;
   nGame->user.isGuest = 1;
+  nGame->user.username = "Gast";
 }

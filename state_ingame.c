@@ -6,6 +6,7 @@ Präprozessorkonstanten
 
 #include "screenstate.h"
 
+
 /*
 ===========================================================================
 Funktion: State_Ingame
@@ -14,7 +15,6 @@ Rückgabeparameter: -
 Beschreibung: Warte auf Code!
 ===========================================================================
 */
-
 void ScreenState_Ingame( struct sGame* nGame )
 {
 
@@ -25,7 +25,12 @@ void ScreenState_Ingame( struct sGame* nGame )
   WINDOW* statusbar_inner = derwin( statusbar_container, 1, statusbar_container->_maxx - 2, 1, 1 );
 
   mvwaddstr( statusbar_inner, 0, 1, "Spielzeit: " );
-  mvwaddstr( statusbar_inner, 0, 56, "Spieler: Gast" );
+
+  char* player_text = malloc( 64 );
+  memset( player_text, 0, 64 );
+  sprintf( player_text, "Spieler: %s", nGame->user.username );
+
+  mvwaddstr( statusbar_inner, 0, statusbar_inner->_maxx - strlen( player_text ) - 1, player_text );
 
   WINDOW* left_container = derwin( nGame->whnd, nGame->whnd->_maxy - 9, nGame->whnd->_maxx - 39, statusbar_container->_maxy + 2, nGame->whnd->_begx + 4 );
   box( left_container, WA_VERTICAL, WA_HORIZONTAL );
@@ -39,78 +44,11 @@ void ScreenState_Ingame( struct sGame* nGame )
 
 
 
-  
- 
-
-
-  mvwaddstr( left_inner, 1, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 2, 1, "                                     " );
-  mvwaddstr( left_inner, 3, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 4, 1, "                                     " );
-  mvwaddstr( left_inner, 5, 1, "  9   9   9   9   9   9   9   9   9  " );
-  
-  mvwaddstr( left_inner, 7, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 8, 1, "                                     " );
-  mvwaddstr( left_inner, 9, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 10, 1, "                                     " );
-  mvwaddstr( left_inner, 11, 1, "  9   9   9   9   9   9   9   9   9  " );
-
-  mvwaddstr( left_inner, 13, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 14, 1, "                                     " );
-  mvwaddstr( left_inner, 15, 1, "  9   9   9   9   9   9   9   9   9  " );
-  mvwaddstr( left_inner, 16, 1, "                                     " );
-  mvwaddstr( left_inner, 17, 1, "  9   9   9   9   9   9   9   9   9  " );
 
 
 
-  mvwhline( left_inner, 6, 2, ACS_HLINE, 11 );
-  mvwhline( left_inner, 6, 13, ACS_PLUS, 1 );
-  mvwhline( left_inner, 6, 14, ACS_HLINE, 11 );
-  mvwhline( left_inner, 6, 25, ACS_PLUS, 1 );
-  mvwhline( left_inner, 6, 26, ACS_HLINE, 11 );
+  Ingame_RenderField( left_inner, 2, 1, NULL );
 
-  mvwhline( left_inner, 12, 2, ACS_HLINE, 11 );
-  mvwhline( left_inner, 12, 13, ACS_PLUS, 1 );
-  mvwhline( left_inner, 12, 14, ACS_HLINE, 11 );
-  mvwhline( left_inner, 12, 25, ACS_PLUS, 1 );
-  mvwhline( left_inner, 12, 26, ACS_HLINE, 11 );
-
-
-  mvwhline( left_inner, 1, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 2, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 3, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 4, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 5, 13, ACS_VLINE, 1 );
-
-  mvwhline( left_inner, 1, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 2, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 3, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 4, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 5, 25, ACS_VLINE, 1 );
-
-  mvwhline( left_inner, 7, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 8, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 9, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 10, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 11, 13, ACS_VLINE, 1 );
-
-  mvwhline( left_inner, 7, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 8, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 9, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 10, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 11, 25, ACS_VLINE, 1 );
-
-  mvwhline( left_inner, 13, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 14, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 15, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 16, 13, ACS_VLINE, 1 );
-  mvwhline( left_inner, 17, 13, ACS_VLINE, 1 );
-
-  mvwhline( left_inner, 13, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 14, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 15, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 16, 25, ACS_VLINE, 1 );
-  mvwhline( left_inner, 17, 25, ACS_VLINE, 1 );
 
 
 
@@ -121,12 +59,10 @@ void ScreenState_Ingame( struct sGame* nGame )
 
   while ( playing )
   {
-
-
-
     u8 handleInput = 1;
     do
     {
+
 
       char time_played[ 12 ];
       time_difference = difftime( time( NULL ), time_then );
@@ -145,6 +81,7 @@ void ScreenState_Ingame( struct sGame* nGame )
       }
       mvwaddstr( statusbar_inner, 0, 12, time_played );
       wrefresh( statusbar_inner );
+
 
 
 
@@ -180,10 +117,9 @@ void ScreenState_Ingame( struct sGame* nGame )
 
     }
     while ( handleInput );
-
-
-
   }
+
+  free( player_text );
 
   delwin( statusbar_inner );
   delwin( statusbar_container );
@@ -296,4 +232,77 @@ void ScreenState_Ingame( struct sGame* nGame )
 
   //delwin(SpielFeld.whnd);
   //delwin(ingameContainer);
+}
+
+void Ingame_RenderField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, u8* nValues )
+{
+
+  mvwaddstr( nTargetWindow, 0 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 1 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 2 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 3 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 4 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+
+  mvwaddstr( nTargetWindow, 6 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 7 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 8 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 9 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 10 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+
+  mvwaddstr( nTargetWindow, 12 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 13 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 14 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+  mvwaddstr( nTargetWindow, 15 + nYOffset, 0 + nXOffset, "                                     " );
+  mvwaddstr( nTargetWindow, 16 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
+
+  // render the gridlines
+
+  mvwhline( nTargetWindow, 5 + nYOffset, 0 + nXOffset, ACS_HLINE, 11 );
+  mvwhline( nTargetWindow, 5 + nYOffset, 11 + nXOffset, ACS_PLUS, 1 );
+  mvwhline( nTargetWindow, 5 + nYOffset, 12 + nXOffset, ACS_HLINE, 11 );
+  mvwhline( nTargetWindow, 5 + nYOffset, 23 + nXOffset, ACS_PLUS, 1 );
+  mvwhline( nTargetWindow, 5 + nYOffset, 24 + nXOffset, ACS_HLINE, 11 );
+
+  mvwhline( nTargetWindow, 11 + nYOffset, 0 + nXOffset, ACS_HLINE, 11 );
+  mvwhline( nTargetWindow, 11 + nYOffset, 11 + nXOffset, ACS_PLUS, 1 );
+  mvwhline( nTargetWindow, 11 + nYOffset, 12 + nXOffset, ACS_HLINE, 11 );
+  mvwhline( nTargetWindow, 11 + nYOffset, 23 + nXOffset, ACS_PLUS, 1 );
+  mvwhline( nTargetWindow, 11 + nYOffset, 24 + nXOffset, ACS_HLINE, 11 );
+
+  mvwvline( nTargetWindow, 0 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 1 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 2 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 3 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 4 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+
+  mvwvline( nTargetWindow, 0 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 1 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 2 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 3 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 4 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+
+  mvwvline( nTargetWindow, 6 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 7 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 8 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 9 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 10 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+
+  mvwvline( nTargetWindow, 6 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 7 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 8 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 9 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 10 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+
+  mvwvline( nTargetWindow, 12 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 13 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 14 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 15 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 16 + nYOffset, 11 + nXOffset, ACS_VLINE, 1 );
+
+  mvwvline( nTargetWindow, 12 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 13 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 14 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 15 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+  mvwvline( nTargetWindow, 16 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+
 }
