@@ -17,4 +17,3 @@
 
 int Utility_GetKeyCode();
 int Utility_WGetKeyCode( WINDOW* nTarget );
-struct sVec2 Utility_GetWindowDimensions( WINDOW* nTarget );

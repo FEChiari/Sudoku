@@ -22,22 +22,19 @@ void ScreenState_Highscore( struct sGame* nGame )
 {
   WINDOW* pScoresPanel;
   WINDOW* pScoresPanelContent;
-  struct sVec2 sMainWindowDimensions, sScoresPanelDimensions;
 
   wclear( nGame->whnd );
 
   // Create the panel and frame
-  sMainWindowDimensions = Utility_GetWindowDimensions( nGame->whnd );
-  pScoresPanel = subwin( nGame->whnd, sMainWindowDimensions.y - 4, sMainWindowDimensions.x - 8, 2, 4 );
+  pScoresPanel = subwin( nGame->whnd, nGame->whnd->_maxy - 4, nGame->whnd->_maxx - 8, 2, 4 );
   box( pScoresPanel, WA_VERTICAL, WA_HORIZONTAL );
-  mvwaddstr( pScoresPanel, 1, ( sMainWindowDimensions.x - 8 ) / 2 - 9, "Highscores - Top 10" );
-  mvwhline( pScoresPanel, 2, 1, WA_HORIZONTAL, sMainWindowDimensions.x - 10 );
+  mvwaddstr( pScoresPanel, 1, ( nGame->whnd->_maxx - 8 ) / 2 - 9, "Highscores - Top 10" );
+  mvwhline( pScoresPanel, 2, 1, WA_HORIZONTAL, nGame->whnd->_maxx - 10 );
 
   // Create an inner window for the actual contents
-  sScoresPanelDimensions = Utility_GetWindowDimensions( pScoresPanel );
-  pScoresPanelContent = derwin( pScoresPanel, sScoresPanelDimensions.y - 4, sScoresPanelDimensions.x - 2, 3, 1 );
+  pScoresPanelContent = derwin( pScoresPanel, pScoresPanel->_maxy - 4, pScoresPanel->_maxx - 2, 3, 1 );
 
-  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 11, "ESC: Hauptmenü" );
+  mvwaddstr( nGame->whnd, pScoresPanel->_maxy + 2, pScoresPanel->_maxx - 11, "ESC: Hauptmenü" );
 
   // Certainly not the cleanest way to do this ...
   // Takes a lot less time though.

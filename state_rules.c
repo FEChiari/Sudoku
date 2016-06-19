@@ -11,20 +11,17 @@ void ScreenState_Rules( struct sGame* nGame )
 {
   WINDOW* pRulesPanel;
   WINDOW* pRulesPanelContent;
-  struct sVec2 sMainWindowDimensions, sRulesPanelDimensions;
 
   wclear( nGame->whnd );
 
   // Create the panel and frame
-  sMainWindowDimensions = Utility_GetWindowDimensions( nGame->whnd );
-  pRulesPanel = subwin( nGame->whnd, sMainWindowDimensions.y - 4, sMainWindowDimensions.x - 8, 2, 4 );
+  pRulesPanel = subwin( nGame->whnd, nGame->whnd->_maxy - 4, nGame->whnd->_maxx - 8, 2, 4 );
   box( pRulesPanel, WA_VERTICAL, WA_HORIZONTAL );
-  mvwaddstr( pRulesPanel, 1, ( sMainWindowDimensions.x - 8 ) / 2 - 9, "Sudoku - Spielregeln" );
-  mvwhline( pRulesPanel, 2, 1, WA_HORIZONTAL, sMainWindowDimensions.x - 10 );
+  mvwaddstr( pRulesPanel, 1, ( nGame->whnd->_maxx - 8 ) / 2 - 9, "Sudoku - Spielregeln" );
+  mvwhline( pRulesPanel, 2, 1, WA_HORIZONTAL, nGame->whnd->_maxx - 10 );
 
   // Create an inner window for the actual contents
-  sRulesPanelDimensions = Utility_GetWindowDimensions( pRulesPanel );
-  pRulesPanelContent = derwin( pRulesPanel, sRulesPanelDimensions.y - 4, sRulesPanelDimensions.x - 2, 3, 1 );
+  pRulesPanelContent = derwin( pRulesPanel, pRulesPanel->_maxy - 4, pRulesPanel->_maxx - 2, 3, 1 );
 
   char rules[] =
 
@@ -44,7 +41,7 @@ void ScreenState_Rules( struct sGame* nGame )
     " bis der/die Fehler gefunden wurden.";
 
   mvwaddstr( pRulesPanelContent, 0, 0, rules );
-  mvwaddstr( nGame->whnd, sRulesPanelDimensions.y + 2, sRulesPanelDimensions.x - 11, "ESC: Hauptmenü" );
+  mvwaddstr( nGame->whnd, pRulesPanel->_maxy + 2, pRulesPanel->_maxx - 11, "ESC: Hauptmenü" );
 
   wrefresh( nGame->whnd );
 

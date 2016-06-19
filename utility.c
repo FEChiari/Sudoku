@@ -34,21 +34,3 @@ int Utility_WGetKeyCode( WINDOW* nTarget )
 {
   return wgetch( nTarget );
 }
-
-/*
-  ===========================================================================
-  Funktion: Utility_GetWindowDimensions
-  Übergabeparameter: nTarget
-  Rückgabeparameter: d
-  Beschreibung: 
-  ===========================================================================
-*/
-struct sVec2 Utility_GetWindowDimensions( WINDOW* nTarget )
-{
-  struct sVec2 d;
-
-  d.x = getmaxx( nTarget );
-  d.y = getmaxy( nTarget );
-
-  return d;
-}
