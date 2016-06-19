@@ -37,7 +37,7 @@ void ScreenState_Highscore( struct sGame* nGame )
   sScoresPanelDimensions = Utility_GetWindowDimensions( pScoresPanel );
   pScoresPanelContent = derwin( pScoresPanel, sScoresPanelDimensions.y - 4, sScoresPanelDimensions.x - 2, 3, 1 );
 
-  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 8, "ESC: Zurück" );
+  mvwaddstr( nGame->whnd, sScoresPanelDimensions.y + 2, sScoresPanelDimensions.x - 11, "ESC: Hauptmenü" );
 
   // Certainly not the cleanest way to do this ...
   // Takes a lot less time though.
