@@ -27,32 +27,90 @@ void ScreenState_Ingame( struct sGame* nGame )
   mvwaddstr( statusbar_inner, 0, 1, "Spielzeit: " );
   mvwaddstr( statusbar_inner, 0, 56, "Spieler: Gast" );
 
-  WINDOW* left_container = derwin( nGame->whnd, nGame->whnd->_maxy - 8, nGame->whnd->_maxx - 36, statusbar_container->_maxy + 2, nGame->whnd->_begx + 4 );
+  WINDOW* left_container = derwin( nGame->whnd, nGame->whnd->_maxy - 9, nGame->whnd->_maxx - 39, statusbar_container->_maxy + 2, nGame->whnd->_begx + 4 );
   box( left_container, WA_VERTICAL, WA_HORIZONTAL );
   WINDOW* left_inner = derwin( left_container, left_container->_maxy - 2, left_container->_maxx - 2, 1, 1 );
 
-  char left_text[ 32 ];
-  sprintf( left_text, "left container\n(%dx%d)", left_container->_maxx, left_container->_maxy );
-  mvwaddstr( left_inner, 0, 1, left_text );
-
-  WINDOW* right_container = derwin( nGame->whnd, left_container->_maxy, 28, statusbar_container->_maxy + 2, left_container->_maxx + 4 );
+  WINDOW* right_container = derwin( nGame->whnd, left_container->_maxy, 31, statusbar_container->_maxy + 2, left_container->_maxx + 4 );
   box( right_container, WA_VERTICAL, WA_HORIZONTAL );
   WINDOW* right_inner = derwin( right_container, right_container->_maxy - 2, right_container->_maxx - 2, 1, 1 );
 
-
-  char right_text[ 32 ];
-  sprintf( right_text, "right container\n(%dx%d)", right_container->_maxx, right_container->_maxy );
-  mvwaddstr( right_inner, 0, 1, right_text );
-
-  mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
+  mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 
 
 
+  
+ 
+
+
+  mvwaddstr( left_inner, 1, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 2, 1, "                                     " );
+  mvwaddstr( left_inner, 3, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 4, 1, "                                     " );
+  mvwaddstr( left_inner, 5, 1, "  9   9   9   9   9   9   9   9   9  " );
+  
+  mvwaddstr( left_inner, 7, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 8, 1, "                                     " );
+  mvwaddstr( left_inner, 9, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 10, 1, "                                     " );
+  mvwaddstr( left_inner, 11, 1, "  9   9   9   9   9   9   9   9   9  " );
+
+  mvwaddstr( left_inner, 13, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 14, 1, "                                     " );
+  mvwaddstr( left_inner, 15, 1, "  9   9   9   9   9   9   9   9   9  " );
+  mvwaddstr( left_inner, 16, 1, "                                     " );
+  mvwaddstr( left_inner, 17, 1, "  9   9   9   9   9   9   9   9   9  " );
 
 
 
+  mvwhline( left_inner, 6, 2, ACS_HLINE, 11 );
+  mvwhline( left_inner, 6, 13, ACS_PLUS, 1 );
+  mvwhline( left_inner, 6, 14, ACS_HLINE, 11 );
+  mvwhline( left_inner, 6, 25, ACS_PLUS, 1 );
+  mvwhline( left_inner, 6, 26, ACS_HLINE, 11 );
+
+  mvwhline( left_inner, 12, 2, ACS_HLINE, 11 );
+  mvwhline( left_inner, 12, 13, ACS_PLUS, 1 );
+  mvwhline( left_inner, 12, 14, ACS_HLINE, 11 );
+  mvwhline( left_inner, 12, 25, ACS_PLUS, 1 );
+  mvwhline( left_inner, 12, 26, ACS_HLINE, 11 );
 
 
+  mvwhline( left_inner, 1, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 2, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 3, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 4, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 5, 13, ACS_VLINE, 1 );
+
+  mvwhline( left_inner, 1, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 2, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 3, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 4, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 5, 25, ACS_VLINE, 1 );
+
+  mvwhline( left_inner, 7, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 8, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 9, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 10, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 11, 13, ACS_VLINE, 1 );
+
+  mvwhline( left_inner, 7, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 8, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 9, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 10, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 11, 25, ACS_VLINE, 1 );
+
+  mvwhline( left_inner, 13, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 14, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 15, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 16, 13, ACS_VLINE, 1 );
+  mvwhline( left_inner, 17, 13, ACS_VLINE, 1 );
+
+  mvwhline( left_inner, 13, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 14, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 15, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 16, 25, ACS_VLINE, 1 );
+  mvwhline( left_inner, 17, 25, ACS_VLINE, 1 );
 
 
 
@@ -75,15 +133,15 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       if ( time_difference >= 3600 )
       {
-        sprintf( time_played, "%dh %dm %ds", ( u8 ) time_difference / 3600, ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
+        sprintf( time_played, "%.2dh %.2dm %.2ds", ( u8 ) time_difference / 3600, ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
       }
       else if ( time_difference >= 60 )
       {
-        sprintf( time_played, "%dm %ds", ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
+        sprintf( time_played, "%.2dm %.2ds", ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
       }
       else
       {
-        sprintf( time_played, "%ds", ( u8 ) time_difference );
+        sprintf( time_played, "%.2ds", ( u8 ) time_difference );
       }
       mvwaddstr( statusbar_inner, 0, 12, time_played );
       wrefresh( statusbar_inner );
@@ -117,7 +175,7 @@ void ScreenState_Ingame( struct sGame* nGame )
       // catch all numerical keys, top-row and numblock
       if ( key >= 0x30 && key <= 0x39 || key >= 0x60 && key <= 0x69 )
       {
-        
+
       }
 
     }
