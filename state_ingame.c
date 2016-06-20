@@ -17,7 +17,6 @@ Beschreibung: Warte auf Code!
 */
 void ScreenState_Ingame( struct sGame* nGame )
 {
-
   wclear( nGame->whnd );
 
   WINDOW* statusbar_container = derwin( nGame->whnd, nGame->whnd->_begy + 3, nGame->whnd->_maxx - 8, 2, 4 );
@@ -49,7 +48,7 @@ void ScreenState_Ingame( struct sGame* nGame )
   mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 
   Ingame_RenderField( left_inner, 2, 1, &nGame->gameState.field[ 0 ][ 0 ] );
-  
+
   u8 playing = 1;
   time_t time_then = time( NULL ) - nGame->gameState.timePlayed;
 
@@ -74,9 +73,6 @@ void ScreenState_Ingame( struct sGame* nGame )
       }
       mvwaddstr( statusbar_inner, 0, 12, timeString );
       wrefresh( statusbar_inner );
-
-
-
 
       char key = Utility_WGetKeyCode( nGame->whnd );
 
@@ -121,7 +117,7 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       }
 
-      nGame->gameState.timePlayed = (u8) difftime(time(NULL), time_then);
+      nGame->gameState.timePlayed = ( u8 ) difftime( time( NULL ), time_then );
 
     }
     while ( handleInput );
@@ -141,6 +137,17 @@ void ScreenState_Ingame( struct sGame* nGame )
 
 void Ingame_RenderField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nFields )
 {
+  srand( time( NULL ) );
+  struct sSudokuField field[ 9 ][ 9 ];
+
+  for ( u8 iRow = 0; iRow < 9; iRow++ )
+  {
+    for ( u8 iCol = 0; iCol < 9; iCol++ )
+    {
+      field[ iRow ][ iCol ].type = FIELD_GENERATED;
+      field[ iRow ][ iCol ].value = ( rand() % 9 ) + 1;
+    }
+  }
 
   mvwaddstr( nTargetWindow, 0 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
   mvwaddstr( nTargetWindow, 1 + nYOffset, 0 + nXOffset, "                                     " );

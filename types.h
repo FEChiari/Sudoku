@@ -53,14 +53,16 @@ struct sUser
   char* password;
 };
 
+enum eSudokuFieldType
+{
+  FIELD_GENERATED,
+  FIELD_FILLED_IN,
+};
+
 struct sSudokuField
 {
   u8 value;
-  enum
-  {
-    GENERATED,
-    FILLED_IN
-  } type;
+  enum eSudokuFieldType type;
 };
 
 struct sGameState
