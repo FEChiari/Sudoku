@@ -47,11 +47,11 @@ void ScreenState_Ingame( struct sGame* nGame )
 
 
 
-  Ingame_RenderField( left_inner, 2, 1, NULL );
 
 
 
 
+  Ingame_RenderField( left_inner, 2, 1, &nGame->gameState.field[0][0] );
 
   u8 playing = 1;
   time_t time_then = time( NULL );

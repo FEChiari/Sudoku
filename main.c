@@ -124,7 +124,7 @@ void initialize( struct sGame* nGame )
   nGame->flags.isRunning = 1;
   nGame->screenState = DEFAULT_GAMESTATE;
   nGame->prevScreenState = nGame->screenState;
-  nGame->difficultyLvl = DEFAULT_DIFFICULTY;
+  nGame->gameState.difficultyLvl = DEFAULT_DIFFICULTY;
 
   if ( ( nGame->whnd = initscr() ) == NULL )
   {

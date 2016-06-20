@@ -51,8 +51,24 @@ struct sUser
   u32 userId;
   char* username;
   char* password;
+};
+
+struct sSudokuField
+{
+  u8 value;
+  enum
+  {
+    GENERATED,
+    FILLED_IN
+  } type;
+};
+
+struct sGameState
+{
+  struct sSudokuField field[ 9 ][ 9 ];
+  enum eDifficulty difficultyLvl;
+  time_t timePlayed;
   u32 score;
-  u32 timePlayed;
 };
 
 struct sGame
@@ -60,10 +76,8 @@ struct sGame
   WINDOW* whnd;
   enum eScreenState prevScreenState;
   enum eScreenState screenState;
-  enum eDifficulty difficultyLvl;
+  struct sGameState gameState;
   struct sUser user;
-  u32 gameTime;
-  u32 SudokuContainer[ 9 ][ 9 ];
   struct
   {
     u8 isRunning;
@@ -75,9 +89,7 @@ enum eFieldType
 {
   INPUT_NUMERIC,
   INPUT_LOWERALPHA_NUMERIC,
-  INPUT_BUTTON,
-  INPUT_BOARDFIELD,
-  STATIC_BOARDFIELD,
+  INPUT_BUTTON
 };
 
 struct sFieldDef

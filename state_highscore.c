@@ -43,7 +43,7 @@ void ScreenState_Highscore( struct sGame* nGame )
   sprintf( pQuerystring,
     "SELECT Users.username, Highscores.score from Highscores \
     INNER JOIN  Users ON Users.id= Highscores.uid WHERE Highscores.difficulty = %d \
-    ORDER BY Highscores.score DESC", nGame->difficultyLvl );
+    ORDER BY Highscores.score DESC", nGame->gameState.difficultyLvl );
 
   struct DBH_CallbackArgumentPair args;
   args.rowIter = 0;
