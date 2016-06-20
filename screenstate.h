@@ -34,7 +34,7 @@ void BtnCallback_OnQuitGame( struct sGame * nGame );
 
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
 
-void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nFields );
+void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField nFields[ 9 ][ 9 ] );
 
 void BtnCallback_OnLogin( struct sGame* nGame );
 void BtnCallback_OnPlayAsGuest( struct sGame* nGame );

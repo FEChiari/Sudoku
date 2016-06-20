@@ -47,13 +47,12 @@ void ScreenState_Ingame( struct sGame* nGame )
 
   mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 
-  Ingame_RenderBoard( left_inner, 2, 1, &nGame->gameState.field[ 0 ][ 0 ] );
-
   u8 playing = 1;
   time_t time_then = time( NULL ) - nGame->gameState.timePlayed;
 
   while ( playing )
   {
+
     u8 handleInput = 1;
     do
     {
@@ -117,10 +116,14 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       }
 
+      Ingame_RenderBoard( left_inner, 2, 1, nGame->gameState.field );
+      wrefresh( left_inner );
+
       nGame->gameState.timePlayed = ( u8 ) difftime( time( NULL ), time_then );
 
     }
     while ( handleInput );
+
   }
 
   free( player_text );
@@ -201,25 +204,16 @@ void Ingame_RenderSingleField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, 
   
 }
 
-void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nFields )
+void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField nFields[ 9 ][ 9 ] )
 {
-
-  srand( time( NULL ) );
-  struct sSudokuField fields[ 9 ][ 9 ];
-
   for ( u8 iRow = 0; iRow < 9; iRow++ )
   {
     for ( u8 iCol = 0; iCol < 9; iCol++ )
     {
-      fields[ iRow ][ iCol ].type = FIELD_GENERATED;
-      fields[ iRow ][ iCol ].value = ( rand() % 9 ) + 1;
-      fields[ iRow ][ iCol ].row = iRow;
-      fields[ iRow ][ iCol ].col = iCol;
-      Ingame_RenderSingleField( nTargetWindow, nXOffset, nYOffset, &fields[ iRow ][ iCol ] );
+      Ingame_RenderSingleField( nTargetWindow, nXOffset, nYOffset, &nFields[iRow][iCol] );
     }
   }
 
   // render the gridlines
   Ingame_RenderGrid( nTargetWindow, nXOffset, nYOffset );
-
 }
