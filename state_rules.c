@@ -41,7 +41,7 @@ void ScreenState_Rules( struct sGame* nGame )
     " bis der/die Fehler gefunden wurden.";
 
   mvwaddstr( pRulesPanelContent, 0, 0, rules );
-  mvwaddstr( nGame->whnd, pRulesPanel->_maxy + 2, pRulesPanel->_maxx - 11, "ESC: Hauptmenü" );
+  mvwaddstr( nGame->whnd, pRulesPanel->_maxy + 2, pRulesPanel->_maxx - 8, "ESC: Zurück" );
 
   wrefresh( nGame->whnd );
 

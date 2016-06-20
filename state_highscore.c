@@ -34,7 +34,7 @@ void ScreenState_Highscore( struct sGame* nGame )
   // Create an inner window for the actual contents
   pScoresPanelContent = derwin( pScoresPanel, pScoresPanel->_maxy - 4, pScoresPanel->_maxx - 2, 3, 1 );
 
-  mvwaddstr( nGame->whnd, pScoresPanel->_maxy + 2, pScoresPanel->_maxx - 11, "ESC: Hauptmenü" );
+  mvwaddstr( nGame->whnd, pScoresPanel->_maxy + 2, pScoresPanel->_maxx - 8, "ESC: Zurück" );
 
   // Certainly not the cleanest way to do this ...
   // Takes a lot less time though.
