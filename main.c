@@ -108,6 +108,8 @@ int main( int argc, char* argv[] )
   }
 
   terminate( &g );
+
+  return EXIT_SUCCESS;
 }
 
 /*
