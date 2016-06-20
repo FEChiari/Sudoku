@@ -47,7 +47,7 @@ void ScreenState_Ingame( struct sGame* nGame )
 
   mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 
-  Ingame_RenderField( left_inner, 2, 1, &nGame->gameState.field[ 0 ][ 0 ] );
+  Ingame_RenderBoard( left_inner, 2, 1, &nGame->gameState.field[ 0 ][ 0 ] );
 
   u8 playing = 1;
   time_t time_then = time( NULL ) - nGame->gameState.timePlayed;
@@ -135,40 +135,8 @@ void ScreenState_Ingame( struct sGame* nGame )
   delwin( right_container );
 }
 
-void Ingame_RenderField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nFields )
+void Ingame_RenderGrid( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset )
 {
-  srand( time( NULL ) );
-  struct sSudokuField field[ 9 ][ 9 ];
-
-  for ( u8 iRow = 0; iRow < 9; iRow++ )
-  {
-    for ( u8 iCol = 0; iCol < 9; iCol++ )
-    {
-      field[ iRow ][ iCol ].type = FIELD_GENERATED;
-      field[ iRow ][ iCol ].value = ( rand() % 9 ) + 1;
-    }
-  }
-
-  mvwaddstr( nTargetWindow, 0 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 1 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 2 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 3 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 4 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-
-  mvwaddstr( nTargetWindow, 6 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 7 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 8 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 9 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 10 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-
-  mvwaddstr( nTargetWindow, 12 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 13 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 14 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-  mvwaddstr( nTargetWindow, 15 + nYOffset, 0 + nXOffset, "                                     " );
-  mvwaddstr( nTargetWindow, 16 + nYOffset, 0 + nXOffset, " 9   9   9   9   9   9   9   9   9 " );
-
-  // render the gridlines
-
   mvwhline( nTargetWindow, 5 + nYOffset, 0 + nXOffset, ACS_HLINE, 11 );
   mvwhline( nTargetWindow, 5 + nYOffset, 11 + nXOffset, ACS_PLUS, 1 );
   mvwhline( nTargetWindow, 5 + nYOffset, 12 + nXOffset, ACS_HLINE, 11 );
@@ -216,5 +184,42 @@ void Ingame_RenderField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct
   mvwvline( nTargetWindow, 14 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
   mvwvline( nTargetWindow, 15 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
   mvwvline( nTargetWindow, 16 + nYOffset, 23 + nXOffset, ACS_VLINE, 1 );
+}
+
+void Ingame_RenderSingleField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nField )
+{
+  u8 row = nField->row * 2;
+  u8 col = nField->col * 4;
+
+  if ( nField->value == 0 ) return;
+
+  if ( nField->type == FIELD_GENERATED )
+    wattron(nTargetWindow, COLOR_PAIR( 3 ) );
+  
+  mvwprintw( nTargetWindow, row + nYOffset, col + nXOffset + 1, "%d", nField->value );
+  wattron( nTargetWindow, COLOR_PAIR( 1 ) );
+  
+}
+
+void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField* nFields )
+{
+
+  srand( time( NULL ) );
+  struct sSudokuField fields[ 9 ][ 9 ];
+
+  for ( u8 iRow = 0; iRow < 9; iRow++ )
+  {
+    for ( u8 iCol = 0; iCol < 9; iCol++ )
+    {
+      fields[ iRow ][ iCol ].type = FIELD_GENERATED;
+      fields[ iRow ][ iCol ].value = ( rand() % 9 ) + 1;
+      fields[ iRow ][ iCol ].row = iRow;
+      fields[ iRow ][ iCol ].col = iCol;
+      Ingame_RenderSingleField( nTargetWindow, nXOffset, nYOffset, &fields[ iRow ][ iCol ] );
+    }
+  }
+
+  // render the gridlines
+  Ingame_RenderGrid( nTargetWindow, nXOffset, nYOffset );
 
 }

@@ -62,6 +62,8 @@ enum eSudokuFieldType
 struct sSudokuField
 {
   u8 value;
+  u8 row;
+  u8 col;
   enum eSudokuFieldType type;
 };
 
