@@ -94,6 +94,16 @@ void ScreenState_Ingame( struct sGame* nGame )
       case 0x04: // left-arrow key
 
         break;
+      case 0x20: // space key
+
+        break;
+      case 0x4A: // delete key
+
+        break;
+      case 0x68: // h key
+      case 0x48: // H key
+
+        break;
       case 0x1B: // ESC-key
         handleInput = 0;
         playing = 0;
