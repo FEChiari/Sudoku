@@ -49,34 +49,30 @@ void ScreenState_Ingame( struct sGame* nGame )
   mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 
   Ingame_RenderField( left_inner, 2, 1, &nGame->gameState.field[ 0 ][ 0 ] );
-
+  
   u8 playing = 1;
-  time_t time_then = time( NULL );
-  double time_difference = 0;
+  time_t time_then = time( NULL ) - nGame->gameState.timePlayed;
 
   while ( playing )
   {
     u8 handleInput = 1;
     do
     {
+      char timeString[ 12 ];
 
-
-      char time_played[ 12 ];
-      time_difference = difftime( time( NULL ), time_then );
-
-      if ( time_difference >= 3600 )
+      if ( nGame->gameState.timePlayed >= 3600 )
       {
-        sprintf( time_played, "%.2dh %.2dm %.2ds", ( u8 ) time_difference / 3600, ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
+        sprintf( timeString, "%.2dh %.2dm %.2ds", ( u8 ) nGame->gameState.timePlayed / 3600, ( u8 ) nGame->gameState.timePlayed / 60, ( u8 ) nGame->gameState.timePlayed % 60 );
       }
-      else if ( time_difference >= 60 )
+      else if ( nGame->gameState.timePlayed >= 60 )
       {
-        sprintf( time_played, "%.2dm %.2ds", ( u8 ) time_difference / 60, ( u8 ) time_difference % 60 );
+        sprintf( timeString, "%.2dm %.2ds", ( u8 ) nGame->gameState.timePlayed / 60, ( u8 ) nGame->gameState.timePlayed % 60 );
       }
       else
       {
-        sprintf( time_played, "%.2ds", ( u8 ) time_difference );
+        sprintf( timeString, "%.2ds", ( u8 ) nGame->gameState.timePlayed );
       }
-      mvwaddstr( statusbar_inner, 0, 12, time_played );
+      mvwaddstr( statusbar_inner, 0, 12, timeString );
       wrefresh( statusbar_inner );
 
 
@@ -111,6 +107,8 @@ void ScreenState_Ingame( struct sGame* nGame )
       {
 
       }
+
+      nGame->gameState.timePlayed = (u8) difftime(time(NULL), time_then);
 
     }
     while ( handleInput );
