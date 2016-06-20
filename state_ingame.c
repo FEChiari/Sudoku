@@ -102,13 +102,16 @@ void ScreenState_Ingame( struct sGame* nGame )
         break;
       case 0x68: // h key
       case 0x48: // H key
-
+        handleInput = 0;
+        playing = 0;
+        nGame->prevScreenState = nGame->screenState;
+        nGame->screenState = SCREEN_RULES;
         break;
       case 0x1B: // ESC-key
         handleInput = 0;
         playing = 0;
-        nGame->screenState = nGame->prevScreenState;
-        nGame->prevScreenState = SCREEN_INGAME;
+        nGame->prevScreenState = nGame->screenState;
+        nGame->screenState = SCREEN_MAIN_MENU;
         break;
       }
 
