@@ -2,7 +2,7 @@
   ===========================================================================
   Dateiname: dbh.c
   Firma: HHBK Trendo Research Center
-  Autor: Patrick Schorn, Fabian Engels
+  Autoren: Patrick Schorn, Fabian Engels
   IDE: Visual Studio 2015
   Programmschnittstellen:
   Beschreibung: Stellt eine Verbindung zu den Datenbanken her. Ermöglicht das
@@ -58,7 +58,7 @@ void DBH_CloseHandle( sqlite3* nHandle )
   Funktion: DBH_Query
   Übergabeparameter: nQueryString, nCallback, nCallbackArgument, pErrMsgnErrorMsg
   Rückgabeparameter: sqlite3_exec
-  Beschreibung: 
+  Beschreibung: Prüft, ob ein SQL-Statement vorhanden ist
   ===========================================================================
 */
 
