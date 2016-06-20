@@ -24,14 +24,6 @@
 
 #include "game.h"
 
-#ifdef _WIN32
-#define MOUSE_MOVED_CURSES MOUSE_MOVED
-#undef MOUSE_MOVED
-#include <consoleapi.h>
-#undef MOUSE_MOVED
-#define MOUSE_MOVED MOUSE_MOVED_CURSES
-#endif
-
 #define DEFAULT_GAMESTATE SCREEN_LOGIN
 #define DEFAULT_DIFFICULTY DIFFICULTY_EASY
 
