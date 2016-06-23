@@ -144,6 +144,8 @@ void initialize( struct sGame* nGame )
     init_pair( 1, COLOR_WHITE, COLOR_BLACK ); // standard text
     init_pair( 2, COLOR_BLACK, COLOR_WHITE ); // inverted text
     init_pair( 3, COLOR_GREEN, COLOR_BLACK ); // pre-filled numbers for sudoku-board
+	init_pair(4, COLOR_WHITE, COLOR_WHITE); //passwordfield active
+	init_pair(5, COLOR_BLACK, COLOR_BLACK); //passwordfield inactive
   }
 
   DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );
