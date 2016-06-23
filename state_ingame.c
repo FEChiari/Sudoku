@@ -121,6 +121,14 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       nGame->gameState.timePlayed = ( u8 ) difftime( time( NULL ), time_then );
 
+      if ( sudokuPruefung( nGame->gameState.gameboard ) )
+      {
+        handleInput = 0;
+        playing = 0;
+        nGame->prevScreenState = nGame->screenState;
+        nGame->screenState = SCREEN_MAIN_MENU; // for now
+      }
+
     }
     while ( handleInput );
 
