@@ -96,6 +96,9 @@ int main( int argc, char* argv[] )
     case SCREEN_RULES:
       ScreenState_Rules( &g );
       break;
+	case SCREEN_DIFFICULTY:
+		  ScreenState_Difficulty(&g);
+		  break;
     }
   }
 

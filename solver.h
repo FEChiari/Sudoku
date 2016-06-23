@@ -21,8 +21,8 @@
 	===========================================================================
 */
 
-int sudokuPruefung( int[][ MATRIX_SIZE ] );
-int loeseSudoku( int[][ MATRIX_SIZE ] );
-int zifferPruefung( int[][ MATRIX_SIZE ], int, int, int );
-int zaehleLeereFelder( int[][ MATRIX_SIZE ] );
-void generiereSudoku( int[][ MATRIX_SIZE ], int );
+int sudokuPruefung( struct sSudokuField[][ MATRIX_SIZE ] );
+int loeseSudoku( struct sSudokuField[][ MATRIX_SIZE ] );
+int zifferPruefung( struct sSudokuField[][ MATRIX_SIZE ], int, int, int );
+int zaehleLeereFelder( struct sSudokuField[][ MATRIX_SIZE ] );
+void generiereSudoku( struct sSudokuField[][ MATRIX_SIZE ], int );

@@ -29,6 +29,7 @@ enum eScreenState
   SCREEN_INGAME,
   SCREEN_RULES,
   SCREEN_OPTIONS,
+  SCREEN_DIFFICULTY,
 };
 
 enum eDifficulty
@@ -49,8 +50,8 @@ struct sUser
 {
   u8 isGuest;
   u32 userId;
-  char* username;
-  char* password;
+  char username[13];
+  char password[13];
 };
 
 enum eSudokuFieldType
@@ -93,7 +94,8 @@ enum eFieldType
 {
   INPUT_NUMERIC,
   INPUT_LOWERALPHA_NUMERIC,
-  INPUT_BUTTON
+  INPUT_BUTTON,
+  STATIC_LOWERALPHA_NUMERIC, //Idee, für menüs ein Feld zum lesen und eins zum schreiben. Macht char * label von FieldDef irrelephant.
 };
 
 struct sFieldDef

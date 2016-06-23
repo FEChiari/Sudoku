@@ -57,7 +57,7 @@
    Rueckgabewerte: 0, 1
    ======================================================================== 
 */
-int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
+int loeseSudoku(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
 	int i,j,k,l;
    int izahlenArray[MATRIX_SIZE];
    int iZufall, iZiffer;
@@ -65,7 +65,7 @@ int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
 	/* Suche nach "leeren Feldern" (Felder mit Wert = 0) */
 	for (i = 0; i < MATRIX_SIZE; i++) {
 		for (j = 0; j < MATRIX_SIZE; j++) {
-			if (sudokumatrix[i][j] == 0) {
+			if (sudokumatrix[i][j].value == 0) {
 				/* 
 				Ist ein "leeres Feld" gefunden, wird vom Algorithmus
             eine zufällige Zahl zwischen 1 und 9 geprüft und,
@@ -93,7 +93,7 @@ int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
                izahlenArray[iZufall] = izahlenArray[MATRIX_SIZE-(k+1)];              
 
 					if (zifferPruefung(sudokumatrix, i, j, iZiffer)) {
-						sudokumatrix[i][j] = iZiffer;
+						sudokumatrix[i][j].value = iZiffer;
 						/* 	
 						Nach dem Einsetzen einer passenden Zahl wird der 
                   Algorithmus rekursiv aufgerufen und prüft die nächste 
@@ -107,7 +107,7 @@ int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
 							der letzte Wert wieder auf 0 gesetzt und die nächste
 							mögliche Zahl geprüft. (for-Schleife in Zeile 92)
 							*/
-							sudokumatrix[i][j] = 0;
+							sudokumatrix[i][j].value = 0;
 						}
 					}
 				}
@@ -135,7 +135,7 @@ int loeseSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]){
    Rueckgabewerte: 0, 1
    ======================================================================== 
 */
-int zifferPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], int x, 
+int zifferPruefung(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], int x, 
                      int y, int iZahl) {
 	int i;
 	/*
@@ -146,10 +146,10 @@ int zifferPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], int x,
 	int yBeginn=y-y%3;
 	for (i = 0; i < MATRIX_SIZE; i++) {
 		// Reihe und Spalte der übergebenen Koordinaten x und y:
-		if(sudokumatrix[i][y] == iZahl || sudokumatrix[x][i] == iZahl)
+		if(sudokumatrix[i][y].value == iZahl || sudokumatrix[x][i].value == iZahl)
 			return 0;
 		// Block der übergebenen Koordinaten x und y:
-		if (sudokumatrix[xBeginn+i%3][yBeginn+i/3] == iZahl)
+		if (sudokumatrix[xBeginn+i%3][yBeginn+i/3].value == iZahl)
 			return 0;
 	}
 	return 1;
@@ -161,7 +161,7 @@ korrekt gelöst ist. Dazu werden jeweils alle Werte der
 Reihen, Spalten und der 3x3-Blöcke addiert und geprüft ob diese
 zusammen 45 ergeben, was die Summe der Zahlen 1-9 ist.
 */
-/* 
+/*
    ======================================================================== 
    Funktion: int sudokuPruefung()
    Beschreibung: Die Funktion gibt 1 zurück, wenn das übergebene Sudoku
@@ -172,7 +172,7 @@ zusammen 45 ergeben, was die Summe der Zahlen 1-9 ist.
    Rueckgabewerte: 0, 1
    ======================================================================== 
 */
-int sudokuPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+int sudokuPruefung(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
 	int i, j, iZeile, iSpalte, iBlock;
 	
 	for (i = 0; i < MATRIX_SIZE; i++) {
@@ -181,9 +181,9 @@ int sudokuPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
 		iBlock = 0;
 		
 		for (j = 0; j < MATRIX_SIZE; j++) {
-			iZeile += sudokumatrix[i][j];
-			iSpalte += sudokumatrix[j][i];
-			iBlock += sudokumatrix[i%3*3+j%3][i%3*3+j/3];
+			iZeile += sudokumatrix[i][j].value;
+			iSpalte += sudokumatrix[j][i].value;
+			iBlock += sudokumatrix[i%3*3+j%3][i%3*3+j/3].value;
 		}
 		
 		if (iZeile != 45 || iSpalte != 45 || iBlock != 45)
@@ -204,14 +204,14 @@ int sudokuPruefung(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
    Rueckgabewerte: 0, 1
    ======================================================================== 
 */
-int sudokuPruefungUnfertig(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+int sudokuPruefungUnfertig(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
 	int i, j;
 	
 	for (i = 0; i < MATRIX_SIZE; i++) {		
       j = 0;
 		while(j < MATRIX_SIZE){
-         if(sudokumatrix[i][j] != 0 
-               && zifferPruefung(sudokumatrix, i, j, sudokumatrix[i][j])){
+         if(sudokumatrix[i][j].value != 0 
+               && zifferPruefung(sudokumatrix, i, j, sudokumatrix[i][j].value)){
             j++;
          } else {
             return 0;
@@ -230,12 +230,12 @@ int sudokuPruefungUnfertig(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
    Rueckgabewerte: iZaehler
    ======================================================================== 
 */
-int zaehleLeereFelder(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
+int zaehleLeereFelder(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
 	int i, j;
 	int iZaehler = 0;
 	for (i = 0; i < MATRIX_SIZE; i++){
 		for (j = 0; j < MATRIX_SIZE; j++){
-         if(sudokumatrix[i][j] == 0){
+         if(sudokumatrix[i][j].value == 0){
             iZaehler++;
          }
       }
@@ -255,8 +255,9 @@ int zaehleLeereFelder(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
    Rueckgabewerte: 0, 1
    ======================================================================== 
 */
-int gibHinweis(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
-	int backupmatrix[MATRIX_SIZE][MATRIX_SIZE];
+int gibHinweis(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE])
+{
+   int backupmatrix[MATRIX_SIZE][MATRIX_SIZE];
    int i,j;
    int iZufallx, iZufally;
    int k = 0;
@@ -266,7 +267,7 @@ int gibHinweis(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
    */
    for(i = 0; i < MATRIX_SIZE; i++){
       for(j = 0; j < MATRIX_SIZE; j++){
-         backupmatrix[i][j] = sudokumatrix[i][j];
+         backupmatrix[i][j] = sudokumatrix[i][j].value;
       }
    }
 
@@ -279,8 +280,8 @@ int gibHinweis(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
       do{
          iZufallx = RAND(MATRIX_SIZE);
          iZufally = RAND(MATRIX_SIZE);
-         if(sudokumatrix[iZufallx][iZufally] == 0){
-            sudokumatrix[iZufallx][iZufally] = backupmatrix[iZufallx][iZufally];
+         if(sudokumatrix[iZufallx][iZufally].value == 0){
+            sudokumatrix[iZufallx][iZufally].value = backupmatrix[iZufallx][iZufally];
             k = 1;
          }
       }while(k == 0);
@@ -303,7 +304,7 @@ int gibHinweis(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE]) {
    Rueckgabewerte: -
    ======================================================================== 
 */
-void generiereSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE], 
+void generiereSudoku(struct sSudokuField sudokumatrix[MATRIX_SIZE][MATRIX_SIZE],
                      int iAnzahlLoeschen) {
    int i, j, iZeile, iSpalte;
 	int zahlenArray[MATRIX_SIZE];
@@ -318,7 +319,7 @@ void generiereSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE],
 	for (i = 0; i < MATRIX_SIZE; i++) {
 		zahlenArray[i] = i + 1;
 		for (j = 0; j < MATRIX_SIZE; j++){
-			sudokumatrix[i][j] = 0;
+			sudokumatrix[i][j].value = 0;
 		}
 	}
 	
@@ -326,9 +327,10 @@ void generiereSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE],
    while (i < MATRIX_SIZE) {
       iZeile = RAND(MATRIX_SIZE);
       iSpalte = RAND(MATRIX_SIZE);
-      if (sudokumatrix[iZeile][iSpalte] == 0) {
-         sudokumatrix[iZeile][iSpalte] = zahlenArray[i];
-         i++;
+      if (sudokumatrix[iZeile][iSpalte].value == 0) {
+         sudokumatrix[iZeile][iSpalte].value = zahlenArray[i];
+		 sudokumatrix[iZeile][iSpalte].type = FIELD_FILLED_IN;
+		 i++;
       }
    }
 
@@ -343,8 +345,9 @@ void generiereSudoku(int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE],
    while (i < iAnzahlLoeschen) {
       iZeile = RAND(MATRIX_SIZE);
       iSpalte = RAND(MATRIX_SIZE);
-      if (sudokumatrix[iZeile][iSpalte] != 0) {
-         sudokumatrix[iZeile][iSpalte] = 0;
+      if (sudokumatrix[iZeile][iSpalte].value != 0) {
+         sudokumatrix[iZeile][iSpalte].value = 0;
+		 sudokumatrix[iZeile][iSpalte].type = FIELD_FILLED_IN;
          i++;
       }
    }

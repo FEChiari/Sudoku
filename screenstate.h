@@ -30,6 +30,7 @@ void ScreenState_Highscore( struct sGame* nGame );
 void ScreenState_Registration( struct sGame* nGame ); 
 void ScreenState_Rules( struct sGame* nGame );
 void ScreenState_Options( struct sGame* nGame );
+void ScreenState_Difficulty(struct sGame* nGame);
 void BtnCallback_OnQuitGame( struct sGame * nGame );
 
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames );
@@ -48,3 +49,8 @@ void BtnCallback_OnDisplayOptions( struct sGame* nGame );
 
 void BtnCallback_OnResetMyHighscore( struct sGame* nGame );
 void BtnCallback_OnDeleteMyAccount( struct sGame* nGame );
+
+void BtnCallback_OnLeicht(struct sGame* nGame);
+void BtnCallback_OnNormal(struct sGame* nGame);
+void BtnCallback_OnSchwer(struct sGame* nGame);
+void BtnCallback_OnZurueck(struct sGame* nGame);

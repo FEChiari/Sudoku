@@ -78,6 +78,9 @@
     <ClCompile Include="state_options.c">
       <Filter>Source Files\screenstates</Filter>
     </ClCompile>
+    <ClCompile Include="state_difficulty.c">
+      <Filter>Source Files\screenstates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbh.h">

@@ -122,8 +122,8 @@ void BtnCallback_OnContinueGame( struct sGame * nGame )
 void BtnCallback_OnStartNewGame( struct sGame * nGame )
 {
   nGame->prevScreenState = nGame->screenState;
-  nGame->screenState = SCREEN_INGAME;
-  nGame->gameState.timePlayed = 0;
+  nGame->screenState = SCREEN_DIFFICULTY;
+  //nGame->gameState.timePlayed = 0;
   //generiereSudoku( nGame->gameState.field );
 }
 

@@ -18,7 +18,7 @@ void ScreenState_Login( struct sGame* nGame )
 {
   wclear( nGame->whnd );
 
-  struct sFieldDef form_fields[ 5 ];
+  struct sFieldDef form_fields[ 7 ];
 
   // username
   form_fields[ 0 ].position.x = 0;
@@ -101,5 +101,5 @@ void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_MAIN_MENU;
   nGame->user.isGuest = 1;
-  nGame->user.username = "Gast";
+  strcpy(nGame->user.username, "Gast");
 }
