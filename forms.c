@@ -211,6 +211,7 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
       switch ( key )
       {
       case 0x02: // down-arrow key
+      case 0x05: // right-arrow key
       case 0x09: // tab-key
 
           // select the next field, if there is one
@@ -222,7 +223,7 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
         break;
 
       case 0x03: // up-arrow key
-
+      case 0x04: // left-arrow key;
           // select the previous field, if there is one
           // if not, reset to the last field of the form
         Form_MoveCursorToPreviousField( nFieldSet );
