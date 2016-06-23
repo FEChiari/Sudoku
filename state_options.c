@@ -69,6 +69,10 @@ void ScreenState_Options(struct sGame* nGame)
 
 void BtnCallback_OnResetMyHighscore( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
+    if (Utility_Confimation(nGame, nFieldSet))
+    {
+        //soon tm
+    }
 
 }
 
