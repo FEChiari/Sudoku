@@ -91,7 +91,7 @@ void BtnCallback_OnLeicht(struct sGame * nGame)
 	nGame->prevScreenState = nGame->screenState;
 	nGame->screenState = SCREEN_INGAME;
 	nGame->gameState.timePlayed = 0;
-	//generiereSudoku( nGame->gameState.field );
+	generiereSudoku( nGame->gameState.field, nGame->gameState.difficultyLvl );
 }
 
 void BtnCallback_OnNormal(struct sGame * nGame)
@@ -100,7 +100,7 @@ void BtnCallback_OnNormal(struct sGame * nGame)
 	nGame->prevScreenState = nGame->screenState;
 	nGame->screenState = SCREEN_INGAME;
 	nGame->gameState.timePlayed = 0;
-	//generiereSudoku( nGame->gameState.field );
+	generiereSudoku( nGame->gameState.field, nGame->gameState.difficultyLvl );
 }
 
 void BtnCallback_OnSchwer(struct sGame * nGame)
@@ -109,7 +109,7 @@ void BtnCallback_OnSchwer(struct sGame * nGame)
 	nGame->prevScreenState = nGame->screenState;
 	nGame->screenState = SCREEN_INGAME;
 	nGame->gameState.timePlayed = 0;
-	//generiereSudoku( nGame->gameState.field );
+	generiereSudoku( nGame->gameState.field, nGame->gameState.difficultyLvl );
 }
 
 void BtnCallback_OnZurueck(struct sGame * nGame)

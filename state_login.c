@@ -87,7 +87,7 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 6 ].type = INPUT_BUTTON;
   form_fields[ 6 ].label = "Registrieren";
   form_fields[ 6 ].btnCallback = BtnCallback_OnRegister;
-  form_fields[ 6 ].isDisabled = 1;
+  form_fields[ 6 ].isDisabled = 0;
 
   // the form itself
   struct sFieldSet login_form;
@@ -113,7 +113,8 @@ void BtnCallback_OnLogin( struct sGame* nGame )
 
 void BtnCallback_OnRegister( struct sGame* nGame )
 {
-
+    nGame->prevScreenState = nGame->screenState;
+    nGame->screenState = SCREEN_REGISTRATION;
 }
 
 void BtnCallback_OnPlayAsGuest( struct sGame* nGame )

@@ -41,6 +41,9 @@ void BtnCallback_OnLogin( struct sGame* nGame );
 void BtnCallback_OnPlayAsGuest( struct sGame* nGame );
 void BtnCallback_OnRegister( struct sGame* nGame );
 
+void BtnCallback_OnCreateUser(struct sGame* nGame);
+void BtnCallback_OnCancel(struct sGame* nGame);
+
 void BtnCallback_OnContinueGame( struct sGame* nGame );
 void BtnCallback_OnStartNewGame( struct sGame* nGame );
 void BtnCallback_OnDisplayHighscores( struct sGame* nGame );
