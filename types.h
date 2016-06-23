@@ -70,7 +70,7 @@ struct sSudokuField
 
 struct sGameState
 {
-  struct sSudokuField field[ 9 ][ 9 ];
+  struct sSudokuField gameboard[ 9 ][ 9 ];
   enum eDifficulty difficultyLvl;
   time_t timePlayed;
   u32 score;

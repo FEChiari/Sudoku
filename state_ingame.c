@@ -116,7 +116,7 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       }
 
-      Ingame_RenderBoard( left_inner, 2, 1, nGame->gameState.field );
+      Ingame_RenderBoard( left_inner, 2, 1, nGame->gameState.gameboard );
       wrefresh( left_inner );
 
       nGame->gameState.timePlayed = ( u8 ) difftime( time( NULL ), time_then );
@@ -197,11 +197,11 @@ void Ingame_RenderSingleField( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, 
   if ( nField->value == 0 ) return;
 
   if ( nField->type == FIELD_GENERATED )
-    wattron(nTargetWindow, COLOR_PAIR( 3 ) );
-  
+    wattron( nTargetWindow, COLOR_PAIR( 3 ) );
+
   mvwprintw( nTargetWindow, row + nYOffset, col + nXOffset + 1, "%d", nField->value );
   wattron( nTargetWindow, COLOR_PAIR( 1 ) );
-  
+
 }
 
 void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct sSudokuField nFields[ 9 ][ 9 ] )
@@ -210,7 +210,7 @@ void Ingame_RenderBoard( WINDOW* nTargetWindow, u8 nXOffset, u8 nYOffset, struct
   {
     for ( u8 iCol = 0; iCol < 9; iCol++ )
     {
-      Ingame_RenderSingleField( nTargetWindow, nXOffset, nYOffset, &nFields[iRow][iCol] );
+      Ingame_RenderSingleField( nTargetWindow, nXOffset, nYOffset, &nFields[ iRow ][ iCol ] );
     }
   }
 
