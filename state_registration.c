@@ -25,9 +25,8 @@ void ScreenState_Registration( struct sGame* nGame )
     form_fields[0].position.y = 0;
     form_fields[0].dimension.x = 10;
     form_fields[0].dimension.y = 1;
-    form_fields[0].type = STATIC_LOWERALPHA_NUMERIC;
+    form_fields[0].type = STATIC_TEXT;
     form_fields[0].label = "Benutzer:";
-    //form_fields[ 0 ].inputSize = 13;
     form_fields[0].isDisabled = 1;
 
     // username input
@@ -44,9 +43,8 @@ void ScreenState_Registration( struct sGame* nGame )
     form_fields[2].position.y = 1;
     form_fields[2].dimension.x = 10;
     form_fields[2].dimension.y = 1;
-    form_fields[2].type = STATIC_LOWERALPHA_NUMERIC;
+    form_fields[2].type = STATIC_TEXT;
     form_fields[2].label = "Password:";
-    // form_fields[ 2 ].inputSize = 13;
     form_fields[2].isDisabled = 1;
 
     // password input
@@ -66,7 +64,7 @@ void ScreenState_Registration( struct sGame* nGame )
     form_fields[4].dimension.y = 1;
     form_fields[4].type = INPUT_BUTTON;
     form_fields[4].label = "Registrieren";
-    form_fields[4].btnCallback = BtnCallback_OnCreateUser;
+    form_fields[4].btnCallback = BtnCallback_OnRegisterUser;
     form_fields[4].isDisabled = 0;
 
     // button play-as-guest
@@ -85,7 +83,7 @@ void ScreenState_Registration( struct sGame* nGame )
 
     registration_form.fields = &form_fields[0];
     registration_form.label = "Registration";
-    registration_form.activeFieldId = 3;
+    registration_form.activeFieldId = 1;
     registration_form.numFields = 6;
     registration_form.renderBorder = 1;
     registration_form.dimension = Forms_GetFieldSetDimensions(&registration_form);
@@ -97,7 +95,7 @@ void ScreenState_Registration( struct sGame* nGame )
     Forms_FreeFieldSet(&registration_form);
 }
 
-void BtnCallback_OnCreateUser(struct sGame* nGame)
+void BtnCallback_OnRegisterUser(struct sGame* nGame)
 {
 
 }

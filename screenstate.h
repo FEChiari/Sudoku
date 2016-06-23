@@ -12,7 +12,6 @@
 #include "types.h"
 #include "forms.h"
 #include "utility.h"
-//#include "input.h"
 #include "solver.h"
 #include "dbh.h"
 #include "lib/pdcurses/panel.h"
@@ -41,7 +40,7 @@ void BtnCallback_OnLogin( struct sGame* nGame );
 void BtnCallback_OnPlayAsGuest( struct sGame* nGame );
 void BtnCallback_OnRegister( struct sGame* nGame );
 
-void BtnCallback_OnCreateUser(struct sGame* nGame);
+void BtnCallback_OnRegisterUser(struct sGame* nGame);
 void BtnCallback_OnCancel(struct sGame* nGame);
 
 void BtnCallback_OnContinueGame( struct sGame* nGame );

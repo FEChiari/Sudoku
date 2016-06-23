@@ -25,39 +25,36 @@ void ScreenState_Login( struct sGame* nGame )
   form_fields[ 0 ].position.y = 0;
   form_fields[ 0 ].dimension.x = 10;
   form_fields[ 0 ].dimension.y = 1;
-  form_fields[ 0 ].type = STATIC_LOWERALPHA_NUMERIC;
+  form_fields[ 0 ].type = STATIC_TEXT;
   form_fields[ 0 ].label = "Benutzer:";
-  //form_fields[ 0 ].inputSize = 13;
   form_fields[ 0 ].isDisabled = 1;
 
   // username input
-  form_fields[1].position.x = 10;
-  form_fields[1].position.y = 0;
-  form_fields[1].dimension.x = 13;
-  form_fields[1].dimension.y = 1;
-  form_fields[1].type = INPUT_LOWERALPHA_NUMERIC;
-  form_fields[1].label = "";
-  form_fields[1].isDisabled = 0;
+  form_fields[ 1 ].position.x = 10;
+  form_fields[ 1 ].position.y = 0;
+  form_fields[ 1 ].dimension.x = 13;
+  form_fields[ 1 ].dimension.y = 1;
+  form_fields[ 1 ].type = INPUT_LOWERALPHA_NUMERIC;
+  form_fields[ 1 ].label = "";
+  form_fields[ 1 ].isDisabled = 0;
 
   // password label
   form_fields[ 2 ].position.x = 0;
   form_fields[ 2 ].position.y = 1;
   form_fields[ 2 ].dimension.x = 10;
   form_fields[ 2 ].dimension.y = 1;
-  form_fields[ 2 ].type = STATIC_LOWERALPHA_NUMERIC;
+  form_fields[ 2 ].type = STATIC_TEXT;
   form_fields[ 2 ].label = "Password:";
- // form_fields[ 2 ].inputSize = 13;
   form_fields[ 2 ].isDisabled = 1;
 
   // password input
-  form_fields[3].position.x = 10;
-  form_fields[3].position.y = 1;
-  form_fields[3].dimension.x = 13;
-  form_fields[3].dimension.y = 1;
-  form_fields[3].type = INPUT_LOWERALPHA_NUMERIC;
-  form_fields[3].label = "";
-  form_fields[3].isDisabled = 0;
-  form_fields[3].isPWField = 1;
+  form_fields[ 3 ].position.x = 10;
+  form_fields[ 3 ].position.y = 1;
+  form_fields[ 3 ].dimension.x = 13;
+  form_fields[ 3 ].dimension.y = 1;
+  form_fields[ 3 ].type = INPUT_LOWERALPHA_NUMERIC;
+  form_fields[ 3 ].label = "";
+  form_fields[ 3 ].isDisabled = 0;
 
   // button enter
   form_fields[ 4 ].position.x = 0;
@@ -94,7 +91,7 @@ void ScreenState_Login( struct sGame* nGame )
 
   login_form.fields = &form_fields[ 0 ];
   login_form.label = "Login";
-  login_form.activeFieldId = 3;
+  login_form.activeFieldId = 5;
   login_form.numFields = 7;
   login_form.renderBorder = 1;
   login_form.dimension = Forms_GetFieldSetDimensions( &login_form );
@@ -113,8 +110,8 @@ void BtnCallback_OnLogin( struct sGame* nGame )
 
 void BtnCallback_OnRegister( struct sGame* nGame )
 {
-    nGame->prevScreenState = nGame->screenState;
-    nGame->screenState = SCREEN_REGISTRATION;
+  nGame->prevScreenState = nGame->screenState;
+  nGame->screenState = SCREEN_REGISTRATION;
 }
 
 void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
@@ -122,5 +119,5 @@ void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_MAIN_MENU;
   nGame->user.isGuest = 1;
-  strcpy(nGame->user.username, "Gast");
+  strcpy( nGame->user.username, "Gast" );
 }

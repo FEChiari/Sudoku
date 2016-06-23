@@ -95,7 +95,7 @@ enum eFieldType
   INPUT_NUMERIC,
   INPUT_LOWERALPHA_NUMERIC,
   INPUT_BUTTON,
-  STATIC_LOWERALPHA_NUMERIC, //Idee, für menüs ein Feld zum lesen und eins zum schreiben. Macht char * label von FieldDef irrelephant.
+  STATIC_TEXT,
 };
 
 struct sFieldDef
