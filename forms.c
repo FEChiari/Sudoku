@@ -237,7 +237,7 @@ void Forms_HandleFieldSetInput( struct sGame* nGame, struct sFieldSet* nFieldSet
         if ( nFieldSet->fields[ nFieldSet->activeFieldId ].type == INPUT_BUTTON && nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback != NULL )
         {
           // execute callback
-          nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback( nGame );
+          nFieldSet->fields[ nFieldSet->activeFieldId ].btnCallback( nGame, nFieldSet );
         }
 
         handleInput = 0;

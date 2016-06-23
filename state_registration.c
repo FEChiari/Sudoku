@@ -95,12 +95,12 @@ void ScreenState_Registration( struct sGame* nGame )
     Forms_FreeFieldSet(&registration_form);
 }
 
-void BtnCallback_OnRegisterUser(struct sGame* nGame)
+void BtnCallback_OnRegisterUser(struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
 
 }
 
-void BtnCallback_OnCancel(struct sGame* nGame)
+void BtnCallback_OnCancel(struct sGame* nGame, struct sFieldSet* nFieldSet)
 {
     nGame->prevScreenState = nGame->screenState;
     nGame->screenState = SCREEN_LOGIN;

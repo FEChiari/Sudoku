@@ -107,7 +107,7 @@ struct sFieldDef
   u8 inputSize;
   u8 isPWField;
   u8 isDisabled;
-  void( *btnCallback )( struct sGame* nGame );
+  void( *btnCallback )( struct sGame* nGame, struct sFieldSet* nFieldSet );
   WINDOW* whnd;
 };
 

@@ -103,18 +103,18 @@ void ScreenState_Login( struct sGame* nGame )
   Forms_FreeFieldSet( &login_form );
 }
 
-void BtnCallback_OnLogin( struct sGame* nGame )
+void BtnCallback_OnLogin( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
 
 }
 
-void BtnCallback_OnRegister( struct sGame* nGame )
+void BtnCallback_OnRegister( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_REGISTRATION;
 }
 
-void BtnCallback_OnPlayAsGuest( struct sGame* nGame )
+void BtnCallback_OnPlayAsGuest( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_MAIN_MENU;

@@ -115,38 +115,36 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   Forms_FreeFieldSet( &menu_form );
 }
 
-void BtnCallback_OnContinueGame( struct sGame * nGame )
+void BtnCallback_OnContinueGame( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   // TBD
 }
 
-void BtnCallback_OnStartNewGame( struct sGame * nGame )
+void BtnCallback_OnStartNewGame( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_DIFFICULTY;
-  //nGame->gameState.timePlayed = 0;
-  //generiereSudoku( nGame->gameState.field );
 }
 
-void BtnCallback_OnDisplayHighscores( struct sGame * nGame )
+void BtnCallback_OnDisplayHighscores( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_HIGHSCORE;
 }
 
-void BtnCallback_OnDisplayRules( struct sGame * nGame )
+void BtnCallback_OnDisplayRules( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_RULES;
 }
 
-void BtnCallback_OnDisplayOptions( struct sGame * nGame )
+void BtnCallback_OnDisplayOptions( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   nGame->prevScreenState = nGame->screenState;
   nGame->screenState = SCREEN_OPTIONS;
 }
 
-void BtnCallback_OnQuitGame( struct sGame * nGame )
+void BtnCallback_OnQuitGame( struct sGame * nGame, struct sFieldSet* nFieldSet )
 {
   nGame->flags.isRunning = 0;
 }

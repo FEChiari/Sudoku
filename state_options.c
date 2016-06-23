@@ -49,9 +49,6 @@ void ScreenState_Options(struct sGame* nGame)
     form_fields[2].isDisabled = 0;
     form_fields[2].btnCallback = BtnCallback_OnReturnToMainMenu;
 
-   
-
-
     struct sFieldSet options_form;
 
     options_form.fields = &form_fields[0];
@@ -70,17 +67,17 @@ void ScreenState_Options(struct sGame* nGame)
 }
 
 
-void BtnCallback_OnResetMyHighscore( struct sGame* nGame )
+void BtnCallback_OnResetMyHighscore( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
 
 }
 
-void BtnCallback_OnDeleteMyAccount( struct sGame* nGame )
+void BtnCallback_OnDeleteMyAccount( struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
 
 }
 
-void BtnCallback_OnReturnToMainMenu(struct sGame* nGame)
+void BtnCallback_OnReturnToMainMenu(struct sGame* nGame, struct sFieldSet* nFieldSet )
 {
     nGame->prevScreenState = nGame->screenState;
     nGame->screenState = SCREEN_MAIN_MENU;
