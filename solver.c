@@ -30,20 +30,6 @@
 */
 #include "solver.h"
 
-//int main(void) {
-//  int sudokumatrix[MATRIX_SIZE][MATRIX_SIZE];
-//  int backupMatrix[MATRIX_SIZE][MATRIX_SIZE];
-//  int iAnzahlLoeschen = 15; /*Abhängig von Schwierigkeitsgrad*/
-//  
-//  generiereSudoku(sudokumatrix, iAnzahlLoeschen);
-//
-//  if (sudokuPruefung(sudokumatrix)){
-//    printf("correct sudoku\n");
-//  }
-//  
-//  return 0;
-//}
-
 /*
    ========================================================================
    Funktion: int loeseSudoku()

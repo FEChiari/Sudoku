@@ -24,5 +24,7 @@
 u8 sudokuPruefung( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
 u8 loeseSudoku( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
 u8 zifferPruefung( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ], u8, u8, u8 );
+u8 sudokuPruefungUnfertig( struct sSudokuField sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ] );
+u8 gibHinweis( struct sSudokuField sudokumatrix[ MATRIX_SIZE ][ MATRIX_SIZE ] );
 u8 zaehleLeereFelder( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
 void generiereSudoku( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ], u8 );
