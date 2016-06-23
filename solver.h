@@ -1,9 +1,9 @@
 #pragma once
 
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
+  ===========================================================================
+  Präprozessorkonstanten
+  ===========================================================================
 */
 
 #include <stdio.h>
@@ -16,13 +16,13 @@
 #define RAND(max) (rand() % max)
 
 /*
-	===========================================================================
-	Funktionsprototypen
-	===========================================================================
+  ===========================================================================
+  Funktionsprototypen
+  ===========================================================================
 */
 
-int sudokuPruefung( struct sSudokuField[][ MATRIX_SIZE ] );
-int loeseSudoku( struct sSudokuField[][ MATRIX_SIZE ] );
-int zifferPruefung( struct sSudokuField[][ MATRIX_SIZE ], int, int, int );
-int zaehleLeereFelder( struct sSudokuField[][ MATRIX_SIZE ] );
-void generiereSudoku( struct sSudokuField[][ MATRIX_SIZE ], int );
+u8 sudokuPruefung( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
+u8 loeseSudoku( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
+u8 zifferPruefung( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ], u8, u8, u8 );
+u8 zaehleLeereFelder( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ] );
+void generiereSudoku( struct sSudokuField[ MATRIX_SIZE ][ MATRIX_SIZE ], u8 );

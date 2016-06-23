@@ -57,7 +57,7 @@ struct sUser
 enum eSudokuFieldType
 {
   FIELD_GENERATED,
-  FIELD_FILLED_IN,
+  FIELD_USER_FILLED_IN,
 };
 
 struct sSudokuField
