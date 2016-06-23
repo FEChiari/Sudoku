@@ -56,3 +56,5 @@ void BtnCallback_OnLeicht(struct sGame* nGame);
 void BtnCallback_OnNormal(struct sGame* nGame);
 void BtnCallback_OnSchwer(struct sGame* nGame);
 void BtnCallback_OnZurueck(struct sGame* nGame);
+
+void BtnCallback_OnReturnToMainMenu(struct sGame* nGame);

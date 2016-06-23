@@ -61,7 +61,7 @@ void ScreenState_Difficulty(struct sGame* nGame)
 	form_fields[3].type = INPUT_BUTTON;
 	form_fields[3].label = "Zurück";
 	form_fields[3].isDisabled = 0;
-	form_fields[3].btnCallback = BtnCallback_OnZurueck;
+	form_fields[3].btnCallback = BtnCallback_OnReturnToMainMenu;
 
 
 
@@ -112,9 +112,4 @@ void BtnCallback_OnSchwer(struct sGame * nGame)
 	generiereSudoku( nGame->gameState.field, nGame->gameState.difficultyLvl );
 }
 
-void BtnCallback_OnZurueck(struct sGame * nGame)
-{
-	nGame->prevScreenState = nGame->screenState;
-	nGame->screenState = SCREEN_MAIN_MENU;
-}
 

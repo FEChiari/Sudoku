@@ -91,10 +91,11 @@ void ScreenState_Main_Menu( struct sGame* nGame )
   form_fields[ 5 ].btnCallback = BtnCallback_OnQuitGame;
 
   // disable options if guest
-  if ( nGame->user.isGuest )
-  {
-    form_fields[ 4 ].isDisabled = 1;
-  }
+  //if ( nGame->user.isGuest )
+  //{
+  //  form_fields[ 0 ].isDisabled = 1;
+  //  form_fields[ 4 ].isDisabled = 1;
+  //}
 
   // the form itself
   struct sFieldSet menu_form;
