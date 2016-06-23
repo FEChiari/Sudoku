@@ -97,7 +97,7 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
     u8 returnByte;
     do
     {
-        char key = Utility_WGetKeyCode(&confirmation_form);
+        char key = Utility_WGetKeyCode(confirmation_form.whnd);
 
         switch (key)
         {
