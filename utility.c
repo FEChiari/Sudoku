@@ -144,8 +144,22 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
     return returnByte;
 }
 
-
+#ifdef _WIN32
 void Utility_SetWindowMaximizable( u8 nState )
 {
+  HWND hActiveWindow = GetForegroundWindow();
 
+  long style = GetWindowLong( hActiveWindow, GWL_STYLE );
+
+  if ( nState )
+  {
+    style |= WS_MAXIMIZEBOX;
+  }
+  else
+  {
+    style &= ~WS_MAXIMIZEBOX;
+  }
+
+  SetWindowLong( hActiveWindow, GWL_STYLE, style );
 }
+#endif

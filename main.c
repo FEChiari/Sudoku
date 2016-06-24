@@ -126,22 +126,16 @@ void Initialize( struct sGame* nGame )
   }
 
   /*
-   * Befinden wir uns in einer Win32-Umgebung, kann der Konsolentitel gesetzt
-   * werden.
-   */
-#ifdef _WIN32
-  SetConsoleTitle( GAME_TITLE " - " GAME_VERSION );
-#endif
-
-  /*
    * Die Konsole wird auf vorgegebene Maße gesetzt, um ein optimales Spiel-
-   * erlebnis zu garantieren. Das Konsolenfenster wird danach mithilfe der
-   * Win32-API fixiert, kann also nicht mehr maximiert werden. Dies dient
-   * dazu, Darstellungsprobleme zu vermeiden.
+   * erlebnis zu garantieren. Das Konsolenfenster wird danach, falls möglich,
+   * mithilfe der Win32-API fixiert, kann also nicht mehr maximiert werden.
+   * Dies dient dazu, Darstellungsprobleme zu vermeiden. Auch der Titel des
+   * Fensters wird geändert.
    */
   resize_term( 30, 80 );
 
 #ifdef _WIN32
+  SetConsoleTitle( GAME_TITLE " - " GAME_VERSION );
   Utility_SetWindowMaximizable( 0 );
 #endif
 
