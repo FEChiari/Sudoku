@@ -38,7 +38,7 @@ int Utility_WGetKeyCode( WINDOW* nTarget )
 u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
 {
     wclear(nGame->whnd);
-    char sPartOne[30];
+    char sPartOne[128];
     strcpy(sPartOne, "Sind sie sicher, dass sie :");
     strcat(sPartOne, nFieldSet->label);
     char sPartTwo[30];
@@ -49,7 +49,7 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
     form_fields[0].position.x = 0;
     form_fields[0].position.y = 0;
     form_fields[0].dimension.x = 60;
-    form_fields[0].dimension.y = 1;
+    form_fields[0].dimension.y = 2;
     form_fields[0].type = STATIC_TEXT;
     form_fields[0].isDisabled = 1;
     form_fields[0].label = strcat(sPartOne, sPartTwo);
@@ -91,12 +91,17 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
     for (int i = 0; i < confirmation_form.numFields; i++)
     {
         form_fields[i].whnd = derwin(confirmation_form.whnd, form_fields[i].dimension.y, form_fields[i].dimension.x, form_fields[i].position.y, form_fields[i].position.x);
+        mvwaddstr(form_fields[i].whnd, 0, 0, form_fields[i].label);
     }
-
+    box(confirmation_form.whnd, WA_VERTICAL, WA_HORIZONTAL);
+    Forms_SetFieldActive(&form_fields[2], 1);
+    wrefresh(nGame->whnd);
     u8 handleInput = 1;
     u8 returnByte;
     do
     {
+        wclear(confirmation_form.whnd);
+        wrefresh(nGame->whnd);
         char key = Utility_WGetKeyCode(confirmation_form.whnd);
 
         switch (key)
@@ -109,8 +114,6 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
             // if not, reset to the first field of the form
             Form_MoveCursorToNextField(&confirmation_form);
 
-            handleInput = 0;
-
             break;
 
         case 0x03: // up-arrow key
@@ -119,7 +122,6 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
             // if not, reset to the last field of the form
             Form_MoveCursorToPreviousField(&confirmation_form);
 
-            handleInput = 0;
 
             break;
 
