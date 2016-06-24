@@ -1,21 +1,3 @@
-/*
-  ===========================================================================
-  Dateiname: dbh.c
-  Firma: HHBK Trendo Research Center
-  Autoren: Patrick Schorn, Fabian Engels
-  IDE: Visual Studio 2015
-  Programmschnittstellen:
-  Beschreibung: Stellt eine Verbindung zu den Datenbanken her. Ermöglicht das
-            Einloggen und Registrieren der Nutzer sowie deren Löschung.
-  ===========================================================================
-*/
-
-/*
-  ===========================================================================
-  Präprozessorkonstanten
-  ===========================================================================
-*/
-
 #include "dbh.h"
 
 extern sqlite3* DBH_dbhnd;
@@ -81,16 +63,18 @@ s32 DBH_Query( char* nQueryString, DBH_pCallbackFn nCallback, void* nCallbackArg
 
 u8 DBH_UserExistsByName( char* nUsername )
 {
-  u8 exists = 0;
+  struct DBH_sCallbackArgumentPair ap;
+  ap.rowIter = 0;
+
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE username = '%s'", nUsername );
-  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &exists, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &ap, NULL );
 
   free( pQueryString );
 
-  return exists;
+  return ap.rowIter;
 }
 
 /*
@@ -104,16 +88,18 @@ u8 DBH_UserExistsByName( char* nUsername )
 
 u8 DBH_UserExistsById( u32 nUserId )
 {
-  u8 exists = 0;
+  struct DBH_sCallbackArgumentPair ap;
+  ap.rowIter = 0;
+
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE id = '%d'", nUserId );
-  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &exists, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &ap, NULL );
 
   free( pQueryString );
 
-  return exists;
+  return ap.rowIter;
 }
 
 /*
@@ -128,16 +114,19 @@ u8 DBH_UserExistsById( u32 nUserId )
 
 u8 DBH_IsValidAuthByName( char* nUsername, char* nPassword )
 {
-  u8 isValid = 0;
+
+  struct DBH_sCallbackArgumentPair ap;
+  ap.rowIter = 0;
+
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE username = '%s' and password = '%s'", nUsername, nPassword );
-  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &isValid, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &ap, NULL );
 
   free( pQueryString );
 
-  return isValid;
+  return ap.rowIter;
 }
 
 /*
@@ -152,16 +141,18 @@ u8 DBH_IsValidAuthByName( char* nUsername, char* nPassword )
 
 u8 DBH_IsValidAuthById( u32 nUserId, char* nPassword )
 {
-  u8 isValid = 0;
+  struct DBH_sCallbackArgumentPair ap;
+  ap.rowIter = 0;
+
   char* pQueryString = malloc( 128 );
   memset( pQueryString, 0, 128 );
 
   sprintf( pQueryString, "SELECT 1 FROM Users WHERE id = '%d' and password = '%s'", nUserId, nPassword );
-  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &isValid, NULL );
+  DBH_Query( pQueryString, DBH_Callback_GetRowCount, &ap, NULL );
 
   free( pQueryString );
 
-  return isValid;
+  return ap.rowIter;
 }
 
 /*
@@ -234,7 +225,7 @@ u8 DBH_DeleteUser( u8 nUserId, char* nPassword )
 
 int DBH_Callback_GetRowCount( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
 {
-  static i = 0;
-  *( ( u8* ) nCallbackParam ) = ++i;
+  struct DBH_sCallbackArgumentPair* ap = ( struct DBH_sCallbackArgumentPair* ) nCallbackParam;
+  ap->rowIter += 1;
   return 0;
 }

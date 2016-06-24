@@ -41,9 +41,10 @@ void ScreenState_Ingame( struct sGame* nGame )
 
   mvwaddstr( right_inner, 0, 1, "Hotkeys" );
   mvwaddstr( right_inner, 2, 1, "LEER - Zahl vorschlagen" );
-  mvwaddstr( right_inner, 4, 4, "H - Regeln" );
-  mvwaddstr( right_inner, 6, 2, "DEL - Ausgewähltes Feld" );
-  mvwaddstr( right_inner, 7, 8, "löschen" );
+  mvwaddstr( right_inner, 3, 8, "(+30s)" );
+  mvwaddstr( right_inner, 5, 4, "H - Regeln" );
+  mvwaddstr( right_inner, 7, 2, "DEL - Ausgewähltes Feld" );
+  mvwaddstr( right_inner, 8, 8, "löschen" );
 
   mvwaddstr( nGame->whnd, right_container->_begy + right_container->_maxy + 1, right_container->_begx + right_container->_maxx - 15, "ESC: Hauptmenü" );
 

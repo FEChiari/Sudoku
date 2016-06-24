@@ -1,13 +1,9 @@
-#pragma
+#ifndef _INCLUDE_GAME_H
+#define _INCLUDE_GAME_H
 
 /*
-	===========================================================================
-	Präprozessorkonstanten
-	===========================================================================
-*/
-
-#include <stdlib.h>
-#include <assert.h>
+ * Haupt-Include-Datei
+ */
 
 #include "types.h"
 #include "utility.h"
@@ -15,10 +11,4 @@
 #include "dbh.h"
 #include "screenstate.h"
 
-#ifdef _WIN32
-#define MOUSE_MOVED_CURSES MOUSE_MOVED
-#undef MOUSE_MOVED
-#include <consoleapi.h>
-#undef MOUSE_MOVED
-#define MOUSE_MOVED MOUSE_MOVED_CURSES
 #endif

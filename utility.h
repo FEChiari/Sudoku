@@ -1,25 +1,16 @@
 #pragma once
 
-/*
-  ===========================================================================
-  Präprozessorkonstanten
-  ===========================================================================
-*/
-
 #ifdef _WIN32
+
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+
 #endif
 
 #include "types.h"
 #include "forms.h"
 #include "lib/pdcurses/panel.h"
 
-/*
-  ===========================================================================
-  Funktionsprototypen
-  ===========================================================================
-*/
 
 int Utility_GetKeyCode();
 int Utility_WGetKeyCode( WINDOW* nTarget );

@@ -45,7 +45,7 @@ void ScreenState_Highscore( struct sGame* nGame )
     INNER JOIN  Users ON Users.id= Highscores.uid WHERE Highscores.difficulty = %d \
     ORDER BY Highscores.score DESC", nGame->gameState.difficultyLvl );
 
-  struct DBH_CallbackArgumentPair args;
+  struct DBH_sCallbackArgumentPair args;
   args.rowIter = 0;
   args.additionalArgument = pScoresPanelContent;
 
@@ -87,7 +87,7 @@ void ScreenState_Highscore( struct sGame* nGame )
 */
 int DBH_Callback_PrintScores( void* nCallbackParam, int nNumColumns, char** nColumns, char** nColumnNames )
 {
-  struct DBH_CallbackArgumentPair* args = ( struct DBH_CallbackArgumentPair* ) nCallbackParam;
+  struct DBH_sCallbackArgumentPair* args = ( struct DBH_sCallbackArgumentPair* ) nCallbackParam;
   WINDOW* pScoresPanelContent = ( WINDOW* ) args->additionalArgument;
 
   u8 rowWidth = getmaxx( pScoresPanelContent );
