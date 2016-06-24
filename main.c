@@ -1,193 +1,203 @@
 /*
-  ===========================================================================
-  Programmname: Sudoku
-  Autoren: Waldemar Werba, Fabian Engels, Fabian Kremer, Patrick Schorn,
-  Fabian Prinz
-  Datum: 19.06.2016
-  IDE: Visual Studio
-  Beschreibung: Dieses Programm ist ein Sudoku-Spiel, welches ermöglicht,
-  in einer Konsole ein zufällig generiertes Sudoku zu lösen.
-  Dabei ist es möglich, sich zu registrieren, um die
-  Highscore-Funktion zu nutzen. Es ist auch möglich, ohne
-  Login zu spielen, doch dadurch wird es nicht möglich sein,
-  die Highscore-Funktion zu nutzen. Diese Funktionen werden
-  durch eine Datenbank ermöglicht. Das Spiel kann in drei
-  verschiedenen Schwierigkeitsgraden gespielt werden.
-  ===========================================================================
-  */
-
-/*
-  ===========================================================================
-  Präprozessorkonstanten
-  ===========================================================================
-  */
-
+ * Sudoku (main.c)
+ *
+ * Autoren: Werba, Schorn, Kremer, Prinz, Engels
+ * Datum: 19.06.16 - 24.06.16
+ *
+ * Beschreibung:
+ *
+ * Bei dem Programm handelt es sich um ein kommandozeilenbasiertes Sudoku-Spiel
+ * mit textbasierter Oberfläche. Als einzige externe Abhängigkeit kommt
+ * PDCurses, ein Win32 NCurses-Port, zum Einsatz.
+ *
+ * Das Spiel wird in mehrere, sogenannte ScreenStates unterteilt. Ein Screen-
+ * State beschreibt dabei einen einzelnen Bildschirm, beispielsweise Highscores
+ * oder das Regelwerk. Die ScreenStates ihrerseits interagieren mit der
+ * Struktur sGame, welche alle Spielrelevanten informationen zentral speichert.
+ */
 #include "game.h"
 
+/*
+ * Debugging-relevante defines für Standard-Schwierigkeitsgrad und -ScreenState
+ */
 #define DEFAULT_GAMESTATE SCREEN_LOGIN
 #define DEFAULT_DIFFICULTY DIFFICULTY_EASY
 
-// TODO@FE: Forms
-// TODO@FE: Clock/Timekeeping
-// TODO@FE: Cleanup/align conventions
-// TODO@FE: Ensure code conforms to c89 before handoff!
-
-// This is global so that it doesn't have to be passed to every
-// single db-related function. It's initialized in main, so we
-// just put it here instead of using a workaround for a non-problem.
+/*
+ * Ein globaler Zeiger auf die Datenbank erspart es, diesen bei jedem
+ * Datenbank-relevanten Funktionsaufruf übergeben zu müssen. Globale
+ * Variablen sollten nach Möglichkeit vermieden werden, weshalb bspw.
+ * auf sGame nicht auf diese Weise zugegriffen wird.
+ */
 sqlite3* DBH_dbhnd = NULL;
 
 /*
-  ===========================================================================
-  Funktionsprototypen
-  ===========================================================================
-  */
-
-// Game initialization.
-// This ensures that the game *can* run, meaning the db is present
-// and curses is working as intended.
-void initialize(struct sGame* nGame);
-
-// Game termination.
-// This ensures that the game is terminated properly, regardless of
-// its current state.
-void terminate(struct sGame* nGame);
+ * Die Funktion Initialize initialisiert das Spiel, bringt es also in einen
+ * lauffähigen Zustand. Ist dies nicht möglich ...
+ */
+void Initialize( struct sGame* nGame );
 
 /*
-  ===========================================================================
-  Funktion: main
-  Übergabeparameter: argc, argv
-  Rückgabeparameter: -
-  Beschreibung: Initialisiert die Fenster. Dabei wird das entsprechende
-  Fenster selektiert.
-  ===========================================================================
-  */
+ * ... oder wird das Spiel anderweitig beendet, sorgt Terminate für einen
+ * sauberen Ausstieg. Momentan wird hier nur das initiale Fenster freigegeben
+ * sowie die Datenbankverbindung geschlossen.
+ */
+void Terminate( struct sGame* nGame );
 
-int main(int argc, char* argv[])
+int main( int argc, char* argv[] )
 {
-    // This struct stores everything relevant to the current session,
-    // such as screenstate, userdata and so on.
-    struct sGame g;
+  /*
+   * Siehe types.h
+   */
+  struct sGame g;
 
-    initialize(&g);
+  Initialize( &g );
 
-    // Main game-loop
-    // - Switches between screenstates and calls the apropriate function.
-    // - That function, in turn, handles and updates the gamestate.
-    while (g.flags.isRunning)
+  /*
+   * Der initiale Game-Loop, welcher durchlaufen wird, bis das Spiel endet.
+   */
+  while ( g.flags.isRunning )
+  {
+
+    /*
+     * Je nach ScreenState wird die entsprechende Hauptfunktion aufgerufen.
+     * Jede dieser Funktionen kümmert sich um sämtliche Aufgaben und
+     * Interaktionen, die mit diesem ScreenState zusammenhängen. Wie bereits
+     * erwähnt, wird sGame als zentraler Speicher für spielrelevante
+     * Informationen übergeben.
+     */
+    switch ( g.screenState )
     {
-        switch (g.screenState)
-        {
-        case SCREEN_LOGIN:
-            ScreenState_Login(&g);
-            break;
-        case SCREEN_MAIN_MENU:
-            ScreenState_Main_Menu(&g);
-            break;
-        case SCREEN_REGISTRATION:
-            ScreenState_Registration(&g);
-            break;
-        case SCREEN_INGAME:
-            ScreenState_Ingame(&g);
-            break;
-        case SCREEN_HIGHSCORE:
-            ScreenState_Highscore(&g);
-            break;
-        case SCREEN_RULES:
-            ScreenState_Rules(&g);
-            break;
-        case SCREEN_DIFFICULTY:
-            ScreenState_Difficulty(&g);
-            break;
-        case SCREEN_OPTIONS:
-            ScreenState_Options(&g);
-            break;
-        }
+    case SCREEN_LOGIN:
+      ScreenState_Login( &g );
+      break;
+    case SCREEN_MAIN_MENU:
+      ScreenState_Main_Menu( &g );
+      break;
+    case SCREEN_REGISTRATION:
+      ScreenState_Registration( &g );
+      break;
+    case SCREEN_INGAME:
+      ScreenState_Ingame( &g );
+      break;
+    case SCREEN_HIGHSCORE:
+      ScreenState_Highscore( &g );
+      break;
+    case SCREEN_RULES:
+      ScreenState_Rules( &g );
+      break;
+    case SCREEN_DIFFICULTY:
+      ScreenState_Difficulty( &g );
+      break;
+    case SCREEN_OPTIONS:
+      ScreenState_Options( &g );
+      break;
     }
+  }
 
-    terminate(&g);
+  Terminate( &g );
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
 
-/*
-  ===========================================================================
-  Funktion: initialize
-  Übergabeparameter: nGame
-  Rückgabeparameter: -
-  Beschreibung:
-  ===========================================================================
-  */
-
-void initialize(struct sGame* nGame)
+void Initialize( struct sGame* nGame )
 {
-    nGame->flags.isRunning = 1;
-    nGame->screenState = DEFAULT_GAMESTATE;
-    nGame->prevScreenState = nGame->screenState;
-    nGame->gameState.difficultyLvl = DEFAULT_DIFFICULTY;
-    nGame->gameState.timePlayed = 0;
+  /*
+   * Setzen von Standardwerten, die für das Spiel zwingend nötig sind.
+   * C erlaubt keine Konstruktoren, was bedeutet, dass diese Arbeit
+   * grundsätzlich vom Programmierer ausgeführt werden muss. Auslassen
+   * von Werten hat undefiniertes Verhalten zur Folge.
+   */
+  nGame->flags.isRunning = 1;
+  nGame->screenState = DEFAULT_GAMESTATE;
+  nGame->prevScreenState = nGame->screenState;
+  nGame->gameState.difficultyLvl = DEFAULT_DIFFICULTY;
+  nGame->gameState.timePlayed = 0;
 
-    if ((nGame->whnd = initscr()) == NULL)
-    {
-        printf("[Fatal] Failed to initialize curses" "\n");
-        terminate(nGame);
-        exit(EXIT_FAILURE);
-    }
+  /*
+   * Kann NCurses nicht initialisiert werden, so bedeutet dies einen fatalen
+   * Fehler, von dem sich das Programm nicht selbstständig erholen kann.
+   * In diesem Fall gibt es eine entsprechende Meldung und das Spiel wird beendet.
+   */
+  if ( ( nGame->whnd = initscr() ) == NULL )
+  {
+    printf( "[Fatal] Failed to initialize curses" "\n" );
+    exit( EXIT_FAILURE );
+  }
 
+  /*
+   * Befinden wir uns in einer Win32-Umgebung, kann der Konsolentitel gesetzt
+   * werden.
+   */
 #ifdef _WIN32
-    SetConsoleTitle(GAME_TITLE " - " GAME_VERSION);
+  SetConsoleTitle( GAME_TITLE " - " GAME_VERSION );
 #endif
 
-    resize_term(30, 80);
+  /*
+   * Die Konsole wird auf vorgegebene Maße gesetzt, um ein optimales Spiel-
+   * erlebnis zu garantieren. Das Konsolenfenster wird danach mithilfe der
+   * Win32-API fixiert, kann also nicht mehr maximiert werden. Dies dient
+   * dazu, Darstellungsprobleme zu vermeiden.
+   */
+  resize_term( 30, 80 );
 
-    if (has_colors())
-    {
-        start_color();
-        nGame->flags.color_enabled = 1;
-        init_pair(1, COLOR_WHITE, COLOR_BLACK); // standard text
-        init_pair(2, COLOR_BLACK, COLOR_WHITE); // inverted text
-        init_pair(3, COLOR_GREEN, COLOR_BLACK); // pre-filled numbers for sudoku-board
-        init_pair(4, COLOR_WHITE, COLOR_WHITE); //passwordfield active
-        init_pair(5, COLOR_BLACK, COLOR_BLACK); //passwordfield inactive
-    }
+#ifdef _WIN32
+  Utility_SetWindowMaximizable( 0 );
+#endif
 
-    DBH_dbhnd = DBH_CreateHandle(DBH_DATABASE_FILE);
+  /*
+   * NCurses unterstützt, je nach Terminal, Mehrfarbigkeit.
+   * Falls das aktuelle Terminal Farben unterstützt, wird das entsprechende
+   * Flag in sGame gesetzt und einige Farbdefinitionen folgen.
+   */
+  if ( has_colors() )
+  {
+    start_color();
+    nGame->flags.color_enabled = 1;
+    init_pair( 1, COLOR_WHITE, COLOR_BLACK ); /* Standard-Text                          */
+    init_pair( 2, COLOR_BLACK, COLOR_WHITE ); /* Invertierter Text                      */
+    init_pair( 3, COLOR_GREEN, COLOR_BLACK ); /* Vorgefüllte Zahlen auf dem Sudoku-Feld */
+  }
 
-    if (DBH_dbhnd == NULL)
-    {
-        printf("[Fatal] Failed to access database file '" DBH_DATABASE_FILE "'" "\n");
-        terminate(nGame);
-        exit(EXIT_FAILURE);
-    }
+  /*
+   * Der DBHandler wird initialisiert. Weiteres in dbh.h / dbh.c.
+   */
+  DBH_dbhnd = DBH_CreateHandle( DBH_DATABASE_FILE );
 
-    // set some defaults
-    // - no cursor
-    // - no echo when typing
-    // - no input delay
-    // - activate keypad
-    curs_set(0);
-    noecho();
-    nodelay(nGame->whnd, TRUE);
-    keypad(nGame->whnd, TRUE);
+  /*
+   * Auch ohne Datenbankanbindung ist das Spiel nicht lauffähig. Wenn keine
+   * Verbindung hergestellt werden konnte, wird das Spiel beendet.
+   */
+  if ( DBH_dbhnd == NULL )
+  {
+    printf( "[Fatal] Failed to access database file '" DBH_DATABASE_FILE "'" "\n" );
+    Terminate( nGame );
+    exit( EXIT_FAILURE );
+  }
+
+  /*
+   * Schlussendlich werden mehrere Maus- und Tastaturrelevante Standards
+   * gesetzt:
+   *
+   * - kein Cursor
+   * - keine Ausgabe beim Tippen
+   * - keine Verzögerung bei Eingaben
+   * - Der Ziffernblock kann genutzt werden
+   */
+  curs_set( 0 );
+  noecho();
+  nodelay( nGame->whnd, TRUE );
+  keypad( nGame->whnd, TRUE );
 }
 
-/*
-  ===========================================================================
-  Funktion: terminate
-  Übergabeparameter: nGame
-  Rückgabeparameter: -
-  Beschreibung: Beendet die laufenden Fenster.
-  ===========================================================================
-  */
-
-void terminate(struct sGame* nGame)
+void Terminate( struct sGame* nGame )
 {
-    if (DBH_dbhnd != NULL)
-        DBH_CloseHandle(DBH_dbhnd);
+  if ( DBH_dbhnd != NULL )
+    DBH_CloseHandle( DBH_dbhnd );
 
-    if (nGame->whnd != NULL)
-    {
-        delwin(nGame->whnd);
-        endwin();
-    }
+  if ( nGame->whnd != NULL )
+  {
+    delwin( nGame->whnd );
+    endwin();
+  }
 }

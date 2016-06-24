@@ -19,3 +19,7 @@
 int Utility_GetKeyCode();
 int Utility_WGetKeyCode( WINDOW* nTarget );
 u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet);
+
+
+
+void Utility_SetWindowMaximizable( u8 nState );

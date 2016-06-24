@@ -143,3 +143,9 @@ u8 Utility_Confimation(struct sGame* nGame, struct sFieldSet* nFieldSet)
     Forms_FreeFieldSet(&confirmation_form);
     return returnByte;
 }
+
+
+void Utility_SetWindowMaximizable( u8 nState )
+{
+
+}
