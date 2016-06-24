@@ -60,15 +60,15 @@ void ScreenState_Ingame( struct sGame* nGame )
 
       if ( nGame->gameState.timePlayed >= 3600 )
       {
-        sprintf( timeString, "%.2dh %.2dm %.2ds", ( u8 ) nGame->gameState.timePlayed / 3600, ( u8 ) nGame->gameState.timePlayed / 60, ( u8 ) nGame->gameState.timePlayed % 60 );
+        sprintf( timeString, "%.2dh %.2ldm %.2ds", ( u32 ) nGame->gameState.timePlayed / 3600, ( u32 ) nGame->gameState.timePlayed / 60, ( u32 ) nGame->gameState.timePlayed % 60 );
       }
       else if ( nGame->gameState.timePlayed >= 60 )
       {
-        sprintf( timeString, "%.2dm %.2ds", ( u8 ) nGame->gameState.timePlayed / 60, ( u8 ) nGame->gameState.timePlayed % 60 );
+        sprintf( timeString, "%.2ldm %.2ds", ( u32 ) nGame->gameState.timePlayed / 60, ( u32 ) nGame->gameState.timePlayed % 60 );
       }
       else
       {
-        sprintf( timeString, "%.2ds", ( u8 ) nGame->gameState.timePlayed );
+        sprintf( timeString, "%.2ds", ( u32 ) nGame->gameState.timePlayed );
       }
       mvwaddstr( statusbar_inner, 0, 12, timeString );
       wrefresh( statusbar_inner );
@@ -120,7 +120,7 @@ void ScreenState_Ingame( struct sGame* nGame )
       Ingame_RenderBoard( left_inner, 2, 1, nGame->gameState.gameboard );
       wrefresh( left_inner );
 
-      nGame->gameState.timePlayed = ( u8 ) difftime( time( NULL ), time_then );
+      nGame->gameState.timePlayed = ( time_t ) difftime( time( NULL ), time_then );
 
       if ( sudokuPruefung( nGame->gameState.gameboard ) )
       {
