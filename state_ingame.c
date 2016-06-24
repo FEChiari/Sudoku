@@ -91,6 +91,7 @@ void ScreenState_Ingame( struct sGame* nGame )
         break;
       case 0x20: // space key
         gibHinweis( nGame->gameState.gameboard );
+        time_then -= 30;
         break;
       case 0x4A: // delete key
 
